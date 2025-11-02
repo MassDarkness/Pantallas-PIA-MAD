@@ -78,7 +78,7 @@ namespace Pantallas_PIA_MAD.DAO
                             id_departamento = reader.GetInt32(0),
                             nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
                             numero = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
-                            id_empresa = reader.GetInt32(3)
+                            id_empresa = reader.IsDBNull(3) ? 0 : reader.GetInt32(3)
                         };
                         lista.Add(depto);
                     }

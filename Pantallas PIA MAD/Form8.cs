@@ -17,13 +17,8 @@ namespace Pantallas_PIA_MAD
         public Form8()
         {
             InitializeComponent();
-
-            // Cargar empresas para ambas secciones
-            CargarEmpresas();        // Para agregar departamento
-            CargarEmpresasPuesto();  // Para agregar puesto
-
-            refrescarDepartamentos();
         }
+
 
         // Cargar empresas para la sección de departamento
         private void CargarEmpresas()
@@ -50,23 +45,26 @@ namespace Pantallas_PIA_MAD
                 return;
             }
 
+            bool exito = false;
+
             try
             {
+                // Obtenemos el objeto empresa completo
+                var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+
                 Departamento depto = new Departamento
                 {
                     nombre = TB_NumDepaADMIN.Text,
                     numero = int.Parse(TB_NumEMPADMIN.Text),
-                    id_empresa = (int)ComboBoxEmpresa.SelectedValue
+                    id_empresa = empresaSeleccionada.id_empresa
                 };
 
+                // --- El TRY ahora SÓLO protege la inserción ---
                 int resultado = DepartamentoDAO.InsertarDepartamento(depto);
 
                 if (resultado > 0)
                 {
-                    MessageBox.Show("Departamento registrado correctamente.");
-                    TB_NumDepaADMIN.Clear();
-                    TB_NumEMPADMIN.Clear();
-                    refrescarDepartamentos();
+                    exito = true; // ¡Se logró!
                 }
                 else
                 {
@@ -75,7 +73,21 @@ namespace Pantallas_PIA_MAD
             }
             catch (Exception ex)
             {
+                // Si hay un error, lo mostramos
                 MessageBox.Show("Error: " + ex.Message);
+            }
+
+            // --- El refrescado va AFUERA ---
+            // Si el guardado fue exitoso, entonces refrescamos.
+            if (exito)
+            {
+                MessageBox.Show("Departamento registrado correctamente.");
+                TB_NumDepaADMIN.Clear();
+                TB_NumEMPADMIN.Clear();
+
+                // Si refrescar falla, ahora sí verás el error de refrescar,
+                // no el error "genérico"
+                refrescarDepartamentos();
             }
         }
 
@@ -101,8 +113,22 @@ namespace Pantallas_PIA_MAD
         {
             if (ComboBoxEmpresaPuesto.SelectedIndex != -1)
             {
-                int idEmpresa = (int)ComboBoxEmpresaPuesto.SelectedValue;
-                CargarDepartamentosPuesto(idEmpresa);
+                try
+                {
+                    // 1. Arreglamos el Problema #1 (la conversión de tipo)
+                    var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresaPuesto.SelectedItem;
+
+                    // 2. Arreglamos el Problema #2 (el nombre de la propiedad)
+                    // Usamos el nombre 'idempresa' (sin guion bajo) que tú identificaste
+                    int idEmpresa = empresaSeleccionada.id_empresa;
+
+                    // 3. Con el ID, cargamos los departamentos
+                    CargarDepartamentosPuesto(idEmpresa);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
             else
             {
@@ -111,9 +137,9 @@ namespace Pantallas_PIA_MAD
         }
 
         // Cargar departamentos según empresa seleccionada (para puestos)
-        private void CargarDepartamentosPuesto(int idEmpresa)
+        private void CargarDepartamentosPuesto(int id_empresa)
         {
-            var departamentos = DepartamentoDAO.ObtenerDepartamentosPorEmpresa(idEmpresa);
+            var departamentos = DepartamentoDAO.ObtenerDepartamentosPorEmpresa(id_empresa);
             ComboBoxDepartamentoPuesto.DataSource = departamentos;
             ComboBoxDepartamentoPuesto.DisplayMember = "nombre";
             ComboBoxDepartamentoPuesto.ValueMember = "id_departamento";
@@ -167,7 +193,11 @@ namespace Pantallas_PIA_MAD
 
         private void Form8_Load(object sender, EventArgs e)
         {
-
+            CargarEmpresas();        // Para agregar departamento
+            CargarEmpresasPuesto();  // Para agregar puesto
+            refrescarDepartamentos();
         }
+
+
     }
 }
