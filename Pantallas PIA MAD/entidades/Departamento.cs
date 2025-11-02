@@ -10,7 +10,6 @@ namespace Pantallas_PIA_MAD.entidades
     {
         public int id_departamento { get; set; }
         string nombre { get; set; }
-
         int numero { get; set; }
 
         public Departamento() { }
