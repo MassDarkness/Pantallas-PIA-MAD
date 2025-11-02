@@ -64,7 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\DepartamentoDAO.cs" />
+    <Compile Include="DAO\EmpleadoDAO.cs" />
     <Compile Include="DAO\EmpresaDAP.cs" />
+    <Compile Include="DAO\PuestoDAO.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="entidades\Departamento.cs" />
     <Compile Include="entidades\Empleado.cs" />
