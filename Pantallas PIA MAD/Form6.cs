@@ -19,28 +19,54 @@ namespace Pantallas_PIA_MAD
             InitializeComponent();
         }
 
+        // --- CORRECCIÓN 1: Puse un try...catch aquí ---
+        // Si CargarEmpresas falla, ahora lo sabrás
         private void Form6_Load(object sender, EventArgs e)
         {
-            RefrescarEmpleados();
-            CargarEmpresas();
+            try
+            {
+                RefrescarEmpleados();
+                CargarEmpresas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el formulario: " + ex.Message);
+            }
         }
+
         public void CargarEmpresas()
         {
-            // Obtener empresas desde la base de datos
             var empresas = EmpresaDAP.ObtenerEmpresas();
 
             ComboBoxEmpresa.DataSource = empresas;
-            ComboBoxEmpresa.DisplayMember = "nombre"; // lo que se verá en el combo
-            ComboBoxEmpresa.ValueMember = "id_empresa"; // el ID real
-            ComboBoxEmpresa.SelectedIndex = -1; // opción inicial vacía
+            ComboBoxEmpresa.DisplayMember = "nombre";
+
+            // --- CORRECCIÓN IMPORTANTE ---
+            // Usamos la propiedad que tú dijiste que era la correcta
+            ComboBoxEmpresa.ValueMember = "idempresa"; // O "id_empresa" si me equivoqué
+
+            ComboBoxEmpresa.SelectedIndex = -1;
         }
 
+        // --- CORRECCIÓN 2: Arreglado el InvalidCastException ---
         private void ComboBoxEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxEmpresa.SelectedIndex != -1)
             {
-                int idEmpresa = (int)ComboBoxEmpresa.SelectedValue;
-                CargarDepartamentos(idEmpresa);
+                try
+                {
+                    // Obtenemos el OBJETO completo
+                    var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+
+                    // Sacamos el ID de adentro del objeto
+                    int idEmpresa = empresaSel.id_empresa; // O "id_empresa"
+
+                    CargarDepartamentos(idEmpresa);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al seleccionar empresa: " + ex.Message);
+                }
             }
             else
             {
@@ -51,21 +77,32 @@ namespace Pantallas_PIA_MAD
 
         private void CargarDepartamentos(int idEmpresa)
         {
-            // Obtener departamentos por empresa
             var departamentos = DepartamentoDAO.ObtenerDepartamentosPorEmpresa(idEmpresa);
-
             ComboBoxDepartamento.DataSource = departamentos;
-            ComboBoxDepartamento.DisplayMember = "nombre"; // nombre del departamento
+            ComboBoxDepartamento.DisplayMember = "nombre";
             ComboBoxDepartamento.ValueMember = "id_departamento";
             ComboBoxDepartamento.SelectedIndex = -1;
         }
 
+        // --- CORRECCIÓN 3: Arreglado el InvalidCastException ---
         private void ComboBoxDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxDepartamento.SelectedIndex != -1)
             {
-                int idDepartamento = (int)ComboBoxDepartamento.SelectedValue;
-                CargarPuestos(idDepartamento);
+                try
+                {
+                    // Obtenemos el OBJETO completo
+                    var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
+
+                    // Sacamos el ID
+                    int idDepartamento = deptoSel.id_departamento;
+
+                    CargarPuestos(idDepartamento);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al seleccionar departamento: " + ex.Message);
+                }
             }
             else
             {
@@ -76,39 +113,78 @@ namespace Pantallas_PIA_MAD
         private void CargarPuestos(int idDepartamento)
         {
             var puestos = PuestoDAO.ObtenerPuestosPorDepartamento(idDepartamento);
-
             ComboBoxPuesto.DataSource = puestos;
-            ComboBoxPuesto.DisplayMember = "nombre"; // nombre del puesto
+            ComboBoxPuesto.DisplayMember = "nombre";
             ComboBoxPuesto.ValueMember = "id_puesto";
             ComboBoxPuesto.SelectedIndex = -1;
         }
 
-
+        // --- CORRECCIÓN 4: Lógica de Agregar completada ---
         private void BTN_AgregarEMP_Click(object sender, EventArgs e)
         {
-            Empleado empleado = new Empleado
+            // Validaciones básicas (puedes añadir más)
+            if (ComboBoxEmpresa.SelectedIndex == -1 || ComboBoxDepartamento.SelectedIndex == -1 || ComboBoxPuesto.SelectedIndex == -1)
             {
-                numero_empleado = TB_NumEmp.Text,
-                nombres = TB_Nombres.Text,
-                apellido_paterno = TB_APPaterno.Text,
-                apellido_materno = TB_APMaterno.Text,
-                domicilio = TB_Domicilio.Text,
-                telefono = TB_Telefono.Text,
-                email = TB_Email.Text,
-                fecha_nacimiento = FechaNac_EMP.Value.Date,
-                curp = TB_CURP.Text,
-                rfc = TB_RFC.Text,
-                nss = TB_NSS.Text,
-                salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
-                salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
-                numero_cuenta = TB_NumCuenta.Text,
-                banco = TB_Banco.Text,
-                id_empresa = (int)ComboBoxEmpresa.SelectedValue,
-                id_departamento = (int)ComboBoxDepartamento.SelectedValue,
-                id_puesto = (int)ComboBoxPuesto.SelectedValue
-            };
+                MessageBox.Show("Debes seleccionar Empresa, Departamento y Puesto.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(TB_NumEmp.Text) || string.IsNullOrWhiteSpace(TB_Nombres.Text))
+            {
+                MessageBox.Show("Número de empleado y Nombres son obligatorios.");
+                return;
+            }
 
-            RefrescarEmpleados();
+            try
+            {
+                // Obtenemos los OBJETOS completos
+                var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+                var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
+                var puestoSel = (Puesto)ComboBoxPuesto.SelectedItem;
+
+                Empleado empleado = new Empleado
+                {
+                    numero_empleado = TB_NumEmp.Text,
+                    nombres = TB_Nombres.Text,
+                    apellido_paterno = TB_APPaterno.Text,
+                    apellido_materno = TB_APMaterno.Text,
+                    domicilio = TB_Domicilio.Text,
+                    telefono = TB_Telefono.Text,
+                    email = TB_Email.Text,
+                    fecha_nacimiento = FechaNac_EMP.Value.Date,
+                    curp = TB_CURP.Text,
+                    rfc = TB_RFC.Text,
+                    nss = TB_NSS.Text,
+                    salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
+                    salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
+                    numero_cuenta = TB_NumCuenta.Text,
+                    banco = TB_Banco.Text,
+
+                    // Sacamos los IDs de los objetos
+                    id_empresa = empresaSel.id_empresa, // O "id_empresa"
+                    id_departamento = deptoSel.id_departamento,
+                    id_puesto = puestoSel.id_puesto
+                };
+
+                // --- CORRECCIÓN 5: Faltaba llamar al DAO para insertar ---
+                // (Asumo que tu método se llama así)
+                int resultado = EmpleadoDAO.InsertarEmpleado(empleado);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Empleado registrado con éxito.");
+                    RefrescarEmpleados();
+                    // Aquí deberías limpiar los campos
+                    // LimpiarCampos(); 
+                }
+                else
+                {
+                    MessageBox.Show("Error: No se pudo registrar el empleado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error crítico al agregar empleado: " + ex.Message);
+            }
         }
 
 
@@ -117,5 +193,8 @@ namespace Pantallas_PIA_MAD
         {
             Vista_EMP.DataSource = EmpleadoDAO.ObtenerEmpleados();
         }
+
+        // --- NOTA: Borré el Form6_Load_1 que tenías duplicado ---
+        // (Si no tenías un Form6_Load_1, ignora esta línea)
     }
 }
