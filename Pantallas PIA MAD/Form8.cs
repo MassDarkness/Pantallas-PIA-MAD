@@ -165,5 +165,9 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        private void Form8_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
