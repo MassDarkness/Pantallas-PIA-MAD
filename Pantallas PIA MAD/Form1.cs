@@ -16,5 +16,11 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
+
+        private void BTN_Empresa_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.ShowDialog();
+        }
     }
 }

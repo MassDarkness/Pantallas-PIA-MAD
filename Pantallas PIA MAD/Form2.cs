@@ -16,5 +16,10 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
+
+        private void BTN_IS_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
