@@ -147,6 +147,7 @@
             this.Controls.Add(this.Titulo);
             this.Name = "Form2";
             this.Text = "Inicio De Sesión";
+            this.Load += new System.EventHandler(this.Form2_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
