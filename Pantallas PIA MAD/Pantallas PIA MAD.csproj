@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="DAO\EmpresaDAP.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="entidades\Departamento.cs" />
     <Compile Include="entidades\Empleado.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
