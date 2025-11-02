@@ -31,8 +31,8 @@
             System.Windows.Forms.Button Empresa_MEAU;
             this.panel1 = new System.Windows.Forms.Panel();
             this.Salir_MEAU = new System.Windows.Forms.Button();
-            this.Reportes__MEAU = new System.Windows.Forms.Button();
-            this.Nomina__MEAU = new System.Windows.Forms.Button();
+            this.Reportes_MEAU = new System.Windows.Forms.Button();
+            this.Nomina_MEAU = new System.Windows.Forms.Button();
             this.LB_Departamento = new System.Windows.Forms.ListBox();
             this.BTN_ExportarPDF = new System.Windows.Forms.Button();
             this.Vista_ReporteAUX = new System.Windows.Forms.DataGridView();
@@ -70,8 +70,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
             this.panel1.Controls.Add(this.Salir_MEAU);
-            this.panel1.Controls.Add(this.Reportes__MEAU);
-            this.panel1.Controls.Add(this.Nomina__MEAU);
+            this.panel1.Controls.Add(this.Reportes_MEAU);
+            this.panel1.Controls.Add(this.Nomina_MEAU);
             this.panel1.Controls.Add(Empresa_MEAU);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -91,29 +91,29 @@
             this.Salir_MEAU.Text = "SALIR";
             this.Salir_MEAU.UseVisualStyleBackColor = false;
             // 
-            // Reportes__MEAU
+            // Reportes_MEAU
             // 
-            this.Reportes__MEAU.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.Reportes__MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Reportes__MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Reportes__MEAU.Location = new System.Drawing.Point(-3, 338);
-            this.Reportes__MEAU.Name = "Reportes__MEAU";
-            this.Reportes__MEAU.Size = new System.Drawing.Size(155, 47);
-            this.Reportes__MEAU.TabIndex = 6;
-            this.Reportes__MEAU.Text = "Reportes";
-            this.Reportes__MEAU.UseVisualStyleBackColor = false;
+            this.Reportes_MEAU.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.Reportes_MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Reportes_MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Reportes_MEAU.Location = new System.Drawing.Point(-3, 338);
+            this.Reportes_MEAU.Name = "Reportes_MEAU";
+            this.Reportes_MEAU.Size = new System.Drawing.Size(155, 47);
+            this.Reportes_MEAU.TabIndex = 6;
+            this.Reportes_MEAU.Text = "Reportes";
+            this.Reportes_MEAU.UseVisualStyleBackColor = false;
             // 
-            // Nomina__MEAU
+            // Nomina_MEAU
             // 
-            this.Nomina__MEAU.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.Nomina__MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Nomina__MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nomina__MEAU.Location = new System.Drawing.Point(0, 285);
-            this.Nomina__MEAU.Name = "Nomina__MEAU";
-            this.Nomina__MEAU.Size = new System.Drawing.Size(155, 47);
-            this.Nomina__MEAU.TabIndex = 4;
-            this.Nomina__MEAU.Text = "Gestión De Nómina";
-            this.Nomina__MEAU.UseVisualStyleBackColor = false;
+            this.Nomina_MEAU.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.Nomina_MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Nomina_MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Nomina_MEAU.Location = new System.Drawing.Point(0, 285);
+            this.Nomina_MEAU.Name = "Nomina_MEAU";
+            this.Nomina_MEAU.Size = new System.Drawing.Size(155, 47);
+            this.Nomina_MEAU.TabIndex = 4;
+            this.Nomina_MEAU.Text = "Gestión De Nómina";
+            this.Nomina_MEAU.UseVisualStyleBackColor = false;
             // 
             // LB_Departamento
             // 
@@ -280,7 +280,7 @@
         #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Salir_MEAU;
-        private System.Windows.Forms.Button Nomina__MEAU;
+        private System.Windows.Forms.Button Nomina_MEAU;
         private System.Windows.Forms.ListBox LB_Departamento;
         private System.Windows.Forms.Button BTN_ExportarPDF;
         private System.Windows.Forms.DataGridView Vista_ReporteAUX;
@@ -295,6 +295,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Reportes__MEAU;
+        private System.Windows.Forms.Button Reportes_MEAU;
     }
 }
