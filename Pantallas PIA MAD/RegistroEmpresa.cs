@@ -18,5 +18,20 @@ namespace Pantallas_PIA_MAD
      
     public DateTime fecha_inicio_operaciones { get; set; }
 
+
+    public RegistroEmpresa() { }
+
+
+        public RegistroEmpresa(int id_empresa, string razon_social, string domicilio_fiscal, string contacto, string registro_patronal, string RFC, DateTime fecha_inicio_operaciones)
+        {
+            this.id_empresa = id_empresa;
+            this.razon_social = razon_social;
+            this.domicilio_fiscal = domicilio_fiscal;
+            this.contacto = contacto;
+            this.registro_patronal = registro_patronal;
+            this.RFC = RFC;
+            this.fecha_inicio_operaciones = fecha_inicio_operaciones;
+        }
+
     }
 }
