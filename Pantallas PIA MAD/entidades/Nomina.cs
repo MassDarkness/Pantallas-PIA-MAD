@@ -13,11 +13,11 @@ namespace Pantallas_PIA_MAD.entidades
         public string estatus { get; set; }
         
         //Llave Foranea
-        public int? id_empleado { get; set; }
+        public int id_empleado { get; set; }
 
         public Nomina() { }
 
-        public Nomina(int id_nomina, DateTime? fecha, string estatus, int? id_empleado)
+        public Nomina(int id_nomina, DateTime? fecha, string estatus, int id_empleado)
         {
             this.id_nomina = id_nomina;
             this.fecha = fecha;

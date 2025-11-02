@@ -70,6 +70,7 @@
     <Compile Include="entidades\Empleado.cs" />
     <Compile Include="entidades\Nomina.cs" />
     <Compile Include="entidades\Puesto.cs" />
+    <Compile Include="entidades\Recibo Nomina.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
