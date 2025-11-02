@@ -24,7 +24,7 @@ namespace Pantallas_PIA_MAD
             RefrescarEmpleados();
             CargarEmpresas();
         }
-        private void CargarEmpresas()
+        public void CargarEmpresas()
         {
             // Obtener empresas desde la base de datos
             var empresas = EmpresaDAP.ObtenerEmpresas();
