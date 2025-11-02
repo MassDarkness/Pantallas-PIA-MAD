@@ -21,7 +21,7 @@ namespace Pantallas_PIA_MAD
 
         // --- CORRECCIÓN 1: Puse un try...catch aquí ---
         // Si CargarEmpresas falla, ahora lo sabrás
-        private void Form6_Load(object sender, EventArgs e)
+        private void Form6_Load_1(object sender, EventArgs e)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Pantallas_PIA_MAD
 
             // --- CORRECCIÓN IMPORTANTE ---
             // Usamos la propiedad que tú dijiste que era la correcta
-            ComboBoxEmpresa.ValueMember = "idempresa"; // O "id_empresa" si me equivoqué
+            ComboBoxEmpresa.ValueMember = "id_empresa"; // O "id_empresa" si me equivoqué
 
             ComboBoxEmpresa.SelectedIndex = -1;
         }
@@ -91,12 +91,10 @@ namespace Pantallas_PIA_MAD
             {
                 try
                 {
-                    // Obtenemos el OBJETO completo
                     var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
-
-                    // Sacamos el ID
                     int idDepartamento = deptoSel.id_departamento;
 
+                    // ¡Ves! Esta función es la que llama a CargarPuestos
                     CargarPuestos(idDepartamento);
                 }
                 catch (Exception ex)
@@ -193,8 +191,5 @@ namespace Pantallas_PIA_MAD
         {
             Vista_EMP.DataSource = EmpleadoDAO.ObtenerEmpleados();
         }
-
-        // --- NOTA: Borré el Form6_Load_1 que tenías duplicado ---
-        // (Si no tenías un Form6_Load_1, ignora esta línea)
     }
 }
