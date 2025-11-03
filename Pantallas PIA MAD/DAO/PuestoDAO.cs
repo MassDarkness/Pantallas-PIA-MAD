@@ -61,5 +61,47 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
+
+        public static List<Puesto> ObtenerTodosLosPuestos()
+        {
+            List<Puesto> lista = new List<Puesto>();
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                string query = @"SELECT 
+                            p.id_puesto, 
+                            p.nombre, 
+                            p.descripcion, 
+                            p.numero, 
+                            d.nombre AS nombre_departamento, 
+                            e.nombre AS nombre_empresa
+                         FROM Puesto p
+                         INNER JOIN Departamento d ON p.id_departamento = d.id_departamento
+                         INNER JOIN Empresa e ON d.id_empresa = e.id_empresa";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Puesto p = new Puesto
+                        {
+                            id_puesto = reader.GetInt32(0),
+                            nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
+                            descripcion = reader.IsDBNull(2) ? null : reader.GetString(2),
+                            numero = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                            // no guardamos los nombres aquí porque la entidad Puesto probablemente no tiene esas propiedades,
+                            // pero los vamos a mostrar directamente en el DataGridView
+                        };
+                        lista.Add(p);
+                    }
+
+                    // Si prefieres devolver un DataTable para enlazarlo directamente, también puedo mostrarte cómo
+                }
+            }
+
+            return lista;
+        }
+
     }
 }

@@ -33,68 +33,33 @@ namespace Pantallas_PIA_MAD
         // Botón Agregar Departamento
         private void BTN_AñadirDepa_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TB_NumDepaADMIN.Text) || string.IsNullOrWhiteSpace(TB_NumEMPADMIN.Text))
+            // Obtenemos el objeto empresa completo
+            var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+
+            Departamento depto = new Departamento
             {
-                MessageBox.Show("Ingresa nombre y número del departamento.");
-                return;
-            }
+                nombre = TB_NumDepaADMIN.Text,
+                numero = int.Parse(TB_NumEMPADMIN.Text),
+                id_empresa = empresaSeleccionada.id_empresa
+            };
 
-            if (ComboBoxEmpresa.SelectedIndex == -1)
-            {
-                MessageBox.Show("Selecciona una empresa.");
-                return;
-            }
+            int resultado = DepartamentoDAO.InsertarDepartamento(depto);
+            MessageBox.Show("Departamento registrado correctamente.");
+            TB_NumDepaADMIN.Clear();
+            TB_NumEMPADMIN.Clear();
 
-            bool exito = false;
-
-            try
-            {
-                // Obtenemos el objeto empresa completo
-                var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
-
-                Departamento depto = new Departamento
-                {
-                    nombre = TB_NumDepaADMIN.Text,
-                    numero = int.Parse(TB_NumEMPADMIN.Text),
-                    id_empresa = empresaSeleccionada.id_empresa
-                };
-
-                // --- El TRY ahora SÓLO protege la inserción ---
-                int resultado = DepartamentoDAO.InsertarDepartamento(depto);
-
-                if (resultado > 0)
-                {
-                    exito = true; // ¡Se logró!
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar el departamento.");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Si hay un error, lo mostramos
-                MessageBox.Show("Error: " + ex.Message);
-            }
-
-            // --- El refrescado va AFUERA ---
-            // Si el guardado fue exitoso, entonces refrescamos.
-            if (exito)
-            {
-                MessageBox.Show("Departamento registrado correctamente.");
-                TB_NumDepaADMIN.Clear();
-                TB_NumEMPADMIN.Clear();
-
-                // Si refrescar falla, ahora sí verás el error de refrescar,
-                // no el error "genérico"
-                refrescarDepartamentos();
-            }
+            refrescarDepartamentos();
         }
 
         // Refrescar la vista de departamentos
         private void refrescarDepartamentos()
         {
             Vista_Departamento.DataSource = DepartamentoDAO.ObtenerDepartamentos();
+        }
+
+        private void refrescarPuestos()
+        {
+            Vista_PuestoADMIN.DataSource = PuestoDAO.ObtenerTodosLosPuestos();
         }
 
 
@@ -149,46 +114,19 @@ namespace Pantallas_PIA_MAD
         // Botón Agregar Puesto
         private void BTN_AñadirPuestoADMIN_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TB_NombrePuesto.Text) || string.IsNullOrWhiteSpace(TB_NumPuesto.Text))
+            Puesto puesto = new Puesto
             {
-                MessageBox.Show("Ingresa nombre y número del puesto.");
-                return;
-            }
-
-            if (ComboBoxDepartamentoPuesto.SelectedIndex == -1)
-            {
-                MessageBox.Show("Selecciona primero un departamento.");
-                return;
-            }
-
-            try
-            {
-                Puesto puesto = new Puesto
-                {
-                    nombre = TB_NombrePuesto.Text,
-                    descripcion = TB_DescripcionPuesto.Text,
-                    numero = int.Parse(TB_NumPuesto.Text),
-                    id_departamento = (int)ComboBoxDepartamentoPuesto.SelectedValue
-                };
-
-                int resultado = PuestoDAO.InsertarPuesto(puesto);
-
-                if (resultado > 0)
-                {
-                    MessageBox.Show("Puesto registrado correctamente.");
-                    TB_NombrePuesto.Clear();
-                    TB_DescripcionPuesto.Clear();
-                    TB_NumPuesto.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar el puesto.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+                nombre = TB_NombrePuesto.Text,
+                descripcion = TB_DescripcionPuesto.Text,
+                numero = int.Parse(TB_NumPuesto.Text),
+                id_departamento = (int)ComboBoxDepartamentoPuesto.SelectedValue
+            };
+            PuestoDAO.InsertarPuesto(puesto);
+            MessageBox.Show("Puesto registrado correctamente.");
+            TB_NombrePuesto.Clear();
+            TB_DescripcionPuesto.Clear();
+            TB_NumPuesto.Clear();
+            refrescarPuestos();
         }
 
         private void Form8_Load(object sender, EventArgs e)
@@ -196,6 +134,7 @@ namespace Pantallas_PIA_MAD
             CargarEmpresas();        // Para agregar departamento
             CargarEmpresasPuesto();  // Para agregar puesto
             refrescarDepartamentos();
+            refrescarPuestos();
         }
 
 
