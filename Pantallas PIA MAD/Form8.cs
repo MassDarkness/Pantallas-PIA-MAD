@@ -43,7 +43,7 @@ namespace Pantallas_PIA_MAD
                 id_empresa = empresaSeleccionada.id_empresa
             };
 
-            int resultado = DepartamentoDAO.InsertarDepartamento(depto);
+            DepartamentoDAO.InsertarDepartamento(depto);
             MessageBox.Show("Departamento registrado correctamente.");
             TB_NumDepaADMIN.Clear();
             TB_NumEMPADMIN.Clear();
