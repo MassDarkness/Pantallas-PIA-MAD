@@ -335,7 +335,9 @@ namespace Pantallas_PIA_MAD
 
         private void Salir_MEAD_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Form2 form2 = new Form2();
+            form2.Show();
+            this.Hide();
         }
     }
 

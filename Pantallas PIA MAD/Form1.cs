@@ -19,8 +19,8 @@ namespace Pantallas_PIA_MAD
 
         private void BTN_Empresa_Click(object sender, EventArgs e)
         {
-            Form9 form9 = new Form9();
-            form9.Show();
+            Form2 form2 = new Form2();
+            form2.Show();
             this.Hide();
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
