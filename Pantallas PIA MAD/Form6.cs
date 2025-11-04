@@ -117,7 +117,6 @@ namespace Pantallas_PIA_MAD
             ComboBoxPuesto.SelectedIndex = -1;
         }
 
-        // --- CORRECCIÓN 4: Lógica de Agregar completada ---
         private void BTN_AgregarEMP_Click(object sender, EventArgs e)
         {
             var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
@@ -142,22 +141,18 @@ namespace Pantallas_PIA_MAD
                 numero_cuenta = TB_NumCuenta.Text,
                 banco = TB_Banco.Text,
 
-                // Sacamos los IDs de los objetos
-                id_empresa = empresaSel.id_empresa, // O "id_empresa"
+                id_empresa = empresaSel.id_empresa,
                 id_departamento = deptoSel.id_departamento,
                 id_puesto = puestoSel.id_puesto
             };
 
-            // --- CORRECCIÓN 5: Faltaba llamar al DAO para insertar ---
-            // (Asumo que tu método se llama así)
             int resultado = EmpleadoDAO.InsertarEmpleado(empleado);
 
             if (resultado < 0)
             {
                 MessageBox.Show("Empleado registrado con éxito.");
                 RefrescarEmpleados();
-                // Aquí deberías limpiar los campos
-                // LimpiarCampos(); 
+
             }
             else
             {
@@ -177,5 +172,130 @@ namespace Pantallas_PIA_MAD
             if (Vista_EMP.Columns["Empresa"] != null)
                 Vista_EMP.Columns["Empresa"].Visible = false;
         }
+
+        private void Vista_EMP_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // Evita que se ejecute al dar click en el header
+
+            DataGridViewRow fila = Vista_EMP.Rows[e.RowIndex];
+
+            // Llenamos los TextBox
+            TB_NumEmp.Text = fila.Cells["numero_empleado"].Value?.ToString();
+            TB_Nombres.Text = fila.Cells["nombres"].Value?.ToString();
+            TB_APPaterno.Text = fila.Cells["apellido_paterno"].Value?.ToString();
+            TB_APMaterno.Text = fila.Cells["apellido_materno"].Value?.ToString();
+            TB_Domicilio.Text = fila.Cells["domicilio"].Value?.ToString();
+            TB_Telefono.Text = fila.Cells["telefono"].Value?.ToString();
+            TB_Email.Text = fila.Cells["email"].Value?.ToString();
+            TB_CURP.Text = fila.Cells["curp"].Value?.ToString();
+            TB_RFC.Text = fila.Cells["rfc"].Value?.ToString();
+            TB_NSS.Text = fila.Cells["nss"].Value?.ToString();
+            TB_SalarioDiario.Text = fila.Cells["salario"].Value?.ToString();
+            TB_SDInte.Text = fila.Cells["salario_diario_integrado"].Value?.ToString();
+            TB_NumCuenta.Text = fila.Cells["numero_cuenta"].Value?.ToString();
+            TB_Banco.Text = fila.Cells["banco"].Value?.ToString();
+
+            // Llenamos el DateTimePicker
+            if (fila.Cells["fecha_nacimiento"].Value != DBNull.Value)
+                FechaNac_EMP.Value = Convert.ToDateTime(fila.Cells["fecha_nacimiento"].Value);
+            else
+                FechaNac_EMP.Value = DateTime.Today;
+
+            // Llenamos los ComboBox
+            int idEmpresa = fila.Cells["id_empresa"].Value != DBNull.Value ? Convert.ToInt32(fila.Cells["id_empresa"].Value) : 0;
+            int? idDepartamento = fila.Cells["id_departamento"].Value != DBNull.Value ? (int?)Convert.ToInt32(fila.Cells["id_departamento"].Value) : null;
+            int? idPuesto = fila.Cells["id_puesto"].Value != DBNull.Value ? (int?)Convert.ToInt32(fila.Cells["id_puesto"].Value) : null;
+
+            if (idEmpresa != 0)
+            {
+                ComboBoxEmpresa.SelectedValue = idEmpresa;
+
+                if (idDepartamento.HasValue)
+                {
+                    CargarDepartamentos(idEmpresa);
+                    ComboBoxDepartamento.SelectedValue = idDepartamento.Value;
+
+                    if (idPuesto.HasValue)
+                    {
+                        CargarPuestos(idDepartamento.Value);
+                        ComboBoxPuesto.SelectedValue = idPuesto.Value;
+                    }
+                    else
+                    {
+                        ComboBoxPuesto.SelectedIndex = -1;
+                    }
+                }
+                else
+                {
+                    ComboBoxDepartamento.SelectedIndex = -1;
+                    ComboBoxPuesto.SelectedIndex = -1;
+                }
+            }
+            else
+            {
+                ComboBoxEmpresa.SelectedIndex = -1;
+                ComboBoxDepartamento.SelectedIndex = -1;
+                ComboBoxPuesto.SelectedIndex = -1;
+            }
+        }
+
+        private void BTN_GuardarEMP_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Vista_EMP.CurrentRow == null)
+                {
+                    MessageBox.Show("Selecciona un empleado para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Obtén el ID del empleado seleccionado
+                int idEmpleado = Convert.ToInt32(Vista_EMP.CurrentRow.Cells["id_empleado"].Value);
+
+                var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+                var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
+                var puestoSel = (Puesto)ComboBoxPuesto.SelectedItem;
+
+                Empleado empleado = new Empleado
+                {
+                    id_empleado = idEmpleado,
+                    numero_empleado = TB_NumEmp.Text,
+                    nombres = TB_Nombres.Text,
+                    apellido_paterno = TB_APPaterno.Text,
+                    apellido_materno = TB_APMaterno.Text,
+                    domicilio = TB_Domicilio.Text,
+                    telefono = TB_Telefono.Text,
+                    email = TB_Email.Text,
+                    fecha_nacimiento = FechaNac_EMP.Value.Date,
+                    curp = TB_CURP.Text,
+                    rfc = TB_RFC.Text,
+                    nss = TB_NSS.Text,
+                    salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
+                    salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
+                    numero_cuenta = TB_NumCuenta.Text,
+                    banco = TB_Banco.Text,
+                    id_empresa = empresaSel?.id_empresa ?? 0,
+                    id_departamento = deptoSel?.id_departamento,
+                    id_puesto = puestoSel?.id_puesto
+                };
+
+                int resultado = EmpleadoDAO.ActualizarEmpleado(empleado);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Empleado actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    RefrescarEmpleados();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar el empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

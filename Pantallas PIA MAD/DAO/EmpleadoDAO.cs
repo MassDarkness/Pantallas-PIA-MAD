@@ -91,5 +91,43 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
+
+        public static int ActualizarEmpleado(Empleado empleado)
+        {
+            int retorno = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_ActualizarEmpleado", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@id_empleado", empleado.id_empleado);
+                    comando.Parameters.AddWithValue("@numero_empleado", empleado.numero_empleado);
+                    comando.Parameters.AddWithValue("@nombres", empleado.nombres);
+                    comando.Parameters.AddWithValue("@apellido_paterno", empleado.apellido_paterno);
+                    comando.Parameters.AddWithValue("@apellido_materno", (object)empleado.apellido_materno ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@domicilio", (object)empleado.domicilio ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@telefono", (object)empleado.telefono ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@email", (object)empleado.email ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@fecha_nacimiento", (object)empleado.fecha_nacimiento ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@curp", empleado.curp);
+                    comando.Parameters.AddWithValue("@rfc", empleado.rfc);
+                    comando.Parameters.AddWithValue("@nss", empleado.nss);
+                    comando.Parameters.AddWithValue("@salario", (object)empleado.salario ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@salario_diario_integrado", (object)empleado.salario_diario_integrado ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@numero_cuenta", (object)empleado.numero_cuenta ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@banco", (object)empleado.banco ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@id_puesto", (object)empleado.id_puesto ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@id_departamento", (object)empleado.id_departamento ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@id_empresa", empleado.id_empresa);
+
+                    retorno = comando.ExecuteNonQuery();
+                }
+            }
+
+            return retorno;
+        }
+
     }
 }
