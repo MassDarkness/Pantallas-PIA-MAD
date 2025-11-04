@@ -539,7 +539,7 @@
             this.BTN_LimpiarEMP.Name = "BTN_LimpiarEMP";
             this.BTN_LimpiarEMP.Size = new System.Drawing.Size(161, 42);
             this.BTN_LimpiarEMP.TabIndex = 61;
-            this.BTN_LimpiarEMP.Text = "Limpiar";
+            this.BTN_LimpiarEMP.Text = "Eliminar";
             this.BTN_LimpiarEMP.UseVisualStyleBackColor = false;
             // 
             // BTN_GuardarEMP
@@ -551,7 +551,7 @@
             this.BTN_GuardarEMP.Name = "BTN_GuardarEMP";
             this.BTN_GuardarEMP.Size = new System.Drawing.Size(161, 42);
             this.BTN_GuardarEMP.TabIndex = 60;
-            this.BTN_GuardarEMP.Text = "Guardar";
+            this.BTN_GuardarEMP.Text = "Editar";
             this.BTN_GuardarEMP.UseVisualStyleBackColor = false;
             this.BTN_GuardarEMP.Click += new System.EventHandler(this.BTN_GuardarEMP_Click);
             // 
