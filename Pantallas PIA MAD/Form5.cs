@@ -48,6 +48,39 @@ namespace Pantallas_PIA_MAD
         {
             Vista_Empresa.DataSource = EmpresaDAP.ObtenerEmpresas();
         }
+
+        private void Usuarios_MEAD_Click(object sender, EventArgs e)
+        {
+            Form7 form7 = new Form7();
+            form7.Show();
+            this.Hide();
+        }
+
+        private void DepaPues__MEAD_Click(object sender, EventArgs e)
+        {
+            Form8 form8 = new Form8();
+            form8.Show();
+            this.Hide();
+        }
+
+        private void Nomina_MEAD_Click(object sender, EventArgs e)
+        {
+            Form9 form9 = new Form9();
+            form9.Show();
+            this.Hide();
+        }
+
+        private void Reporte_MEAD_Click(object sender, EventArgs e)
+        {
+            Form11 form10 = new Form11();
+            form10.Show();
+            this.Hide();
+        }
+
+        private void Salir_MEAD_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 
 }

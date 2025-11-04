@@ -16,5 +16,33 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
+        private void Form5_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+            this.FormClosed += Form5_FormClosed;
+        }
+
+        private void Empresa_MEAU_Click(object sender, EventArgs e)
+        {
+            Form6 form6 = new Form6();
+            form6.Show();
+            this.Hide();
+        }
+
+        private void Nomina__MEAU_Click(object sender, EventArgs e)
+        {
+            Form12 form12 = new Form12();
+            form12.Show();
+            this.Hide();
+        }
+
+        private void Salir_MEAU_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

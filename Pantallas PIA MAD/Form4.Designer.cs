@@ -65,6 +65,7 @@
             Empresa_MEAU.TabIndex = 0;
             Empresa_MEAU.Text = "Gestion De Empleados";
             Empresa_MEAU.UseVisualStyleBackColor = false;
+            Empresa_MEAU.Click += new System.EventHandler(this.Empresa_MEAU_Click);
             // 
             // panel1
             // 
@@ -90,6 +91,7 @@
             this.Salir_MEAU.TabIndex = 7;
             this.Salir_MEAU.Text = "SALIR";
             this.Salir_MEAU.UseVisualStyleBackColor = false;
+            this.Salir_MEAU.Click += new System.EventHandler(this.Salir_MEAU_Click);
             // 
             // Reportes__MEAU
             // 
@@ -114,6 +116,7 @@
             this.Nomina__MEAU.TabIndex = 4;
             this.Nomina__MEAU.Text = "Gestión De Nómina";
             this.Nomina__MEAU.UseVisualStyleBackColor = false;
+            this.Nomina__MEAU.Click += new System.EventHandler(this.Nomina__MEAU_Click);
             // 
             // LB_Departamento
             // 
@@ -267,6 +270,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Form4";
             this.Text = "Reportes AUX";
+            this.Load += new System.EventHandler(this.Form4_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Vista_ReporteAUX)).EndInit();
             this.panel2.ResumeLayout(false);
