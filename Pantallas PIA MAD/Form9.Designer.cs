@@ -364,6 +364,7 @@
             this.Salir_MEAD.TabIndex = 8;
             this.Salir_MEAD.Text = "SALIR";
             this.Salir_MEAD.UseVisualStyleBackColor = false;
+            this.Salir_MEAD.Click += new System.EventHandler(this.Salir_MEAD_Click);
             // 
             // Reporte_MEAD
             // 
@@ -376,6 +377,7 @@
             this.Reporte_MEAD.TabIndex = 7;
             this.Reporte_MEAD.Text = "Reportes";
             this.Reporte_MEAD.UseVisualStyleBackColor = true;
+            this.Reporte_MEAD.Click += new System.EventHandler(this.Reporte_MEAD_Click);
             // 
             // Nomina_MEAD
             // 
@@ -401,6 +403,7 @@
             this.DepaPues__MEAD.TabIndex = 2;
             this.DepaPues__MEAD.Text = "Gestión De Departamentos Y Puestos";
             this.DepaPues__MEAD.UseVisualStyleBackColor = true;
+            this.DepaPues__MEAD.Click += new System.EventHandler(this.DepaPues__MEAD_Click);
             // 
             // Usuarios_MEAD
             // 
@@ -413,6 +416,7 @@
             this.Usuarios_MEAD.TabIndex = 1;
             this.Usuarios_MEAD.Text = "Gestión De Usuarios";
             this.Usuarios_MEAD.UseVisualStyleBackColor = true;
+            this.Usuarios_MEAD.Click += new System.EventHandler(this.Usuarios_MEAD_Click);
             // 
             // Empresa_MEAD
             // 
@@ -425,6 +429,7 @@
             this.Empresa_MEAD.TabIndex = 0;
             this.Empresa_MEAD.Text = "Gestion De Empresa";
             this.Empresa_MEAD.UseVisualStyleBackColor = true;
+            this.Empresa_MEAD.Click += new System.EventHandler(this.Empresa_MEAD_Click);
             // 
             // Form9
             // 
@@ -436,6 +441,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form9";
             this.Text = "Gestión De Nomina";
+            this.Load += new System.EventHandler(this.Form9_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINA)).EndInit();

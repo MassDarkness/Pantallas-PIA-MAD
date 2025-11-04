@@ -16,7 +16,10 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
-
+        private void Form9_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
         private void button9_Click(object sender, EventArgs e)
         {
 
@@ -115,6 +118,46 @@ namespace Pantallas_PIA_MAD
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form9_Load(object sender, EventArgs e)
+        {
+            this.FormClosed += Form9_FormClosed;
+        }
+
+        private void Empresa_MEAD_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.Show();
+            this.Hide();
+        }
+
+        private void Usuarios_MEAD_Click(object sender, EventArgs e)
+        {
+            Form7 form7 = new Form7();
+            form7.Show();
+            this.Hide();
+        }
+
+        private void DepaPues__MEAD_Click(object sender, EventArgs e)
+        {
+            Form8 form8 = new Form8();
+            form8.Show();
+            this.Hide();
+        }
+
+        private void Reporte_MEAD_Click(object sender, EventArgs e)
+        {
+            Form11 form10 = new Form11();
+            form10.Show();
+            this.Hide();
+        }
+
+        private void Salir_MEAD_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+            this.Hide();
         }
     }
 }
