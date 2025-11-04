@@ -95,6 +95,7 @@
             this.Salir__MEAU.TabIndex = 8;
             this.Salir__MEAU.Text = "SALIR";
             this.Salir__MEAU.UseVisualStyleBackColor = false;
+            this.Salir__MEAU.Click += new System.EventHandler(this.Salir__MEAU_Click);
             // 
             // panel1
             // 
@@ -119,6 +120,7 @@
             this.Reportes__MEAU.TabIndex = 11;
             this.Reportes__MEAU.Text = "Reportes";
             this.Reportes__MEAU.UseVisualStyleBackColor = true;
+            this.Reportes__MEAU.Click += new System.EventHandler(this.Reportes__MEAU_Click);
             // 
             // Nomina__MEAU
             // 
@@ -131,6 +133,7 @@
             this.Nomina__MEAU.TabIndex = 10;
             this.Nomina__MEAU.Text = "Gestión De Nómina";
             this.Nomina__MEAU.UseVisualStyleBackColor = false;
+            this.Nomina__MEAU.Click += new System.EventHandler(this.Nomina__MEAU_Click);
             // 
             // Empresa_MEAU
             // 
@@ -143,6 +146,7 @@
             this.Empresa_MEAU.TabIndex = 9;
             this.Empresa_MEAU.Text = "Gestion De Empleados";
             this.Empresa_MEAU.UseVisualStyleBackColor = false;
+            this.Empresa_MEAU.Click += new System.EventHandler(this.Empresa_MEAU_Click);
             // 
             // Form13
             // 
@@ -153,6 +157,7 @@
             this.Controls.Add(this.panel2);
             this.Name = "Form13";
             this.Text = "Menu Auxiliar";
+            this.Load += new System.EventHandler(this.Form13_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);

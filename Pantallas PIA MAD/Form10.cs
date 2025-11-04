@@ -17,6 +17,11 @@ namespace Pantallas_PIA_MAD
             InitializeComponent();
         }
 
+        private void Form11_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void Empresa_MEAD_Click(object sender, EventArgs e)
         {
             Form5 form5 = new Form5();
@@ -42,6 +47,18 @@ namespace Pantallas_PIA_MAD
         {
             Form9 form9 = new Form9();
             form9.Show();
+            this.Hide();
+        }
+
+        private void Form11_Load(object sender, EventArgs e)
+        {
+            this.FormClosed += Form11_FormClosed;
+
+        }
+        private void Salir_MEAD_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
             this.Hide();
         }
     }

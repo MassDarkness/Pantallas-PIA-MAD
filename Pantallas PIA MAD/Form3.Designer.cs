@@ -115,6 +115,7 @@
             this.Salir_MEAD.TabIndex = 8;
             this.Salir_MEAD.Text = "SALIR";
             this.Salir_MEAD.UseVisualStyleBackColor = false;
+            this.Salir_MEAD.Click += new System.EventHandler(this.Salir_MEAD_Click);
             // 
             // panel1
             // 

@@ -64,5 +64,11 @@ namespace Pantallas_PIA_MAD
             this.FormClosed += Form3_FormClosed;
         }
 
+        private void Salir_MEAD_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+            this.Hide();
+        }
     }
 }
