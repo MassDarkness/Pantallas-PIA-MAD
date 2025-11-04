@@ -120,68 +120,48 @@ namespace Pantallas_PIA_MAD
         // --- CORRECCIÓN 4: Lógica de Agregar completada ---
         private void BTN_AgregarEMP_Click(object sender, EventArgs e)
         {
-            // Validaciones básicas (puedes añadir más)
-            if (ComboBoxEmpresa.SelectedIndex == -1 || ComboBoxDepartamento.SelectedIndex == -1 || ComboBoxPuesto.SelectedIndex == -1)
+            var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+            var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
+            var puestoSel = (Puesto)ComboBoxPuesto.SelectedItem;
+
+            Empleado empleado = new Empleado
             {
-                MessageBox.Show("Debes seleccionar Empresa, Departamento y Puesto.");
-                return;
+                numero_empleado = TB_NumEmp.Text,
+                nombres = TB_Nombres.Text,
+                apellido_paterno = TB_APPaterno.Text,
+                apellido_materno = TB_APMaterno.Text,
+                domicilio = TB_Domicilio.Text,
+                telefono = TB_Telefono.Text,
+                email = TB_Email.Text,
+                fecha_nacimiento = FechaNac_EMP.Value.Date,
+                curp = TB_CURP.Text,
+                rfc = TB_RFC.Text,
+                nss = TB_NSS.Text,
+                salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
+                salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
+                numero_cuenta = TB_NumCuenta.Text,
+                banco = TB_Banco.Text,
+
+                // Sacamos los IDs de los objetos
+                id_empresa = empresaSel.id_empresa, // O "id_empresa"
+                id_departamento = deptoSel.id_departamento,
+                id_puesto = puestoSel.id_puesto
+            };
+
+            // --- CORRECCIÓN 5: Faltaba llamar al DAO para insertar ---
+            // (Asumo que tu método se llama así)
+            int resultado = EmpleadoDAO.InsertarEmpleado(empleado);
+
+            if (resultado < 0)
+            {
+                MessageBox.Show("Empleado registrado con éxito.");
+                RefrescarEmpleados();
+                // Aquí deberías limpiar los campos
+                // LimpiarCampos(); 
             }
-            if (string.IsNullOrWhiteSpace(TB_NumEmp.Text) || string.IsNullOrWhiteSpace(TB_Nombres.Text))
+            else
             {
-                MessageBox.Show("Número de empleado y Nombres son obligatorios.");
-                return;
-            }
-
-            try
-            {
-                // Obtenemos los OBJETOS completos
-                var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
-                var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
-                var puestoSel = (Puesto)ComboBoxPuesto.SelectedItem;
-
-                Empleado empleado = new Empleado
-                {
-                    numero_empleado = TB_NumEmp.Text,
-                    nombres = TB_Nombres.Text,
-                    apellido_paterno = TB_APPaterno.Text,
-                    apellido_materno = TB_APMaterno.Text,
-                    domicilio = TB_Domicilio.Text,
-                    telefono = TB_Telefono.Text,
-                    email = TB_Email.Text,
-                    fecha_nacimiento = FechaNac_EMP.Value.Date,
-                    curp = TB_CURP.Text,
-                    rfc = TB_RFC.Text,
-                    nss = TB_NSS.Text,
-                    salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
-                    salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
-                    numero_cuenta = TB_NumCuenta.Text,
-                    banco = TB_Banco.Text,
-
-                    // Sacamos los IDs de los objetos
-                    id_empresa = empresaSel.id_empresa, // O "id_empresa"
-                    id_departamento = deptoSel.id_departamento,
-                    id_puesto = puestoSel.id_puesto
-                };
-
-                // --- CORRECCIÓN 5: Faltaba llamar al DAO para insertar ---
-                // (Asumo que tu método se llama así)
-                int resultado = EmpleadoDAO.InsertarEmpleado(empleado);
-
-                if (resultado > 0)
-                {
-                    MessageBox.Show("Empleado registrado con éxito.");
-                    RefrescarEmpleados();
-                    // Aquí deberías limpiar los campos
-                    // LimpiarCampos(); 
-                }
-                else
-                {
-                    MessageBox.Show("Error: No se pudo registrar el empleado.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error crítico al agregar empleado: " + ex.Message);
+                MessageBox.Show("Error: No se pudo registrar el empleado.");
             }
         }
 
@@ -190,6 +170,12 @@ namespace Pantallas_PIA_MAD
         private void RefrescarEmpleados()
         {
             Vista_EMP.DataSource = EmpleadoDAO.ObtenerEmpleados();
+            if (Vista_EMP.Columns["Puesto"] != null)
+                Vista_EMP.Columns["Puesto"].Visible = false;
+            if (Vista_EMP.Columns["Departamento"] != null)
+                Vista_EMP.Columns["Departamento"].Visible = false;
+            if (Vista_EMP.Columns["Empresa"] != null)
+                Vista_EMP.Columns["Empresa"].Visible = false;
         }
     }
 }

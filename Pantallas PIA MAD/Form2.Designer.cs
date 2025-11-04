@@ -76,7 +76,7 @@
             // IS_Correo
             // 
             this.IS_Correo.Location = new System.Drawing.Point(400, 167);
-            this.IS_Correo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.IS_Correo.Margin = new System.Windows.Forms.Padding(4);
             this.IS_Correo.Name = "IS_Correo";
             this.IS_Correo.Size = new System.Drawing.Size(468, 22);
             this.IS_Correo.TabIndex = 4;
@@ -84,7 +84,7 @@
             // IS_Contraseña
             // 
             this.IS_Contraseña.Location = new System.Drawing.Point(400, 283);
-            this.IS_Contraseña.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.IS_Contraseña.Margin = new System.Windows.Forms.Padding(4);
             this.IS_Contraseña.Name = "IS_Contraseña";
             this.IS_Contraseña.Size = new System.Drawing.Size(468, 22);
             this.IS_Contraseña.TabIndex = 5;
@@ -94,7 +94,7 @@
             this.BTN_IS.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BTN_IS.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_IS.Location = new System.Drawing.Point(236, 389);
-            this.BTN_IS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BTN_IS.Margin = new System.Windows.Forms.Padding(4);
             this.BTN_IS.Name = "BTN_IS";
             this.BTN_IS.Size = new System.Drawing.Size(188, 47);
             this.BTN_IS.TabIndex = 6;
@@ -107,19 +107,20 @@
             this.BTN_SALIRIS.BackColor = System.Drawing.Color.PaleTurquoise;
             this.BTN_SALIRIS.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_SALIRIS.Location = new System.Drawing.Point(664, 390);
-            this.BTN_SALIRIS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BTN_SALIRIS.Margin = new System.Windows.Forms.Padding(4);
             this.BTN_SALIRIS.Name = "BTN_SALIRIS";
             this.BTN_SALIRIS.Size = new System.Drawing.Size(188, 47);
             this.BTN_SALIRIS.TabIndex = 7;
             this.BTN_SALIRIS.Text = "Salir";
             this.BTN_SALIRIS.UseVisualStyleBackColor = false;
+            this.BTN_SALIRIS.Click += new System.EventHandler(this.BTN_SALIRIS_Click_1);
             // 
             // RB_ADMIN
             // 
             this.RB_ADMIN.AutoSize = true;
             this.RB_ADMIN.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RB_ADMIN.Location = new System.Drawing.Point(317, 97);
-            this.RB_ADMIN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RB_ADMIN.Margin = new System.Windows.Forms.Padding(4);
             this.RB_ADMIN.Name = "RB_ADMIN";
             this.RB_ADMIN.Size = new System.Drawing.Size(97, 27);
             this.RB_ADMIN.TabIndex = 9;
@@ -132,7 +133,7 @@
             this.RB_AUXILIAR.AutoSize = true;
             this.RB_AUXILIAR.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RB_AUXILIAR.Location = new System.Drawing.Point(591, 97);
-            this.RB_AUXILIAR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RB_AUXILIAR.Margin = new System.Windows.Forms.Padding(4);
             this.RB_AUXILIAR.Name = "RB_AUXILIAR";
             this.RB_AUXILIAR.Size = new System.Drawing.Size(120, 27);
             this.RB_AUXILIAR.TabIndex = 10;
@@ -155,9 +156,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Correo);
             this.Controls.Add(this.Titulo);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form2";
             this.Text = "Inicio De Sesión";
+            this.Load += new System.EventHandler(this.Form2_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

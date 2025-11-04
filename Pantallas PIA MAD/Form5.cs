@@ -18,6 +18,12 @@ namespace Pantallas_PIA_MAD
             InitializeComponent();
         }
 
+        private void Form5_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+
         private void BTN_GuardarEMP_Click(object sender, EventArgs e)
         {
             RegistroEmpresa Empresa = new RegistroEmpresa();
@@ -35,6 +41,7 @@ namespace Pantallas_PIA_MAD
         private void Form5_Load(object sender, EventArgs e)
         {
             Vista_Empresa.DataSource = EmpresaDAP.ObtenerEmpresas();
+            this.FormClosed += Form5_FormClosed;
         }
 
         private void refrescar()

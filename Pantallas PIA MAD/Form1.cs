@@ -19,8 +19,9 @@ namespace Pantallas_PIA_MAD
 
         private void BTN_Empresa_Click(object sender, EventArgs e)
         {
-            Form8 form8 = new Form8();
-            form8.ShowDialog();
+            Form3 form3 = new Form3();
+            form3.Show();
+            this.Hide();
         }
     }
 }
