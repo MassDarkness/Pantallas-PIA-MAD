@@ -19,9 +19,18 @@ namespace Pantallas_PIA_MAD
 
         private void BTN_Empresa_Click(object sender, EventArgs e)
         {
-            Form6 form6 = new Form6();
-            form6.Show();
+            Form8 form8 = new Form8();
+            form8.Show();
             this.Hide();
+        }
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Empresa_Load(object sender, EventArgs e)
+        {
+            this.FormClosed += Form1_FormClosed;
         }
     }
 }

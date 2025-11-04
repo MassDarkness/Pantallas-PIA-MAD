@@ -16,14 +16,14 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
-        private void Form5_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form4_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            this.FormClosed += Form5_FormClosed;
+            this.FormClosed += Form4_FormClosed;
         }
 
         private void Empresa_MEAU_Click(object sender, EventArgs e)

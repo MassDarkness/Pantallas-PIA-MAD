@@ -21,8 +21,14 @@ namespace Pantallas_PIA_MAD
 
         // --- CORRECCIÓN 1: Puse un try...catch aquí ---
         // Si CargarEmpresas falla, ahora lo sabrás
+
+        private void Form6_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
         private void Form6_Load_1(object sender, EventArgs e)
         {
+            this.FormClosed += Form6_FormClosed;
             try
             {
                 RefrescarEmpleados();
@@ -297,5 +303,23 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        private void Nomina__MEAU_Click(object sender, EventArgs e)
+        {
+            Form12 form12 = new Form12();
+            form12.Show();
+            this.Hide();
+        }
+
+        private void Reportes__MEAU_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4();
+            form4.Show();
+            this.Hide();
+        }
+
+        private void Salir__MEAU_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

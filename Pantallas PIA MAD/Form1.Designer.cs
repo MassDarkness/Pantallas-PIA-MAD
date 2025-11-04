@@ -37,10 +37,9 @@
             this.Titulo.AutoSize = true;
             this.Titulo.Font = new System.Drawing.Font("Lucida Sans", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Titulo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Titulo.Location = new System.Drawing.Point(116, 210);
-            this.Titulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Titulo.Location = new System.Drawing.Point(87, 171);
             this.Titulo.Name = "Titulo";
-            this.Titulo.Size = new System.Drawing.Size(764, 91);
+            this.Titulo.Size = new System.Drawing.Size(607, 72);
             this.Titulo.TabIndex = 0;
             this.Titulo.Text = "González Solutions";
             // 
@@ -49,10 +48,9 @@
             this.BTN_Empresa.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_Empresa.Font = new System.Drawing.Font("Lucida Sans", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_Empresa.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.BTN_Empresa.Location = new System.Drawing.Point(865, 482);
-            this.BTN_Empresa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BTN_Empresa.Location = new System.Drawing.Point(649, 392);
             this.BTN_Empresa.Name = "BTN_Empresa";
-            this.BTN_Empresa.Size = new System.Drawing.Size(185, 57);
+            this.BTN_Empresa.Size = new System.Drawing.Size(139, 46);
             this.BTN_Empresa.TabIndex = 1;
             this.BTN_Empresa.Text = "Ingresar";
             this.BTN_Empresa.UseVisualStyleBackColor = false;
@@ -60,15 +58,15 @@
             // 
             // Empresa
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkCyan;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Titulo);
             this.Controls.Add(this.BTN_Empresa);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Empresa";
             this.Text = "Empresa";
+            this.Load += new System.EventHandler(this.Empresa_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

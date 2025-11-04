@@ -18,7 +18,10 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
-
+        private void Form8_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
 
         // Cargar empresas para la sección de departamento
         private void CargarEmpresas()
@@ -135,6 +138,7 @@ namespace Pantallas_PIA_MAD
             CargarEmpresasPuesto();  // Para agregar puesto
             refrescarDepartamentos();
             refrescarPuestos();
+            this.FormClosed += Form8_FormClosed;
         }
 
         private void Vista_PuestoADMIN_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -301,6 +305,38 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        private void Empresa_MEAD_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.Show();
+            this.Hide();
+        }
+
+        private void Usuarios_MEAD_Click(object sender, EventArgs e)
+        {
+            Form7 form7 = new Form7();
+            form7.Show();
+            this.Hide();
+        }
+
+        private void Nomina_MEAD_Click(object sender, EventArgs e)
+        {
+            Form9 form9 = new Form9();
+            form9.Show();
+            this.Hide();
+        }
+
+        private void Reporte_MEAD_Click(object sender, EventArgs e)
+        {
+            Form11 form10 = new Form11();
+            form10.Show();
+            this.Hide();
+        }
+
+        private void Salir_MEAD_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 
 }

@@ -54,5 +54,15 @@ namespace Pantallas_PIA_MAD
             form10.Show();
             this.Hide();
         }
+        private void Form3_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            this.FormClosed += Form3_FormClosed;
+        }
+
     }
 }

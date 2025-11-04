@@ -38,10 +38,47 @@ namespace Pantallas_PIA_MAD
         {
             Vista_USUARIOS.DataSource = UsuarioDAO.registroUsuarios();
         }
-
+        private void Form7_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
         private void Form7_Load(object sender, EventArgs e)
         {
             Vista_USUARIOS.DataSource = UsuarioDAO.registroUsuarios();
+            this.FormClosed += Form7_FormClosed;
+        }
+
+        private void Empresa_MEAD_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.Show();
+            this.Hide();
+        }
+
+        private void DepaPues__MEAD_Click(object sender, EventArgs e)
+        {
+            Form8 form8 = new Form8();
+            form8.Show();
+            this.Hide();
+        }
+
+        private void Nomina_MEAD_Click(object sender, EventArgs e)
+        {
+            Form9 form9 = new Form9();
+            form9.Show();
+            this.Hide();
+        }
+
+        private void Reporte_MEAD_Click(object sender, EventArgs e)
+        {
+            Form11 form10 = new Form11();
+            form10.Show();
+            this.Hide();
+        }
+
+        private void Salir_MEAD_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
