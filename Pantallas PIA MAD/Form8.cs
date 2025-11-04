@@ -137,6 +137,85 @@ namespace Pantallas_PIA_MAD
             refrescarPuestos();
         }
 
+        private void Vista_PuestoADMIN_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
 
+            DataGridViewRow fila = Vista_PuestoADMIN.Rows[e.RowIndex];
+
+            // Llenamos los TextBox con los valores de la fila seleccionada
+            TB_NombrePuesto.Text = fila.Cells["nombre"].Value?.ToString();
+            TB_DescripcionPuesto.Text = fila.Cells["descripcion"].Value?.ToString();
+            TB_NumPuesto.Text = fila.Cells["numero"].Value?.ToString();
+
+            // Si tienes columnas con los IDs (necesario para vincular los ComboBox)
+            if (fila.Cells["id_departamento"].Value != null)
+            {
+                int idDepartamento = Convert.ToInt32(fila.Cells["id_departamento"].Value);
+
+                // Buscamos el departamento al que pertenece el puesto
+                ComboBoxDepartamentoPuesto.SelectedValue = idDepartamento;
+
+                // Si además tienes la empresa relacionada, podrías hacer algo así:
+                var departamento = DepartamentoDAO.ObtenerDepartamentoPorId(idDepartamento);
+                if (departamento != null)
+                {
+                    ComboBoxEmpresaPuesto.SelectedValue = departamento.id_empresa;
+                    CargarDepartamentosPuesto(departamento.id_empresa);
+                    ComboBoxDepartamentoPuesto.SelectedValue = idDepartamento;
+                }
+            }
+        }
+
+
+        private void BTN_EditarPuestoADMIN_Click(object sender, EventArgs e)
+        {
+            if (Vista_PuestoADMIN.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un puesto para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Obtenemos el id del puesto seleccionado en el DataGridView
+                int idPuesto = Convert.ToInt32(Vista_PuestoADMIN.CurrentRow.Cells["id_puesto"].Value);
+
+                // Validamos que se haya seleccionado un departamento
+                if (ComboBoxDepartamentoPuesto.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Selecciona un departamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Creamos el objeto Puesto con los datos editados
+                Puesto puesto = new Puesto
+                {
+                    id_puesto = idPuesto,
+                    nombre = TB_NombrePuesto.Text,
+                    descripcion = TB_DescripcionPuesto.Text,
+                    numero = int.TryParse(TB_NumPuesto.Text, out int num) ? num : (int?)null,
+                    id_departamento = (int)ComboBoxDepartamentoPuesto.SelectedValue
+                };
+
+                // Llamamos al método de actualización
+                int resultado = PuestoDAO.ActualizarPuesto(puesto);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Puesto actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    refrescarPuestos();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar el puesto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el puesto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

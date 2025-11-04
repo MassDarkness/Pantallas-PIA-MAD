@@ -65,5 +65,30 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
+        public static int ActualizarEmpresa(RegistroEmpresa empresa)
+        {
+            int retorno = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_ActualizarEmpresa", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@id_empresa", empresa.id_empresa);
+                    comando.Parameters.AddWithValue("@razon_social", empresa.razon_social);
+                    comando.Parameters.AddWithValue("@domicilio_fiscal", empresa.domicilio_fiscal);
+                    comando.Parameters.AddWithValue("@contacto", (object)empresa.contacto ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@registro_patronal", (object)empresa.registro_patronal ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@RFC", empresa.RFC);
+                    comando.Parameters.AddWithValue("@fecha_inicio_operaciones", (object)empresa.fecha_inicio_operaciones ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@nombre", empresa.nombre);
+
+                    retorno = comando.ExecuteNonQuery();
+                }
+            }
+
+            return retorno;
+        }
     }
 }

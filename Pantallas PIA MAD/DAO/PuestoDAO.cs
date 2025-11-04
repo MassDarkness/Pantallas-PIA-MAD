@@ -73,8 +73,7 @@ namespace Pantallas_PIA_MAD.DAO
                             p.nombre, 
                             p.descripcion, 
                             p.numero, 
-                            d.nombre AS nombre_departamento, 
-                            e.nombre AS nombre_empresa
+                            p.id_departamento  -- ✅ Asegúrate de traer este campo
                          FROM Puesto p
                          INNER JOIN Departamento d ON p.id_departamento = d.id_departamento
                          INNER JOIN Empresa e ON d.id_empresa = e.id_empresa";
@@ -89,19 +88,41 @@ namespace Pantallas_PIA_MAD.DAO
                             id_puesto = reader.GetInt32(0),
                             nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
                             descripcion = reader.IsDBNull(2) ? null : reader.GetString(2),
-                            numero = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
-                            // no guardamos los nombres aquí porque la entidad Puesto probablemente no tiene esas propiedades,
-                            // pero los vamos a mostrar directamente en el DataGridView
+                            numero = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
+                            id_departamento = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4)  // ✅ Traerlo
                         };
                         lista.Add(p);
                     }
-
-                    // Si prefieres devolver un DataTable para enlazarlo directamente, también puedo mostrarte cómo
                 }
             }
 
             return lista;
         }
+
+        public static int ActualizarPuesto(Puesto puesto)
+        {
+            int filasAfectadas = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_ActualizarPuesto", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // Parámetros
+                    comando.Parameters.AddWithValue("@id_puesto", puesto.id_puesto);
+                    comando.Parameters.AddWithValue("@nombre", puesto.nombre);
+                    comando.Parameters.AddWithValue("@descripcion", (object)puesto.descripcion ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@numero", (object)puesto.numero ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@id_departamento", puesto.id_departamento ?? (object)DBNull.Value);
+
+                    filasAfectadas = comando.ExecuteNonQuery();
+                }
+            }
+
+            return filasAfectadas;
+        }
+
 
     }
 }

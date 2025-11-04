@@ -87,5 +87,34 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
+        // ✅ Obtener un departamento por su ID
+        public static Departamento ObtenerDepartamentoPorId(int idDepartamento)
+        {
+            Departamento depto = null;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                string query = "SELECT id_departamento, nombre, numero, id_empresa FROM Departamento WHERE id_departamento = @idDepartamento;";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@idDepartamento", idDepartamento);
+
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        depto = new Departamento
+                        {
+                            id_departamento = reader.GetInt32(0),
+                            nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
+                            numero = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
+                            id_empresa = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                        };
+                    }
+                }
+            }
+
+            return depto;
+        }
+
     }
 }
