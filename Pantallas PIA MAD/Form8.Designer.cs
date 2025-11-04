@@ -334,6 +334,7 @@
             this.BTN_EditarDepa.TabIndex = 21;
             this.BTN_EditarDepa.Text = "Editar";
             this.BTN_EditarDepa.UseVisualStyleBackColor = false;
+            this.BTN_EditarDepa.Click += new System.EventHandler(this.BTN_EditarDepa_Click);
             // 
             // Vista_Departamento
             // 
@@ -345,6 +346,7 @@
             this.Vista_Departamento.RowHeadersWidth = 51;
             this.Vista_Departamento.Size = new System.Drawing.Size(311, 202);
             this.Vista_Departamento.TabIndex = 20;
+            this.Vista_Departamento.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Vista_Departamento_CellClick);
             // 
             // label2
             // 

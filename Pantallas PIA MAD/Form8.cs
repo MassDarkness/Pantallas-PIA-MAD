@@ -217,5 +217,90 @@ namespace Pantallas_PIA_MAD
                 MessageBox.Show("Error al actualizar el puesto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void ComboBoxEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboBoxEmpresa.SelectedIndex != -1)
+            {
+                var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
+                int idEmpresa = empresaSeleccionada.id_empresa;
+            }
+        }
+
+        private void Vista_Departamento_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // Evita header clicks
+
+            DataGridViewRow fila = Vista_Departamento.Rows[e.RowIndex];
+
+            // Llenamos los TextBox con los valores de la fila
+            TB_NumDepaADMIN.Text = fila.Cells["nombre"].Value?.ToString();
+            TB_NumEMPADMIN.Text = fila.Cells["numero"].Value?.ToString();
+
+            // Si tienes columna con el id de la empresa
+            if (fila.Cells["id_empresa"].Value != null)
+            {
+                int idEmpresa = Convert.ToInt32(fila.Cells["id_empresa"].Value);
+
+                // 🔒 Desactivamos el evento temporalmente para evitar recarga innecesaria
+                ComboBoxEmpresa.SelectedIndexChanged -= ComboBoxEmpresa_SelectedIndexChanged;
+
+                // Seleccionamos la empresa correcta
+                ComboBoxEmpresa.SelectedValue = idEmpresa;
+
+                // 🔓 Reactivamos el evento
+                ComboBoxEmpresa.SelectedIndexChanged += ComboBoxEmpresa_SelectedIndexChanged;
+            }
+        }
+
+        private void BTN_EditarDepa_Click(object sender, EventArgs e)
+        {
+            if (Vista_Departamento.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un departamento para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Obtenemos el id del departamento seleccionado
+                int idDepa = Convert.ToInt32(Vista_Departamento.CurrentRow.Cells["id_departamento"].Value);
+
+                // Validamos que se haya seleccionado una empresa
+                if (ComboBoxEmpresa.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Selecciona una empresa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Creamos el objeto Departamento con los datos editados
+                Departamento depto = new Departamento
+                {
+                    id_departamento = idDepa,
+                    nombre = TB_NumDepaADMIN.Text,
+                    numero = int.TryParse(TB_NumEMPADMIN.Text, out int num) ? num : 0,
+                    id_empresa = (int)ComboBoxEmpresa.SelectedValue
+                };
+
+                // Llamamos al método de actualización
+                int resultado = DepartamentoDAO.ActualizarDepartamento(depto);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Departamento actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    refrescarDepartamentos();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar el departamento.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el departamento: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
+
 }

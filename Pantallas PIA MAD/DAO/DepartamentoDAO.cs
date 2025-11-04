@@ -115,6 +115,27 @@ namespace Pantallas_PIA_MAD.DAO
 
             return depto;
         }
+        public static int ActualizarDepartamento(Departamento depto)
+        {
+            int filasAfectadas = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_ActualizarDepartamento", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@id_departamento", depto.id_departamento);
+                    comando.Parameters.AddWithValue("@nombre", depto.nombre);
+                    comando.Parameters.AddWithValue("@numero", depto.numero);
+                    comando.Parameters.AddWithValue("@id_empresa", depto.id_empresa);
+
+                    filasAfectadas = comando.ExecuteNonQuery();
+                }
+            }
+
+            return filasAfectadas;
+        }
 
     }
 }
