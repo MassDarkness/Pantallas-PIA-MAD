@@ -90,5 +90,74 @@ namespace Pantallas_PIA_MAD
             form14.Show();
             this.Hide();
         }
+
+        private void Vista_USUARIOS_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // Evita errores al hacer click en encabezados
+
+            DataGridViewRow fila = Vista_USUARIOS.Rows[e.RowIndex];
+
+            TB_NombreUsuario.Text = fila.Cells["nombre"].Value?.ToString();
+            TB_CorreoUsuario.Text = fila.Cells["correo"].Value?.ToString();
+            TB_ContraseñaUsuario.Text = fila.Cells["contraseña"].Value?.ToString();
+
+            // Selecciona el tipo según el valor
+            if (fila.Cells["tipo"].Value != DBNull.Value)
+            {
+                byte tipo = Convert.ToByte(fila.Cells["tipo"].Value);
+                RB_AUXILIARUSUARIO.Checked = tipo == 0;
+                RB_EMPUSUARIO.Checked = tipo == 1;
+            }
+            else
+            {
+                RB_AUXILIARUSUARIO.Checked = false;
+                RB_EMPUSUARIO.Checked = false;
+            }
+        }
+
+
+        private void BTN_EditarUSUARIO_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Vista_USUARIOS.CurrentRow == null)
+                {
+                    MessageBox.Show("Selecciona un usuario para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idUsuario = Convert.ToInt32(Vista_USUARIOS.CurrentRow.Cells["id_Usuario"].Value);
+
+                Usuarios usuario = new Usuarios();
+                usuario.id_Usuario = idUsuario;
+                usuario.nombre = TB_NombreUsuario.Text;
+                usuario.correo = TB_CorreoUsuario.Text;
+                usuario.contraseña = TB_ContraseñaUsuario.Text;
+
+                if (RB_AUXILIARUSUARIO.Checked)
+                    usuario.tipo = 0;
+                else if (RB_EMPUSUARIO.Checked)
+                    usuario.tipo = 1;
+                else
+                    usuario.tipo = null;
+
+                int resultado = UsuarioDAO.ActualizarUsuario(usuario);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Usuario actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Refrescar();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar el usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

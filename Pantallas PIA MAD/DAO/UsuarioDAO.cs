@@ -86,5 +86,29 @@ namespace Pantallas_PIA_MAD.DAO
             return usuario;
         }
 
+        public static int ActualizarUsuario(Usuarios usuario)
+        {
+            int retorno = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_ActualizarUsuario", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    comando.Parameters.AddWithValue("@id_Usuario", usuario.id_Usuario);
+                    comando.Parameters.AddWithValue("@nombre", usuario.nombre);
+                    comando.Parameters.AddWithValue("@correo", (object)usuario.correo ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@contra", (object)usuario.contraseña ?? DBNull.Value);
+                    comando.Parameters.AddWithValue("@tipo", (object)usuario.tipo ?? (object)DBNull.Value);
+
+                    retorno = comando.ExecuteNonQuery();
+                }
+            }
+
+            return retorno;
+        }
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pantallas_PIA_MAD.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -123,7 +124,41 @@ namespace Pantallas_PIA_MAD
         private void Form9_Load(object sender, EventArgs e)
         {
             this.FormClosed += Form9_FormClosed;
+            ComboBoxEmpresaPuesto.DataSource = EmpresaDAP.ObtenerEmpresas();
+            ComboBoxEmpresaPuesto.DisplayMember = "nombre";
+            ComboBoxEmpresaPuesto.ValueMember = "id_empresa";
         }
+        private void comboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboBoxEmpresaPuesto.SelectedValue is int idEmpresa)
+            {
+                ComboBoxDepartamentoPuesto.DataSource = DepartamentoDAO.ObtenerDepartamentosPorEmpresa(idEmpresa);
+                ComboBoxDepartamentoPuesto.DisplayMember = "nombre";
+                ComboBoxDepartamentoPuesto.ValueMember = "id_departamento";
+            }
+        }
+
+        private void comboDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboBoxDepartamentoPuesto.SelectedValue is int idDepartamento)
+            {
+                comboBox1.DataSource = PuestoDAO.ObtenerPuestosPorDepartamento(idDepartamento);
+                comboBox1.DisplayMember = "nombre";
+                comboBox1.ValueMember = "id_puesto";
+            }
+        }
+
+        private void comboPuesto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedValue is int idPuesto)
+            {
+                comboBox2.DataSource = EmpleadoDAO.ObtenerEmpleadosPorPuesto(idPuesto);
+                comboBox2.DisplayMember = "nombres"; // o el nombre completo si lo tienes concatenado
+                comboBox2.ValueMember = "id_empleado";
+            }
+        }
+
+
         //Boton para enviarte al apartado de la gestion de empresas
         private void Empresa_MEAD_Click(object sender, EventArgs e)
         {
