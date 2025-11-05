@@ -17,12 +17,15 @@ namespace Pantallas_PIA_MAD
             InitializeComponent();
         }
 
+        //Nos mandara a la pantalla de iniciar sesion
         private void BTN_Empresa_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
         }
+
+        //Metodo para cerrar completamente el programa
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();

@@ -30,12 +30,13 @@ namespace Pantallas_PIA_MAD
             return;
         }
 
+        //Colocamos el tipo como binario pq unicamente hay 2 tipos de opciones para iniciar sesion
         byte tipo;
 
         if (RB_ADMIN.Checked)
-            tipo = 1;  // Supón que en la base de datos tipo=1 es admin
+            tipo = 1;  
         else if (RB_AUXILIAR.Checked)
-            tipo = 0;  // tipo=2 es auxiliar
+            tipo = 0;  
         else
         {
             MessageBox.Show("Selecciona el tipo de usuario (ADMIN o AUXILIAR).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -65,12 +66,12 @@ namespace Pantallas_PIA_MAD
             MessageBox.Show("Correo o contraseña incorrectos.", "Error de inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
-
+        //Boton para cerrar completamente el programa
         private void BTN_SALIRIS_Click_1(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
+        //Metodo para cerrar completamente el programa
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();

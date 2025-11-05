@@ -17,13 +17,13 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
-
+        //Metodo para cerrar completamente el programa
         private void Form5_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-
+        //Boton Guardar los datos almacenados en la Base de Datos
         private void BTN_GuardarEMP_Click(object sender, EventArgs e)
         {
             RegistroEmpresa Empresa = new RegistroEmpresa();
@@ -37,7 +37,6 @@ namespace Pantallas_PIA_MAD
             EmpresaDAP.InsertarEmpresa(Empresa);
             refrescar();
         }
-
         private void Form5_Load(object sender, EventArgs e)
         {
             Vista_Empresa.DataSource = EmpresaDAP.ObtenerEmpresas();
@@ -48,42 +47,42 @@ namespace Pantallas_PIA_MAD
         {
             Vista_Empresa.DataSource = EmpresaDAP.ObtenerEmpresas();
         }
-
+        //Boton para enviarte al apartado de la gestion de usuarios
         private void Usuarios_MEAD_Click(object sender, EventArgs e)
         {
             Form7 form7 = new Form7();
             form7.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de la gestion de departamentos y puestos
         private void DepaPues__MEAD_Click(object sender, EventArgs e)
         {
             Form8 form8 = new Form8();
             form8.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de la gestion de nomina 
         private void Nomina_MEAD_Click(object sender, EventArgs e)
         {
             Form9 form9 = new Form9();
             form9.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de los reportes
         private void Reporte_MEAD_Click(object sender, EventArgs e)
         {
             Form11 form10 = new Form11();
             form10.Show();
             this.Hide();
         }
-
+        //Boton para enviarte a iniciar sesion si se desea
         private void Salir_MEAD_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
         }
-
+        //Metodo para al momento de picarle a un empleado en la vista se rellenen los datos automaticamente para asi verlos o modificarlos
         private void Vista_Empresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -91,7 +90,6 @@ namespace Pantallas_PIA_MAD
 
             DataGridViewRow fila = Vista_Empresa.Rows[e.RowIndex];
 
-            // Llena los TextBox con los valores de la fila seleccionada
             TB_Nombre.Text = fila.Cells["nombre"].Value?.ToString();
             TB_RazonSocial.Text = fila.Cells["razon_social"].Value?.ToString();
             TB_RFC.Text = fila.Cells["RFC"].Value?.ToString();
@@ -99,11 +97,10 @@ namespace Pantallas_PIA_MAD
             TB_DomicilioFi.Text = fila.Cells["domicilio_fiscal"].Value?.ToString();
             TB_Contacto.Text = fila.Cells["contacto"].Value?.ToString();
 
-            // Si tienes la fecha en una columna tipo DateTime
             if (fila.Cells["fecha_inicio_operaciones"].Value != null)
                 FechaInicio_Empresa.Value = Convert.ToDateTime(fila.Cells["fecha_inicio_operaciones"].Value);
         }
-
+        //Boton para editar empleados ya almacenados en la Base de Datos
         private void BTN_EditarEMP_Click(object sender, EventArgs e)
         {
             if (Vista_Empresa.CurrentRow == null)
@@ -114,10 +111,8 @@ namespace Pantallas_PIA_MAD
 
             try
             {
-                // Obtenemos el ID de la fila seleccionada
                 int id_empresa = Convert.ToInt32(Vista_Empresa.CurrentRow.Cells["id_empresa"].Value);
 
-                // Creamos el objeto con los nuevos valores
                 RegistroEmpresa empresa = new RegistroEmpresa();
                 empresa.id_empresa = id_empresa;
                 empresa.nombre = TB_Nombre.Text;
@@ -128,7 +123,6 @@ namespace Pantallas_PIA_MAD
                 empresa.contacto = TB_Contacto.Text;
                 empresa.fecha_inicio_operaciones = FechaInicio_Empresa.Value.Date;
 
-                // Llamamos al método de actualización
                 int resultado = EmpresaDAP.ActualizarEmpresa(empresa);
 
                 if (resultado > 0)
@@ -146,7 +140,13 @@ namespace Pantallas_PIA_MAD
                 MessageBox.Show("Error al actualizar la empresa: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //Boton para enviarte al apartado de la gestion de empleados 
+        private void Empleados_MEAD_Click(object sender, EventArgs e)
+        {
+            Form14 form14 = new Form14();
+            form14.Show();
+            this.Hide();
+        }
     }
 
 }

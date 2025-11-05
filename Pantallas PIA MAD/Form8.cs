@@ -18,12 +18,11 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
+        //Metodo para cerrar completamente el programa
         private void Form8_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
-
-        // Cargar empresas para la sección de departamento
         private void CargarEmpresas()
         {
             var empresas = EmpresaDAP.ObtenerEmpresas();
@@ -33,10 +32,9 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresa.SelectedIndex = -1;
         }
 
-        // Botón Agregar Departamento
+        // Botón Agregar Departamento a la base de datos
         private void BTN_AñadirDepa_Click(object sender, EventArgs e)
         {
-            // Obtenemos el objeto empresa completo
             var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
 
             Departamento depto = new Departamento
@@ -53,8 +51,6 @@ namespace Pantallas_PIA_MAD
 
             refrescarDepartamentos();
         }
-
-        // Refrescar la vista de departamentos
         private void refrescarDepartamentos()
         {
             Vista_Departamento.DataSource = DepartamentoDAO.ObtenerDepartamentos();
@@ -65,8 +61,6 @@ namespace Pantallas_PIA_MAD
             Vista_PuestoADMIN.DataSource = PuestoDAO.ObtenerTodosLosPuestos();
         }
 
-
-        // Cargar empresas para la sección de puesto
         private void CargarEmpresasPuesto()
         {
             var empresas = EmpresaDAP.ObtenerEmpresas();
@@ -75,22 +69,17 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuesto.ValueMember = "id_empresa";
             ComboBoxEmpresaPuesto.SelectedIndex = -1;
         }
-
-        // Evento: cuando se selecciona empresa para agregar puesto
+        //Evento al seleccionar una empresa se muestre
         private void ComboBoxEmpresaPuesto_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxEmpresaPuesto.SelectedIndex != -1)
             {
                 try
                 {
-                    // 1. Arreglamos el Problema #1 (la conversión de tipo)
                     var empresaSeleccionada = (RegistroEmpresa)ComboBoxEmpresaPuesto.SelectedItem;
 
-                    // 2. Arreglamos el Problema #2 (el nombre de la propiedad)
-                    // Usamos el nombre 'idempresa' (sin guion bajo) que tú identificaste
                     int idEmpresa = empresaSeleccionada.id_empresa;
 
-                    // 3. Con el ID, cargamos los departamentos
                     CargarDepartamentosPuesto(idEmpresa);
                 }
                 catch (Exception ex)
@@ -114,7 +103,7 @@ namespace Pantallas_PIA_MAD
             ComboBoxDepartamentoPuesto.SelectedIndex = -1;
         }
 
-        // Botón Agregar Puesto
+        // Boton agregar Puesto en la base de datos
         private void BTN_AñadirPuestoADMIN_Click(object sender, EventArgs e)
         {
             Puesto puesto = new Puesto
@@ -134,13 +123,13 @@ namespace Pantallas_PIA_MAD
 
         private void Form8_Load(object sender, EventArgs e)
         {
-            CargarEmpresas();        // Para agregar departamento
-            CargarEmpresasPuesto();  // Para agregar puesto
+            CargarEmpresas();       
+            CargarEmpresasPuesto();  
             refrescarDepartamentos();
             refrescarPuestos();
             this.FormClosed += Form8_FormClosed;
         }
-
+        //Al seleccionar un Puesto en la vista se rellenen los datos automaticamentes
         private void Vista_PuestoADMIN_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -148,20 +137,15 @@ namespace Pantallas_PIA_MAD
 
             DataGridViewRow fila = Vista_PuestoADMIN.Rows[e.RowIndex];
 
-            // Llenamos los TextBox con los valores de la fila seleccionada
             TB_NombrePuesto.Text = fila.Cells["nombre"].Value?.ToString();
             TB_DescripcionPuesto.Text = fila.Cells["descripcion"].Value?.ToString();
             TB_NumPuesto.Text = fila.Cells["numero"].Value?.ToString();
 
-            // Si tienes columnas con los IDs (necesario para vincular los ComboBox)
             if (fila.Cells["id_departamento"].Value != null)
             {
                 int idDepartamento = Convert.ToInt32(fila.Cells["id_departamento"].Value);
 
-                // Buscamos el departamento al que pertenece el puesto
                 ComboBoxDepartamentoPuesto.SelectedValue = idDepartamento;
-
-                // Si además tienes la empresa relacionada, podrías hacer algo así:
                 var departamento = DepartamentoDAO.ObtenerDepartamentoPorId(idDepartamento);
                 if (departamento != null)
                 {
@@ -172,7 +156,7 @@ namespace Pantallas_PIA_MAD
             }
         }
 
-
+        //Boton para editar Puestos ya almacenados en la Base de Datos
         private void BTN_EditarPuestoADMIN_Click(object sender, EventArgs e)
         {
             if (Vista_PuestoADMIN.CurrentRow == null)
@@ -183,17 +167,14 @@ namespace Pantallas_PIA_MAD
 
             try
             {
-                // Obtenemos el id del puesto seleccionado en el DataGridView
                 int idPuesto = Convert.ToInt32(Vista_PuestoADMIN.CurrentRow.Cells["id_puesto"].Value);
 
-                // Validamos que se haya seleccionado un departamento
                 if (ComboBoxDepartamentoPuesto.SelectedIndex == -1)
                 {
                     MessageBox.Show("Selecciona un departamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Creamos el objeto Puesto con los datos editados
                 Puesto puesto = new Puesto
                 {
                     id_puesto = idPuesto,
@@ -203,7 +184,6 @@ namespace Pantallas_PIA_MAD
                     id_departamento = (int)ComboBoxDepartamentoPuesto.SelectedValue
                 };
 
-                // Llamamos al método de actualización
                 int resultado = PuestoDAO.ActualizarPuesto(puesto);
 
                 if (resultado > 0)
@@ -221,7 +201,7 @@ namespace Pantallas_PIA_MAD
                 MessageBox.Show("Error al actualizar el puesto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //Empresas agregadas se vean en el ComboBox de Empresas
         private void ComboBoxEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxEmpresa.SelectedIndex != -1)
@@ -230,33 +210,25 @@ namespace Pantallas_PIA_MAD
                 int idEmpresa = empresaSeleccionada.id_empresa;
             }
         }
-
+        //Al seleccionar un departamento en la vista se rellenen los datos automaticamentes
         private void Vista_Departamento_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // Evita header clicks
+            if (e.RowIndex < 0) return;
 
             DataGridViewRow fila = Vista_Departamento.Rows[e.RowIndex];
 
-            // Llenamos los TextBox con los valores de la fila
             TB_NumDepaADMIN.Text = fila.Cells["nombre"].Value?.ToString();
             TB_NumEMPADMIN.Text = fila.Cells["numero"].Value?.ToString();
 
-            // Si tienes columna con el id de la empresa
             if (fila.Cells["id_empresa"].Value != null)
             {
                 int idEmpresa = Convert.ToInt32(fila.Cells["id_empresa"].Value);
-
-                // 🔒 Desactivamos el evento temporalmente para evitar recarga innecesaria
                 ComboBoxEmpresa.SelectedIndexChanged -= ComboBoxEmpresa_SelectedIndexChanged;
-
-                // Seleccionamos la empresa correcta
                 ComboBoxEmpresa.SelectedValue = idEmpresa;
-
-                // 🔓 Reactivamos el evento
                 ComboBoxEmpresa.SelectedIndexChanged += ComboBoxEmpresa_SelectedIndexChanged;
             }
         }
-
+        //Boton para editar Departamentos ya almacenados en la Base de Datos
         private void BTN_EditarDepa_Click(object sender, EventArgs e)
         {
             if (Vista_Departamento.CurrentRow == null)
@@ -267,17 +239,14 @@ namespace Pantallas_PIA_MAD
 
             try
             {
-                // Obtenemos el id del departamento seleccionado
                 int idDepa = Convert.ToInt32(Vista_Departamento.CurrentRow.Cells["id_departamento"].Value);
 
-                // Validamos que se haya seleccionado una empresa
                 if (ComboBoxEmpresa.SelectedIndex == -1)
                 {
                     MessageBox.Show("Selecciona una empresa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Creamos el objeto Departamento con los datos editados
                 Departamento depto = new Departamento
                 {
                     id_departamento = idDepa,
@@ -286,7 +255,6 @@ namespace Pantallas_PIA_MAD
                     id_empresa = (int)ComboBoxEmpresa.SelectedValue
                 };
 
-                // Llamamos al método de actualización
                 int resultado = DepartamentoDAO.ActualizarDepartamento(depto);
 
                 if (resultado > 0)
@@ -305,38 +273,46 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        //Boton para enviarte al apartado de la gestion de empresas
         private void Empresa_MEAD_Click(object sender, EventArgs e)
         {
             Form5 form5 = new Form5();
             form5.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de la gestion de usuarios
         private void Usuarios_MEAD_Click(object sender, EventArgs e)
         {
             Form7 form7 = new Form7();
             form7.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de la gestion de nomina 
         private void Nomina_MEAD_Click(object sender, EventArgs e)
         {
             Form9 form9 = new Form9();
             form9.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de los reportes
         private void Reporte_MEAD_Click(object sender, EventArgs e)
         {
             Form11 form10 = new Form11();
             form10.Show();
             this.Hide();
         }
-
+        //Boton para enviarte a iniciar sesion si se desea
         private void Salir_MEAD_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
             form2.Show();
+            this.Hide();
+        }
+        //Boton para enviarte al apartado de la gestion de empleados 
+        private void Empleados_MEAD_Click(object sender, EventArgs e)
+        {
+            Form14 form14 = new Form14();
+            form14.Show();
             this.Hide();
         }
     }

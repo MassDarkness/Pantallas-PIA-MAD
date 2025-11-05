@@ -62,6 +62,7 @@
             this.Nomina_MEAD = new System.Windows.Forms.Button();
             this.Usuarios_MEAD = new System.Windows.Forms.Button();
             this.Empresa_MEAD = new System.Windows.Forms.Button();
+            this.Empleados_MEAD = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Vista_PuestoADMIN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Vista_Departamento)).BeginInit();
@@ -98,16 +99,16 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(150, 0);
+            this.panel2.Location = new System.Drawing.Point(146, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(824, 593);
+            this.panel2.Size = new System.Drawing.Size(828, 593);
             this.panel2.TabIndex = 2;
             // 
             // ComboBoxEmpresaPuesto
             // 
             this.ComboBoxEmpresaPuesto.FormattingEnabled = true;
             this.ComboBoxEmpresaPuesto.Location = new System.Drawing.Point(219, 325);
-            this.ComboBoxEmpresaPuesto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ComboBoxEmpresaPuesto.Margin = new System.Windows.Forms.Padding(2);
             this.ComboBoxEmpresaPuesto.Name = "ComboBoxEmpresaPuesto";
             this.ComboBoxEmpresaPuesto.Size = new System.Drawing.Size(319, 21);
             this.ComboBoxEmpresaPuesto.TabIndex = 57;
@@ -144,7 +145,7 @@
             // 
             this.ComboBoxDepartamentoPuesto.FormattingEnabled = true;
             this.ComboBoxDepartamentoPuesto.Location = new System.Drawing.Point(223, 363);
-            this.ComboBoxDepartamentoPuesto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ComboBoxDepartamentoPuesto.Margin = new System.Windows.Forms.Padding(2);
             this.ComboBoxDepartamentoPuesto.Name = "ComboBoxDepartamentoPuesto";
             this.ComboBoxDepartamentoPuesto.Size = new System.Drawing.Size(315, 21);
             this.ComboBoxDepartamentoPuesto.TabIndex = 53;
@@ -153,7 +154,7 @@
             // 
             this.ComboBoxEmpresa.FormattingEnabled = true;
             this.ComboBoxEmpresa.Location = new System.Drawing.Point(219, 127);
-            this.ComboBoxEmpresa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ComboBoxEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.ComboBoxEmpresa.Name = "ComboBoxEmpresa";
             this.ComboBoxEmpresa.Size = new System.Drawing.Size(319, 21);
             this.ComboBoxEmpresa.TabIndex = 52;
@@ -344,7 +345,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(824, 52);
+            this.panel3.Size = new System.Drawing.Size(828, 52);
             this.panel3.TabIndex = 0;
             // 
             // label1
@@ -360,6 +361,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel1.Controls.Add(this.Empleados_MEAD);
             this.panel1.Controls.Add(this.DepaPues__MEAD);
             this.panel1.Controls.Add(this.Salir_MEAD);
             this.panel1.Controls.Add(this.Reporte_MEAD);
@@ -377,9 +379,9 @@
             this.DepaPues__MEAD.BackColor = System.Drawing.Color.LightSeaGreen;
             this.DepaPues__MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DepaPues__MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DepaPues__MEAD.Location = new System.Drawing.Point(0, 165);
+            this.DepaPues__MEAD.Location = new System.Drawing.Point(-3, 226);
             this.DepaPues__MEAD.Name = "DepaPues__MEAD";
-            this.DepaPues__MEAD.Size = new System.Drawing.Size(155, 73);
+            this.DepaPues__MEAD.Size = new System.Drawing.Size(158, 73);
             this.DepaPues__MEAD.TabIndex = 9;
             this.DepaPues__MEAD.Text = "Gestión De Departamentos Y Puestos";
             this.DepaPues__MEAD.UseVisualStyleBackColor = false;
@@ -401,9 +403,9 @@
             // 
             this.Reporte_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Reporte_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Reporte_MEAD.Location = new System.Drawing.Point(0, 297);
+            this.Reporte_MEAD.Location = new System.Drawing.Point(-3, 358);
             this.Reporte_MEAD.Name = "Reporte_MEAD";
-            this.Reporte_MEAD.Size = new System.Drawing.Size(155, 47);
+            this.Reporte_MEAD.Size = new System.Drawing.Size(158, 47);
             this.Reporte_MEAD.TabIndex = 7;
             this.Reporte_MEAD.Text = "Reportes";
             this.Reporte_MEAD.UseVisualStyleBackColor = true;
@@ -413,9 +415,9 @@
             // 
             this.Nomina_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Nomina_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nomina_MEAD.Location = new System.Drawing.Point(0, 244);
+            this.Nomina_MEAD.Location = new System.Drawing.Point(-3, 305);
             this.Nomina_MEAD.Name = "Nomina_MEAD";
-            this.Nomina_MEAD.Size = new System.Drawing.Size(155, 47);
+            this.Nomina_MEAD.Size = new System.Drawing.Size(158, 47);
             this.Nomina_MEAD.TabIndex = 4;
             this.Nomina_MEAD.Text = "Gestión De Nómina";
             this.Nomina_MEAD.UseVisualStyleBackColor = true;
@@ -444,6 +446,18 @@
             this.Empresa_MEAD.Text = "Gestion De Empresa";
             this.Empresa_MEAD.UseVisualStyleBackColor = true;
             this.Empresa_MEAD.Click += new System.EventHandler(this.Empresa_MEAD_Click);
+            // 
+            // Empleados_MEAD
+            // 
+            this.Empleados_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Empleados_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F);
+            this.Empleados_MEAD.Location = new System.Drawing.Point(0, 167);
+            this.Empleados_MEAD.Name = "Empleados_MEAD";
+            this.Empleados_MEAD.Size = new System.Drawing.Size(155, 53);
+            this.Empleados_MEAD.TabIndex = 10;
+            this.Empleados_MEAD.Text = "Gestión De Empleados";
+            this.Empleados_MEAD.UseVisualStyleBackColor = true;
+            this.Empleados_MEAD.Click += new System.EventHandler(this.Empleados_MEAD_Click);
             // 
             // Form8
             // 
@@ -502,5 +516,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox ComboBoxEmpresaPuesto;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button Empleados_MEAD;
     }
 }

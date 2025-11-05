@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Titulo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Empleados_MEAD = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -48,7 +49,7 @@
             // 
             this.Empresa_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Empresa_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Empresa_MEAD.Location = new System.Drawing.Point(0, 58);
+            this.Empresa_MEAD.Location = new System.Drawing.Point(3, 58);
             this.Empresa_MEAD.Name = "Empresa_MEAD";
             this.Empresa_MEAD.Size = new System.Drawing.Size(152, 47);
             this.Empresa_MEAD.TabIndex = 0;
@@ -72,7 +73,7 @@
             // 
             this.DepaPues_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DepaPues_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DepaPues_MEAD.Location = new System.Drawing.Point(0, 164);
+            this.DepaPues_MEAD.Location = new System.Drawing.Point(0, 222);
             this.DepaPues_MEAD.Name = "DepaPues_MEAD";
             this.DepaPues_MEAD.Size = new System.Drawing.Size(155, 73);
             this.DepaPues_MEAD.TabIndex = 2;
@@ -84,7 +85,7 @@
             // 
             this.Nomina_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Nomina_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nomina_MEAD.Location = new System.Drawing.Point(0, 243);
+            this.Nomina_MEAD.Location = new System.Drawing.Point(0, 301);
             this.Nomina_MEAD.Name = "Nomina_MEAD";
             this.Nomina_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Nomina_MEAD.TabIndex = 4;
@@ -96,7 +97,7 @@
             // 
             this.Reportes_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Reportes_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Reportes_MEAD.Location = new System.Drawing.Point(0, 296);
+            this.Reportes_MEAD.Location = new System.Drawing.Point(0, 354);
             this.Reportes_MEAD.Name = "Reportes_MEAD";
             this.Reportes_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Reportes_MEAD.TabIndex = 7;
@@ -120,6 +121,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel1.Controls.Add(this.Empleados_MEAD);
             this.panel1.Controls.Add(this.Salir_MEAD);
             this.panel1.Controls.Add(this.Reportes_MEAD);
             this.panel1.Controls.Add(this.Nomina_MEAD);
@@ -174,6 +176,18 @@
             this.panel2.Size = new System.Drawing.Size(647, 486);
             this.panel2.TabIndex = 1;
             // 
+            // Empleados_MEAD
+            // 
+            this.Empleados_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Empleados_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F);
+            this.Empleados_MEAD.Location = new System.Drawing.Point(0, 163);
+            this.Empleados_MEAD.Name = "Empleados_MEAD";
+            this.Empleados_MEAD.Size = new System.Drawing.Size(155, 53);
+            this.Empleados_MEAD.TabIndex = 9;
+            this.Empleados_MEAD.Text = "Gestión De Empleados";
+            this.Empleados_MEAD.UseVisualStyleBackColor = true;
+            this.Empleados_MEAD.Click += new System.EventHandler(this.Empleados_MEAD_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,5 +220,6 @@
         private System.Windows.Forms.Label Titulo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button DepaPues_MEAD;
+        private System.Windows.Forms.Button Empleados_MEAD;
     }
 }

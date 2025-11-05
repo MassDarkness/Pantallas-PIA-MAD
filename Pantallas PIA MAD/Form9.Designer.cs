@@ -58,6 +58,7 @@
             this.DepaPues__MEAD = new System.Windows.Forms.Button();
             this.Usuarios_MEAD = new System.Windows.Forms.Button();
             this.Empresa_MEAD = new System.Windows.Forms.Button();
+            this.Empleados_MEAD = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINA)).BeginInit();
             this.panel3.SuspendLayout();
@@ -315,6 +316,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel1.Controls.Add(this.Empleados_MEAD);
             this.panel1.Controls.Add(this.Salir_MEAD);
             this.panel1.Controls.Add(this.Reporte_MEAD);
             this.panel1.Controls.Add(this.Nomina_MEAD);
@@ -344,7 +346,7 @@
             // 
             this.Reporte_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Reporte_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Reporte_MEAD.Location = new System.Drawing.Point(0, 298);
+            this.Reporte_MEAD.Location = new System.Drawing.Point(0, 354);
             this.Reporte_MEAD.Name = "Reporte_MEAD";
             this.Reporte_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Reporte_MEAD.TabIndex = 7;
@@ -357,7 +359,7 @@
             this.Nomina_MEAD.BackColor = System.Drawing.Color.LightSeaGreen;
             this.Nomina_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Nomina_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nomina_MEAD.Location = new System.Drawing.Point(0, 245);
+            this.Nomina_MEAD.Location = new System.Drawing.Point(0, 301);
             this.Nomina_MEAD.Name = "Nomina_MEAD";
             this.Nomina_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Nomina_MEAD.TabIndex = 4;
@@ -368,7 +370,7 @@
             // 
             this.DepaPues__MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DepaPues__MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DepaPues__MEAD.Location = new System.Drawing.Point(0, 165);
+            this.DepaPues__MEAD.Location = new System.Drawing.Point(0, 221);
             this.DepaPues__MEAD.Name = "DepaPues__MEAD";
             this.DepaPues__MEAD.Size = new System.Drawing.Size(155, 73);
             this.DepaPues__MEAD.TabIndex = 2;
@@ -380,7 +382,7 @@
             // 
             this.Usuarios_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Usuarios_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Usuarios_MEAD.Location = new System.Drawing.Point(0, 112);
+            this.Usuarios_MEAD.Location = new System.Drawing.Point(0, 109);
             this.Usuarios_MEAD.Name = "Usuarios_MEAD";
             this.Usuarios_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Usuarios_MEAD.TabIndex = 1;
@@ -399,6 +401,18 @@
             this.Empresa_MEAD.Text = "Gestion De Empresa";
             this.Empresa_MEAD.UseVisualStyleBackColor = true;
             this.Empresa_MEAD.Click += new System.EventHandler(this.Empresa_MEAD_Click);
+            // 
+            // Empleados_MEAD
+            // 
+            this.Empleados_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Empleados_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F);
+            this.Empleados_MEAD.Location = new System.Drawing.Point(0, 162);
+            this.Empleados_MEAD.Name = "Empleados_MEAD";
+            this.Empleados_MEAD.Size = new System.Drawing.Size(155, 53);
+            this.Empleados_MEAD.TabIndex = 10;
+            this.Empleados_MEAD.Text = "Gestión De Empleados";
+            this.Empleados_MEAD.UseVisualStyleBackColor = true;
+            this.Empleados_MEAD.Click += new System.EventHandler(this.Empleados_MEAD_Click);
             // 
             // Form9
             // 
@@ -452,5 +466,6 @@
         private System.Windows.Forms.TextBox TB_Aguinaldo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button BTN_ExportarNomina;
+        private System.Windows.Forms.Button Empleados_MEAD;
     }
 }

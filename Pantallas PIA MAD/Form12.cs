@@ -16,6 +16,7 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
+        //Metodo para cerrar completamente el programa
         private void Form12_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -24,21 +25,21 @@ namespace Pantallas_PIA_MAD
         {
             this.FormClosed += Form12_FormClosed;
         }
-
+        //Boton para enviarte al apartado de la gestion de empresas
         private void Empresa_MEAU_Click(object sender, EventArgs e)
         {
             Form6 form6 = new Form6();
             form6.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de los reportes
         private void Reportes__MEAU_Click(object sender, EventArgs e)
         {
             Form4 form4 = new Form4();
             form4.Show();
             this.Hide();
         }
-
+        //Boton para enviarte a iniciar sesion si se desea
         private void Salir__MEAU_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();

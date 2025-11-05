@@ -18,10 +18,7 @@ namespace Pantallas_PIA_MAD
         {
             InitializeComponent();
         }
-
-        // --- CORRECCIÓN 1: Puse un try...catch aquí ---
-        // Si CargarEmpresas falla, ahora lo sabrás
-
+        //Metodo para cerrar completamente el programa
         private void Form6_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -46,26 +43,19 @@ namespace Pantallas_PIA_MAD
 
             ComboBoxEmpresa.DataSource = empresas;
             ComboBoxEmpresa.DisplayMember = "nombre";
-
-            // --- CORRECCIÓN IMPORTANTE ---
-            // Usamos la propiedad que tú dijiste que era la correcta
-            ComboBoxEmpresa.ValueMember = "id_empresa"; // O "id_empresa" si me equivoqué
-
+            ComboBoxEmpresa.ValueMember = "id_empresa";
             ComboBoxEmpresa.SelectedIndex = -1;
         }
-
-        // --- CORRECCIÓN 2: Arreglado el InvalidCastException ---
+        //Evento para ver las empresas en el ComboBox
         private void ComboBoxEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxEmpresa.SelectedIndex != -1)
             {
                 try
                 {
-                    // Obtenemos el OBJETO completo
                     var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
 
-                    // Sacamos el ID de adentro del objeto
-                    int idEmpresa = empresaSel.id_empresa; // O "id_empresa"
+                    int idEmpresa = empresaSel.id_empresa; 
 
                     CargarDepartamentos(idEmpresa);
                 }
@@ -89,8 +79,7 @@ namespace Pantallas_PIA_MAD
             ComboBoxDepartamento.ValueMember = "id_departamento";
             ComboBoxDepartamento.SelectedIndex = -1;
         }
-
-        // --- CORRECCIÓN 3: Arreglado el InvalidCastException ---
+        //Evento para ver tanto los departamentos y puestos en sus respectivos ComboBox
         private void ComboBoxDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxDepartamento.SelectedIndex != -1)
@@ -99,8 +88,6 @@ namespace Pantallas_PIA_MAD
                 {
                     var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
                     int idDepartamento = deptoSel.id_departamento;
-
-                    // ¡Ves! Esta función es la que llama a CargarPuestos
                     CargarPuestos(idDepartamento);
                 }
                 catch (Exception ex)
@@ -113,7 +100,6 @@ namespace Pantallas_PIA_MAD
                 ComboBoxPuesto.DataSource = null;
             }
         }
-
         private void CargarPuestos(int idDepartamento)
         {
             var puestos = PuestoDAO.ObtenerPuestosPorDepartamento(idDepartamento);
@@ -122,7 +108,7 @@ namespace Pantallas_PIA_MAD
             ComboBoxPuesto.ValueMember = "id_puesto";
             ComboBoxPuesto.SelectedIndex = -1;
         }
-
+        //Boton para agregar correctamente un empleado a la base de datos 
         private void BTN_AgregarEMP_Click(object sender, EventArgs e)
         {
             var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
@@ -167,7 +153,7 @@ namespace Pantallas_PIA_MAD
         }
 
 
-        // Método para actualizar el DataGridView
+        // Metodo para actualizar el DataGridView
         private void RefrescarEmpleados()
         {
             Vista_EMP.DataSource = EmpleadoDAO.ObtenerEmpleados();
@@ -179,13 +165,14 @@ namespace Pantallas_PIA_MAD
                 Vista_EMP.Columns["Empresa"].Visible = false;
         }
 
+        //Metodo para al momento de picarle a un empleado en la vista se rellenen los datos automaticamente para asi verlos o modificarlos
         private void Vista_EMP_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // Evita que se ejecute al dar click en el header
+            if (e.RowIndex < 0) return;
 
             DataGridViewRow fila = Vista_EMP.Rows[e.RowIndex];
 
-            // Llenamos los TextBox
+            // Llenamos los TextBox con sus respectivos datos
             TB_NumEmp.Text = fila.Cells["numero_empleado"].Value?.ToString();
             TB_Nombres.Text = fila.Cells["nombres"].Value?.ToString();
             TB_APPaterno.Text = fila.Cells["apellido_paterno"].Value?.ToString();
@@ -201,13 +188,12 @@ namespace Pantallas_PIA_MAD
             TB_NumCuenta.Text = fila.Cells["numero_cuenta"].Value?.ToString();
             TB_Banco.Text = fila.Cells["banco"].Value?.ToString();
 
-            // Llenamos el DateTimePicker
             if (fila.Cells["fecha_nacimiento"].Value != DBNull.Value)
                 FechaNac_EMP.Value = Convert.ToDateTime(fila.Cells["fecha_nacimiento"].Value);
             else
                 FechaNac_EMP.Value = DateTime.Today;
 
-            // Llenamos los ComboBox
+            // Llenamos los ComboBox depende de lo guardado en cada una
             int idEmpresa = fila.Cells["id_empresa"].Value != DBNull.Value ? Convert.ToInt32(fila.Cells["id_empresa"].Value) : 0;
             int? idDepartamento = fila.Cells["id_departamento"].Value != DBNull.Value ? (int?)Convert.ToInt32(fila.Cells["id_departamento"].Value) : null;
             int? idPuesto = fila.Cells["id_puesto"].Value != DBNull.Value ? (int?)Convert.ToInt32(fila.Cells["id_puesto"].Value) : null;
@@ -245,6 +231,7 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        //Boton Guardar los datos almacenados en la Base de Datos
         private void BTN_GuardarEMP_Click(object sender, EventArgs e)
         {
             try
@@ -255,7 +242,6 @@ namespace Pantallas_PIA_MAD
                     return;
                 }
 
-                // Obtén el ID del empleado seleccionado
                 int idEmpleado = Convert.ToInt32(Vista_EMP.CurrentRow.Cells["id_empleado"].Value);
 
                 var empresaSel = (RegistroEmpresa)ComboBoxEmpresa.SelectedItem;
@@ -303,20 +289,21 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        //Boton para enviarte al apartado de la gestion de nomina 
         private void Nomina__MEAU_Click(object sender, EventArgs e)
         {
             Form12 form12 = new Form12();
             form12.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de los reportes
         private void Reportes__MEAU_Click(object sender, EventArgs e)
         {
             Form4 form4 = new Form4();
             form4.Show();
             this.Hide();
         }
-
+        //Boton para enviarte a iniciar sesion si se desea
         private void Salir__MEAU_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();

@@ -119,44 +119,51 @@ namespace Pantallas_PIA_MAD
         {
 
         }
-
+        //Metodo para cerrar completamente el programa
         private void Form9_Load(object sender, EventArgs e)
         {
             this.FormClosed += Form9_FormClosed;
         }
-
+        //Boton para enviarte al apartado de la gestion de empresas
         private void Empresa_MEAD_Click(object sender, EventArgs e)
         {
             Form5 form5 = new Form5();
             form5.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de la gestion de usuarios
         private void Usuarios_MEAD_Click(object sender, EventArgs e)
         {
             Form7 form7 = new Form7();
             form7.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de la gestion de departamentos y puestos
         private void DepaPues__MEAD_Click(object sender, EventArgs e)
         {
             Form8 form8 = new Form8();
             form8.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de los reportes
         private void Reporte_MEAD_Click(object sender, EventArgs e)
         {
             Form11 form10 = new Form11();
             form10.Show();
             this.Hide();
         }
-
+        //Boton para enviarte a iniciar sesion si se desea
         private void Salir_MEAD_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
             form2.Show();
+            this.Hide();
+        }
+        //Boton para enviarte al apartado de la gestion de empleados 
+        private void Empleados_MEAD_Click(object sender, EventArgs e)
+        {
+            Form14 form14 = new Form14();
+            form14.Show();
             this.Hide();
         }
     }
