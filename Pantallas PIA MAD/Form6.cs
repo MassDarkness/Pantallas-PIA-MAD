@@ -289,21 +289,20 @@ namespace Pantallas_PIA_MAD
             }
         }
 
-        //Boton para enviarte al apartado de la gestion de nomina 
         private void Nomina__MEAU_Click(object sender, EventArgs e)
         {
             Form12 form12 = new Form12();
             form12.Show();
             this.Hide();
         }
-        //Boton para enviarte al apartado de los reportes
+
         private void Reportes__MEAU_Click(object sender, EventArgs e)
         {
             Form4 form4 = new Form4();
             form4.Show();
             this.Hide();
         }
-        //Boton para enviarte a iniciar sesion si se desea
+
         private void Salir__MEAU_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
@@ -318,20 +317,58 @@ namespace Pantallas_PIA_MAD
 
         private void TB_SalarioDiario_Leave(object sender, EventArgs e)
         {
-            // 1. Intentamos convertir el texto a un número decimal
             if (decimal.TryParse(TB_SalarioDiario.Text, out decimal salarioDiario))
             {
-                // 2. Si se pudo, aplicamos la fórmula de tus reglas
-                // (La saqué de tu foto 'image_6faeaa.png': Salario diario * factor 1.0493)
+
                 decimal sdi = salarioDiario * 1.0493m;
 
-                // 3. Ponemos el resultado en la otra caja, con 2 decimales
                 TB_SDInte.Text = sdi.ToString("F2");
             }
             else
             {
-                // Si el usuario no escribió un número válido, borramos la caja de SDI
                 TB_SDInte.Text = "";
+            }
+        }
+
+        private void BTN_LimpiarEMP_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (Vista_EMP.CurrentRow == null)
+                {
+                    MessageBox.Show("Selecciona un empleado para eliminar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idEmpleado = Convert.ToInt32(Vista_EMP.CurrentRow.Cells["id_empleado"].Value);
+
+
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Seguro que deseas eliminar este empleado?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    int resultado = EmpleadoDAO.EliminarEmpleado(idEmpleado);
+
+                    if (resultado > 0)
+                    {
+                        MessageBox.Show("Empleado eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RefrescarEmpleados();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

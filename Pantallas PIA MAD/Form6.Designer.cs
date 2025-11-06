@@ -92,7 +92,7 @@
             this.panel1.Controls.Add(this.Empresa_MEAU);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(207, 773);
             this.panel1.TabIndex = 3;
@@ -103,7 +103,7 @@
             this.Salir__MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Salir__MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Salir__MEAU.Location = new System.Drawing.Point(-4, 715);
-            this.Salir__MEAU.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Salir__MEAU.Margin = new System.Windows.Forms.Padding(4);
             this.Salir__MEAU.Name = "Salir__MEAU";
             this.Salir__MEAU.Size = new System.Drawing.Size(207, 58);
             this.Salir__MEAU.TabIndex = 8;
@@ -116,7 +116,7 @@
             this.Reportes__MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Reportes__MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Reportes__MEAU.Location = new System.Drawing.Point(4, 284);
-            this.Reportes__MEAU.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Reportes__MEAU.Margin = new System.Windows.Forms.Padding(4);
             this.Reportes__MEAU.Name = "Reportes__MEAU";
             this.Reportes__MEAU.Size = new System.Drawing.Size(207, 58);
             this.Reportes__MEAU.TabIndex = 6;
@@ -129,7 +129,7 @@
             this.Nomina__MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Nomina__MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Nomina__MEAU.Location = new System.Drawing.Point(0, 219);
-            this.Nomina__MEAU.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Nomina__MEAU.Margin = new System.Windows.Forms.Padding(4);
             this.Nomina__MEAU.Name = "Nomina__MEAU";
             this.Nomina__MEAU.Size = new System.Drawing.Size(207, 58);
             this.Nomina__MEAU.TabIndex = 4;
@@ -143,7 +143,7 @@
             this.Empresa_MEAU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Empresa_MEAU.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Empresa_MEAU.Location = new System.Drawing.Point(0, 154);
-            this.Empresa_MEAU.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Empresa_MEAU.Margin = new System.Windows.Forms.Padding(4);
             this.Empresa_MEAU.Name = "Empresa_MEAU";
             this.Empresa_MEAU.Size = new System.Drawing.Size(203, 58);
             this.Empresa_MEAU.TabIndex = 0;
@@ -155,7 +155,7 @@
             this.BTN_AgregarEMP.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_AgregarEMP.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_AgregarEMP.Location = new System.Drawing.Point(164, 700);
-            this.BTN_AgregarEMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BTN_AgregarEMP.Margin = new System.Windows.Forms.Padding(4);
             this.BTN_AgregarEMP.Name = "BTN_AgregarEMP";
             this.BTN_AgregarEMP.Size = new System.Drawing.Size(161, 42);
             this.BTN_AgregarEMP.TabIndex = 57;
@@ -166,7 +166,7 @@
             // TB_Telefono
             // 
             this.TB_Telefono.Location = new System.Drawing.Point(577, 567);
-            this.TB_Telefono.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Telefono.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Telefono.Name = "TB_Telefono";
             this.TB_Telefono.Size = new System.Drawing.Size(243, 22);
             this.TB_Telefono.TabIndex = 56;
@@ -185,7 +185,7 @@
             // TB_Email
             // 
             this.TB_Email.Location = new System.Drawing.Point(176, 571);
-            this.TB_Email.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Email.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Email.Name = "TB_Email";
             this.TB_Email.Size = new System.Drawing.Size(192, 22);
             this.TB_Email.TabIndex = 54;
@@ -204,7 +204,7 @@
             // TB_NumCuenta
             // 
             this.TB_NumCuenta.Location = new System.Drawing.Point(579, 519);
-            this.TB_NumCuenta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_NumCuenta.Margin = new System.Windows.Forms.Padding(4);
             this.TB_NumCuenta.Name = "TB_NumCuenta";
             this.TB_NumCuenta.Size = new System.Drawing.Size(243, 22);
             this.TB_NumCuenta.TabIndex = 52;
@@ -223,7 +223,7 @@
             // TB_Banco
             // 
             this.TB_Banco.Location = new System.Drawing.Point(197, 518);
-            this.TB_Banco.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Banco.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Banco.Name = "TB_Banco";
             this.TB_Banco.Size = new System.Drawing.Size(171, 22);
             this.TB_Banco.TabIndex = 50;
@@ -242,7 +242,7 @@
             // TB_Domicilio
             // 
             this.TB_Domicilio.Location = new System.Drawing.Point(164, 460);
-            this.TB_Domicilio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Domicilio.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Domicilio.Name = "TB_Domicilio";
             this.TB_Domicilio.Size = new System.Drawing.Size(657, 22);
             this.TB_Domicilio.TabIndex = 48;
@@ -261,7 +261,7 @@
             // TB_RFC
             // 
             this.TB_RFC.Location = new System.Drawing.Point(544, 417);
-            this.TB_RFC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_RFC.Margin = new System.Windows.Forms.Padding(4);
             this.TB_RFC.Name = "TB_RFC";
             this.TB_RFC.Size = new System.Drawing.Size(277, 22);
             this.TB_RFC.TabIndex = 46;
@@ -280,7 +280,7 @@
             // TB_NSS
             // 
             this.TB_NSS.Location = new System.Drawing.Point(197, 415);
-            this.TB_NSS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_NSS.Margin = new System.Windows.Forms.Padding(4);
             this.TB_NSS.Name = "TB_NSS";
             this.TB_NSS.Size = new System.Drawing.Size(171, 22);
             this.TB_NSS.TabIndex = 44;
@@ -299,7 +299,7 @@
             // TB_CURP
             // 
             this.TB_CURP.Location = new System.Drawing.Point(531, 314);
-            this.TB_CURP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_CURP.Margin = new System.Windows.Forms.Padding(4);
             this.TB_CURP.Name = "TB_CURP";
             this.TB_CURP.Size = new System.Drawing.Size(291, 22);
             this.TB_CURP.TabIndex = 42;
@@ -318,7 +318,7 @@
             // FechaNac_EMP
             // 
             this.FechaNac_EMP.Location = new System.Drawing.Point(317, 366);
-            this.FechaNac_EMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FechaNac_EMP.Margin = new System.Windows.Forms.Padding(4);
             this.FechaNac_EMP.Name = "FechaNac_EMP";
             this.FechaNac_EMP.Size = new System.Drawing.Size(267, 22);
             this.FechaNac_EMP.TabIndex = 40;
@@ -337,7 +337,7 @@
             // TB_APMaterno
             // 
             this.TB_APMaterno.Location = new System.Drawing.Point(579, 183);
-            this.TB_APMaterno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_APMaterno.Margin = new System.Windows.Forms.Padding(4);
             this.TB_APMaterno.Name = "TB_APMaterno";
             this.TB_APMaterno.Size = new System.Drawing.Size(243, 22);
             this.TB_APMaterno.TabIndex = 38;
@@ -356,7 +356,7 @@
             // TB_APPaterno
             // 
             this.TB_APPaterno.Location = new System.Drawing.Point(199, 181);
-            this.TB_APPaterno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_APPaterno.Margin = new System.Windows.Forms.Padding(4);
             this.TB_APPaterno.Name = "TB_APPaterno";
             this.TB_APPaterno.Size = new System.Drawing.Size(169, 22);
             this.TB_APPaterno.TabIndex = 36;
@@ -375,7 +375,7 @@
             // TB_SDInte
             // 
             this.TB_SDInte.Location = new System.Drawing.Point(199, 318);
-            this.TB_SDInte.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_SDInte.Margin = new System.Windows.Forms.Padding(4);
             this.TB_SDInte.Name = "TB_SDInte";
             this.TB_SDInte.Size = new System.Drawing.Size(169, 22);
             this.TB_SDInte.TabIndex = 34;
@@ -394,7 +394,7 @@
             // TB_SalarioDiario
             // 
             this.TB_SalarioDiario.Location = new System.Drawing.Point(531, 273);
-            this.TB_SalarioDiario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_SalarioDiario.Margin = new System.Windows.Forms.Padding(4);
             this.TB_SalarioDiario.Name = "TB_SalarioDiario";
             this.TB_SalarioDiario.Size = new System.Drawing.Size(291, 22);
             this.TB_SalarioDiario.TabIndex = 32;
@@ -438,7 +438,7 @@
             // 
             this.TB_NumEmp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TB_NumEmp.Location = new System.Drawing.Point(199, 135);
-            this.TB_NumEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_NumEmp.Margin = new System.Windows.Forms.Padding(4);
             this.TB_NumEmp.Name = "TB_NumEmp";
             this.TB_NumEmp.Size = new System.Drawing.Size(169, 29);
             this.TB_NumEmp.TabIndex = 24;
@@ -501,7 +501,7 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(202, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1157, 773);
             this.panel2.TabIndex = 4;
@@ -540,19 +540,20 @@
             this.BTN_LimpiarEMP.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_LimpiarEMP.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_LimpiarEMP.Location = new System.Drawing.Point(660, 700);
-            this.BTN_LimpiarEMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BTN_LimpiarEMP.Margin = new System.Windows.Forms.Padding(4);
             this.BTN_LimpiarEMP.Name = "BTN_LimpiarEMP";
             this.BTN_LimpiarEMP.Size = new System.Drawing.Size(161, 42);
             this.BTN_LimpiarEMP.TabIndex = 61;
             this.BTN_LimpiarEMP.Text = "Eliminar";
             this.BTN_LimpiarEMP.UseVisualStyleBackColor = false;
+            this.BTN_LimpiarEMP.Click += new System.EventHandler(this.BTN_LimpiarEMP_Click);
             // 
             // BTN_GuardarEMP
             // 
             this.BTN_GuardarEMP.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_GuardarEMP.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_GuardarEMP.Location = new System.Drawing.Point(424, 700);
-            this.BTN_GuardarEMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BTN_GuardarEMP.Margin = new System.Windows.Forms.Padding(4);
             this.BTN_GuardarEMP.Name = "BTN_GuardarEMP";
             this.BTN_GuardarEMP.Size = new System.Drawing.Size(161, 42);
             this.BTN_GuardarEMP.TabIndex = 60;
@@ -574,7 +575,7 @@
             // TB_Nombres
             // 
             this.TB_Nombres.Location = new System.Drawing.Point(495, 138);
-            this.TB_Nombres.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TB_Nombres.Margin = new System.Windows.Forms.Padding(4);
             this.TB_Nombres.Name = "TB_Nombres";
             this.TB_Nombres.Size = new System.Drawing.Size(327, 22);
             this.TB_Nombres.TabIndex = 22;
@@ -595,7 +596,7 @@
             this.Vista_EMP.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.Vista_EMP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Vista_EMP.Location = new System.Drawing.Point(831, 137);
-            this.Vista_EMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Vista_EMP.Margin = new System.Windows.Forms.Padding(4);
             this.Vista_EMP.Name = "Vista_EMP";
             this.Vista_EMP.RowHeadersWidth = 51;
             this.Vista_EMP.Size = new System.Drawing.Size(311, 455);
@@ -619,7 +620,7 @@
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1157, 64);
             this.panel3.TabIndex = 0;
@@ -642,7 +643,7 @@
             this.ClientSize = new System.Drawing.Size(1359, 773);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form6";
             this.Text = "Gestión De Empleados AUX";
             this.Load += new System.EventHandler(this.Form6_Load_1);
