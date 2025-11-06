@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Text; // Para construir el texto del CSV
-using System.IO;   // Para guardar el archivo
+using System.Text;
+using System.IO;
 
 namespace Pantallas_PIA_MAD
 {
@@ -61,12 +61,11 @@ namespace Pantallas_PIA_MAD
             form2.Show();
             this.Hide();
         }
-
+        //Boton Guardar la nomina en la base de datos
         private void BTN_CalcularNominaAUX_Click(object sender, EventArgs e)
         {
             {
-                // --- 1. VALIDAR INPUTS ---
-                if (comboBox2AUX.SelectedValue == null) // ¡Tu ComboBox de empleado es comboBox2!
+                if (comboBox2AUX.SelectedValue == null)
                 {
                     MessageBox.Show("Por favor, seleccione un empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -77,11 +76,8 @@ namespace Pantallas_PIA_MAD
                     return;
                 }
 
-                // --- 2. OBTENER DATOS DE LA UI ---
                 try
                 {
-                    // ¡¡CORRECCIÓN 3a: Arreglado el 'InvalidCastException'!!
-                    // NO podemos usar (int)comboBox2.SelectedValue
                     var empleadoSel = (Empleado)comboBox2AUX.SelectedItem;
                     int idEmpleado = empleadoSel.id_empleado;
 
@@ -92,24 +88,17 @@ namespace Pantallas_PIA_MAD
                         return;
                     }
 
-                    // Leemos los TextBoxes
                     decimal.TryParse(TB_AguinaldoAUX.Text, out decimal aguinaldo);
                     decimal.TryParse(TB_BNPuntualidadAUX.Text, out decimal bonoPuntualidad);
                     decimal.TryParse(TB_BNAsistenciaAUX.Text, out decimal bonoAsistencia);
                     decimal.TryParse(TB_CuotaIMSSAUX.Text, out decimal cuotaImss);
                     decimal.TryParse(TB_CuotaSindicalAUX.Text, out decimal cuotaSindical);
 
-                    // --- 3. LLAMAR AL CEREBRO (CALCULAR) ---
                     Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
                         empleado, diasTrabajados, aguinaldo, bonoPuntualidad,
                         bonoAsistencia, cuotaImss, cuotaSindical
                     );
-
-                    // --- 4. GUARDAR EN LA BASE DE DATOS ---
-
-                    // a. Crear la nómina (objeto)
-                    DateTime fechaSeleccionada = FechaAUXNomina.Value;
-                    DateTime fechaDeNomina = new DateTime(fechaSeleccionada.Year, fechaSeleccionada.Month, 1);
+                    DateTime fechaDeNomina = FechaAUXNomina.Value.Date;
                     Nomina nomina = new Nomina
                     {
                         fecha = fechaDeNomina,
@@ -117,8 +106,7 @@ namespace Pantallas_PIA_MAD
                         id_empleado = idEmpleado
                     };
 
-                    // ¡¡CORRECCIÓN 3b: Usando el 'out'!!
-                    int idNominaNueva; // Variable para recibir el ID
+                    int idNominaNueva;
                     int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
 
                     if (resultadoNomina <= 0 || idNominaNueva <= 0)
@@ -126,12 +114,9 @@ namespace Pantallas_PIA_MAD
                         MessageBox.Show("Error: No se pudo registrar la nómina principal.");
                         return;
                     }
-
-                    // c. Asignar ese ID al recibo
                     reciboCalculado.id_nomina = idNominaNueva;
-                    reciboCalculado.fecha = fechaDeNomina; // Súper importante que el recibo tenga la misma fecha
+                    reciboCalculado.fecha = fechaDeNomina; 
 
-                    // d. Guardar el Recibo (¡Paso 2!)
                     int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
                     if (resultadoRecibo <= 0)
                     {
@@ -177,7 +162,7 @@ namespace Pantallas_PIA_MAD
                 comboBox2AUX.SelectedIndex = -1;
             }
         }
-
+        //Boton Exportar las nominas en un archivo .CSV
         private void BTN_ExportarCSVAUX_Click(object sender, EventArgs e)
         {
             if (Vista_Nomina.Rows.Count == 0)
@@ -193,6 +178,7 @@ namespace Pantallas_PIA_MAD
                 headers.Add(column.HeaderText);
             }
             sb.AppendLine(string.Join(",", headers));
+
             foreach (DataGridViewRow row in Vista_Nomina.Rows)
             {
                 if (!row.IsNewRow)
@@ -200,7 +186,15 @@ namespace Pantallas_PIA_MAD
                     List<string> celdas = new List<string>();
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        string valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        string valor;
+                        if (cell.Value is DateTime)
+                        {
+                            valor = ((DateTime)cell.Value).ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        }
                         celdas.Add(valor);
                     }
                     sb.AppendLine(string.Join(",", celdas));
