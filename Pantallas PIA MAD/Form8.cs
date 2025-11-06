@@ -377,7 +377,7 @@ namespace Pantallas_PIA_MAD
             try
             {
                 int idPuesto = Convert.ToInt32(Vista_PuestoADMIN.CurrentRow.Cells["id_puesto"].Value);
-
+                
                 int resultado = PuestoDAO.EliminarPuesto(idPuesto);
 
                 if (resultado > 0)
