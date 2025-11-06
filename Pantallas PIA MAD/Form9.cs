@@ -36,7 +36,7 @@ namespace Pantallas_PIA_MAD
         private void button5_Click(object sender, EventArgs e)
         {
             // --- 1. VALIDAR INPUTS ---
-            if (comboBox2.SelectedValue == null)
+            if (comboBox2.SelectedValue == null) // ¡Tu ComboBox de empleado es comboBox2!
             {
                 MessageBox.Show("Por favor, seleccione un empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -50,7 +50,11 @@ namespace Pantallas_PIA_MAD
             // --- 2. OBTENER DATOS DE LA UI ---
             try
             {
-                int idEmpleado = (int)comboBox2.SelectedValue;
+                // ¡¡CORRECCIÓN 3a: Arreglado el 'InvalidCastException'!!
+                // NO podemos usar (int)comboBox2.SelectedValue
+                var empleadoSel = (Empleado)comboBox2.SelectedItem;
+                int idEmpleado = empleadoSel.id_empleado;
+
                 Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(idEmpleado);
                 if (empleado == null)
                 {
@@ -71,9 +75,9 @@ namespace Pantallas_PIA_MAD
                     bonoAsistencia, cuotaImss, cuotaSindical
                 );
 
-                // --- 4. GUARDAR EN LA BASE DE DATOS (¡Tu lógica!) ---
+                // --- 4. GUARDAR EN LA BASE DE DATOS ---
 
-                // a. Crear la nómina
+                // a. Crear la nómina (objeto)
                 DateTime fechaSeleccionada = FechaADMINNomina.Value;
                 DateTime fechaDeNomina = new DateTime(fechaSeleccionada.Year, fechaSeleccionada.Month, 1);
                 Nomina nomina = new Nomina
@@ -83,9 +87,11 @@ namespace Pantallas_PIA_MAD
                     id_empleado = idEmpleado
                 };
 
-                // b. Guardar Nómina (Paso 1b) y OBTENER EL ID
-                int idNominaNueva = NominaDAO.InsertarNomina(nomina);
-                if (idNominaNueva <= 0) // Si el ID es 0, falló
+                // ¡¡CORRECCIÓN 3b: Usando el 'out'!!
+                int idNominaNueva; // Variable para recibir el ID
+                int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
+
+                if (resultadoNomina <= 0 || idNominaNueva <= 0)
                 {
                     MessageBox.Show("Error: No se pudo registrar la nómina principal.");
                     return;
@@ -93,10 +99,11 @@ namespace Pantallas_PIA_MAD
 
                 // c. Asignar ese ID al recibo
                 reciboCalculado.id_nomina = idNominaNueva;
+                reciboCalculado.fecha = fechaDeNomina; // Súper importante que el recibo tenga la misma fecha
 
-                // d. Guardar el Recibo (Paso 2b)
+                // d. Guardar el Recibo (¡Paso 2!)
                 int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
-                if (resultadoRecibo <= 0) // Si es 0, falló
+                if (resultadoRecibo <= 0)
                 {
                     MessageBox.Show("Error: Se guardó la nómina, pero no el recibo detallado.");
                     return;

@@ -11,10 +11,10 @@ namespace Pantallas_PIA_MAD.DAO
     public class NominaDAO
     {
         // INSERTAR NÓMINA
-        public static int InsertarNomina(Nomina nomina)
+        public static int InsertarNomina(Nomina nomina, out int idNominaNueva)
         {
-            // 'retorno' ahora guardará el NUEVO I
-            int retorn = 0;
+            int filasAfectadas = 0;
+            idNominaNueva = 0; // Inicializamos el ID de salida en 0
 
             using (SqlConnection conexion = BDConexion.ObtenerConexion())
             {
@@ -22,20 +22,30 @@ namespace Pantallas_PIA_MAD.DAO
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
 
+                    // Parámetros de ENTRADA (los que ya tenías)
                     comando.Parameters.AddWithValue("@fecha", (object)nomina.fecha ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@estatus", (object)nomina.estatus ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@id_empleado", nomina.id_empleado);
 
-                    // --- ¡CAMBIO IMPORTANTE AQUÍ! ---
-                    // ExecuteNonQuery() solo devuelve '1' (filas afectadas).
-                    // ExecuteScalar() lee el primer valor que devuelve el SP (¡nuestro ID!)
+                    // --- ¡EL CAMBIO IMPORTANTE! ---
+                    // 1. Creamos el parámetro de SALIDA
+                    SqlParameter paramIdSalida = new SqlParameter("@id_nomina_nuevo", System.Data.SqlDbType.Int);
+                    paramIdSalida.Direction = System.Data.ParameterDirection.Output;
+                    comando.Parameters.Add(paramIdSalida);
 
-                    // Convertimos el resultado (que es 'object') a 'int'
+                    // 2. Ejecutamos (ahora sí, con NonQuery)
+                    filasAfectadas = comando.ExecuteNonQuery();
+
+                    // 3. ¡Leemos el valor de SALIDA!
+                    if (filasAfectadas > 0)
+                    {
+                        idNominaNueva = (int)paramIdSalida.Value;
+                    }
                 }
             }
 
-            // Devolvemos el ID
-            return retorn;
+            // Devolvemos 1 (éxito) o 0 (fracaso), como te gusta
+            return filasAfectadas;
         }
 
         // MOSTRAR TODAS LAS NÓMINAS
