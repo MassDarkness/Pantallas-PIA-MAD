@@ -53,10 +53,6 @@
             this.TB_DiasTrabajados = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.CB_AñoNomina = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.CB_MenuNomina = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,6 +63,8 @@
             this.DepaPues__MEAD = new System.Windows.Forms.Button();
             this.Usuarios_MEAD = new System.Windows.Forms.Button();
             this.Empresa_MEAD = new System.Windows.Forms.Button();
+            this.FechaADMINNomina = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINA)).BeginInit();
             this.panel3.SuspendLayout();
@@ -76,6 +74,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.FechaADMINNomina);
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.comboBox2);
@@ -100,10 +100,6 @@
             this.panel2.Controls.Add(this.TB_DiasTrabajados);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.CB_AñoNomina);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.CB_MenuNomina);
-            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(203, 0);
@@ -370,50 +366,6 @@
             this.label3.Text = "Persupciones Y Deducciones:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // CB_AñoNomina
-            // 
-            this.CB_AñoNomina.FormattingEnabled = true;
-            this.CB_AñoNomina.Location = new System.Drawing.Point(689, 97);
-            this.CB_AñoNomina.Margin = new System.Windows.Forms.Padding(4);
-            this.CB_AñoNomina.Name = "CB_AñoNomina";
-            this.CB_AñoNomina.Size = new System.Drawing.Size(164, 24);
-            this.CB_AñoNomina.TabIndex = 33;
-            this.CB_AñoNomina.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(592, 96);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 23);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "Año:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // CB_MenuNomina
-            // 
-            this.CB_MenuNomina.FormattingEnabled = true;
-            this.CB_MenuNomina.Location = new System.Drawing.Point(349, 92);
-            this.CB_MenuNomina.Margin = new System.Windows.Forms.Padding(4);
-            this.CB_MenuNomina.Name = "CB_MenuNomina";
-            this.CB_MenuNomina.Size = new System.Drawing.Size(164, 24);
-            this.CB_MenuNomina.TabIndex = 31;
-            this.CB_MenuNomina.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(237, 96);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 23);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Mes:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.DarkCyan;
@@ -545,6 +497,24 @@
             this.Empresa_MEAD.UseVisualStyleBackColor = true;
             this.Empresa_MEAD.Click += new System.EventHandler(this.Empresa_MEAD_Click);
             // 
+            // FechaADMINNomina
+            // 
+            this.FechaADMINNomina.Location = new System.Drawing.Point(412, 90);
+            this.FechaADMINNomina.Name = "FechaADMINNomina";
+            this.FechaADMINNomina.Size = new System.Drawing.Size(423, 22);
+            this.FechaADMINNomina.TabIndex = 66;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(192, 90);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 23);
+            this.label2.TabIndex = 67;
+            this.label2.Text = "Fecha:";
+            // 
             // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -578,10 +548,6 @@
         private System.Windows.Forms.Button DepaPues__MEAD;
         private System.Windows.Forms.Button Usuarios_MEAD;
         private System.Windows.Forms.Button Empresa_MEAD;
-        private System.Windows.Forms.ComboBox CB_AñoNomina;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox CB_MenuNomina;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
@@ -607,5 +573,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboBoxDepartamentoPuesto;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker FechaADMINNomina;
     }
 }
