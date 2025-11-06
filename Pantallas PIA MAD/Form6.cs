@@ -310,5 +310,29 @@ namespace Pantallas_PIA_MAD
             form2.Show();
             this.Hide();
         }
+
+        private void TB_SalarioDiario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TB_SalarioDiario_Leave(object sender, EventArgs e)
+        {
+            // 1. Intentamos convertir el texto a un número decimal
+            if (decimal.TryParse(TB_SalarioDiario.Text, out decimal salarioDiario))
+            {
+                // 2. Si se pudo, aplicamos la fórmula de tus reglas
+                // (La saqué de tu foto 'image_6faeaa.png': Salario diario * factor 1.0493)
+                decimal sdi = salarioDiario * 1.0493m;
+
+                // 3. Ponemos el resultado en la otra caja, con 2 decimales
+                TB_SDInte.Text = sdi.ToString("F2");
+            }
+            else
+            {
+                // Si el usuario no escribió un número válido, borramos la caja de SDI
+                TB_SDInte.Text = "";
+            }
+        }
     }
 }
