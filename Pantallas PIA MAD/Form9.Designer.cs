@@ -416,7 +416,7 @@
             this.Salir_MEAD.BackColor = System.Drawing.Color.DarkCyan;
             this.Salir_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Salir_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Salir_MEAD.Location = new System.Drawing.Point(0, 864);
+            this.Salir_MEAD.Location = new System.Drawing.Point(0, 732);
             this.Salir_MEAD.Name = "Salir_MEAD";
             this.Salir_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Salir_MEAD.TabIndex = 8;
