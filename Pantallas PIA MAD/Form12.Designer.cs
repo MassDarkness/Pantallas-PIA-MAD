@@ -34,6 +34,15 @@
             this.Nomina__MEAU = new System.Windows.Forms.Button();
             this.Empresa_MEAU = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBox2AUX = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBox1AUX = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ComboBoxDepartamentoPuestoAUX = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.ComboBoxEmpresaPuestoAUX = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.FechaAUXNomina = new System.Windows.Forms.DateTimePicker();
             this.BTN_ExportarCSVAUX = new System.Windows.Forms.Button();
             this.TB_AguinaldoAUX = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -53,15 +62,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.FechaAUXNomina = new System.Windows.Forms.DateTimePicker();
-            this.label11 = new System.Windows.Forms.Label();
-            this.ComboBoxEmpresaPuestoAUX = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.ComboBoxDepartamentoPuestoAUX = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.comboBox1AUX = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.comboBox2AUX = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Vista_Nomina)).BeginInit();
@@ -167,6 +167,90 @@
             this.panel2.Size = new System.Drawing.Size(822, 746);
             this.panel2.TabIndex = 5;
             // 
+            // comboBox2AUX
+            // 
+            this.comboBox2AUX.FormattingEnabled = true;
+            this.comboBox2AUX.Location = new System.Drawing.Point(595, 179);
+            this.comboBox2AUX.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox2AUX.Name = "comboBox2AUX";
+            this.comboBox2AUX.Size = new System.Drawing.Size(176, 21);
+            this.comboBox2AUX.TabIndex = 75;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(501, 178);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(89, 18);
+            this.label14.TabIndex = 74;
+            this.label14.Text = "Empleado:";
+            // 
+            // comboBox1AUX
+            // 
+            this.comboBox1AUX.FormattingEnabled = true;
+            this.comboBox1AUX.Location = new System.Drawing.Point(272, 179);
+            this.comboBox1AUX.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox1AUX.Name = "comboBox1AUX";
+            this.comboBox1AUX.Size = new System.Drawing.Size(176, 21);
+            this.comboBox1AUX.TabIndex = 73;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(158, 178);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(63, 18);
+            this.label13.TabIndex = 72;
+            this.label13.Text = "Puesto:";
+            // 
+            // ComboBoxDepartamentoPuestoAUX
+            // 
+            this.ComboBoxDepartamentoPuestoAUX.FormattingEnabled = true;
+            this.ComboBoxDepartamentoPuestoAUX.Location = new System.Drawing.Point(595, 151);
+            this.ComboBoxDepartamentoPuestoAUX.Margin = new System.Windows.Forms.Padding(2);
+            this.ComboBoxDepartamentoPuestoAUX.Name = "ComboBoxDepartamentoPuestoAUX";
+            this.ComboBoxDepartamentoPuestoAUX.Size = new System.Drawing.Size(177, 21);
+            this.ComboBoxDepartamentoPuestoAUX.TabIndex = 71;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(472, 154);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(118, 18);
+            this.label12.TabIndex = 70;
+            this.label12.Text = "Departamento:";
+            // 
+            // ComboBoxEmpresaPuestoAUX
+            // 
+            this.ComboBoxEmpresaPuestoAUX.FormattingEnabled = true;
+            this.ComboBoxEmpresaPuestoAUX.Location = new System.Drawing.Point(272, 151);
+            this.ComboBoxEmpresaPuestoAUX.Margin = new System.Windows.Forms.Padding(2);
+            this.ComboBoxEmpresaPuestoAUX.Name = "ComboBoxEmpresaPuestoAUX";
+            this.ComboBoxEmpresaPuestoAUX.Size = new System.Drawing.Size(175, 21);
+            this.ComboBoxEmpresaPuestoAUX.TabIndex = 69;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(145, 154);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(76, 18);
+            this.label11.TabIndex = 68;
+            this.label11.Text = "Empresa:";
+            // 
+            // FechaAUXNomina
+            // 
+            this.FechaAUXNomina.Location = new System.Drawing.Point(272, 75);
+            this.FechaAUXNomina.Margin = new System.Windows.Forms.Padding(2);
+            this.FechaAUXNomina.Name = "FechaAUXNomina";
+            this.FechaAUXNomina.Size = new System.Drawing.Size(318, 20);
+            this.FechaAUXNomina.TabIndex = 67;
+            // 
             // BTN_ExportarCSVAUX
             // 
             this.BTN_ExportarCSVAUX.BackColor = System.Drawing.Color.CadetBlue;
@@ -177,6 +261,7 @@
             this.BTN_ExportarCSVAUX.TabIndex = 53;
             this.BTN_ExportarCSVAUX.Text = "Exportar CSV";
             this.BTN_ExportarCSVAUX.UseVisualStyleBackColor = false;
+            this.BTN_ExportarCSVAUX.Click += new System.EventHandler(this.BTN_ExportarCSVAUX_Click);
             // 
             // TB_AguinaldoAUX
             // 
@@ -339,90 +424,6 @@
             this.label1.Size = new System.Drawing.Size(96, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "AUXILIAR";
-            // 
-            // FechaAUXNomina
-            // 
-            this.FechaAUXNomina.Location = new System.Drawing.Point(272, 75);
-            this.FechaAUXNomina.Margin = new System.Windows.Forms.Padding(2);
-            this.FechaAUXNomina.Name = "FechaAUXNomina";
-            this.FechaAUXNomina.Size = new System.Drawing.Size(318, 20);
-            this.FechaAUXNomina.TabIndex = 67;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(145, 154);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(76, 18);
-            this.label11.TabIndex = 68;
-            this.label11.Text = "Empresa:";
-            // 
-            // ComboBoxEmpresaPuestoAUX
-            // 
-            this.ComboBoxEmpresaPuestoAUX.FormattingEnabled = true;
-            this.ComboBoxEmpresaPuestoAUX.Location = new System.Drawing.Point(272, 151);
-            this.ComboBoxEmpresaPuestoAUX.Margin = new System.Windows.Forms.Padding(2);
-            this.ComboBoxEmpresaPuestoAUX.Name = "ComboBoxEmpresaPuestoAUX";
-            this.ComboBoxEmpresaPuestoAUX.Size = new System.Drawing.Size(175, 21);
-            this.ComboBoxEmpresaPuestoAUX.TabIndex = 69;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(472, 154);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(118, 18);
-            this.label12.TabIndex = 70;
-            this.label12.Text = "Departamento:";
-            // 
-            // ComboBoxDepartamentoPuestoAUX
-            // 
-            this.ComboBoxDepartamentoPuestoAUX.FormattingEnabled = true;
-            this.ComboBoxDepartamentoPuestoAUX.Location = new System.Drawing.Point(595, 151);
-            this.ComboBoxDepartamentoPuestoAUX.Margin = new System.Windows.Forms.Padding(2);
-            this.ComboBoxDepartamentoPuestoAUX.Name = "ComboBoxDepartamentoPuestoAUX";
-            this.ComboBoxDepartamentoPuestoAUX.Size = new System.Drawing.Size(177, 21);
-            this.ComboBoxDepartamentoPuestoAUX.TabIndex = 71;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(158, 178);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 18);
-            this.label13.TabIndex = 72;
-            this.label13.Text = "Puesto:";
-            // 
-            // comboBox1AUX
-            // 
-            this.comboBox1AUX.FormattingEnabled = true;
-            this.comboBox1AUX.Location = new System.Drawing.Point(272, 179);
-            this.comboBox1AUX.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1AUX.Name = "comboBox1AUX";
-            this.comboBox1AUX.Size = new System.Drawing.Size(176, 21);
-            this.comboBox1AUX.TabIndex = 73;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(501, 178);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(89, 18);
-            this.label14.TabIndex = 74;
-            this.label14.Text = "Empleado:";
-            // 
-            // comboBox2AUX
-            // 
-            this.comboBox2AUX.FormattingEnabled = true;
-            this.comboBox2AUX.Location = new System.Drawing.Point(595, 179);
-            this.comboBox2AUX.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox2AUX.Name = "comboBox2AUX";
-            this.comboBox2AUX.Size = new System.Drawing.Size(176, 21);
-            this.comboBox2AUX.TabIndex = 75;
             // 
             // Form12
             // 

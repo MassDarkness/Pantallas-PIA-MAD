@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text; // Para construir el texto del CSV
+using System.IO;   // Para guardar el archivo
 
 namespace Pantallas_PIA_MAD
 {
@@ -25,7 +27,49 @@ namespace Pantallas_PIA_MAD
         }
         private void button9_Click(object sender, EventArgs e)
         {
+            if (VistaNOMINAAUX.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
 
+            List<string> headers = new List<string>();
+            foreach (DataGridViewColumn column in VistaNOMINAAUX.Columns)
+            {
+                headers.Add(column.HeaderText);
+            }
+            sb.AppendLine(string.Join(",", headers));
+            foreach (DataGridViewRow row in VistaNOMINAAUX.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    List<string> celdas = new List<string>();
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        string valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        celdas.Add(valor);
+                    }
+                    sb.AppendLine(string.Join(",", celdas));
+                }
+            }
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Archivo CSV (*.csv)|*.csv";
+            sfd.Title = "Guardar Reporte de Nómina";
+            sfd.FileName = $"Nomina_{DateTime.Now.ToString("yyyyMMdd")}.csv";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
+                    MessageBox.Show("Reporte exportado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el archivo: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

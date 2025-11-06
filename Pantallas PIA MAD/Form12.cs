@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Text; // Para construir el texto del CSV
+using System.IO;   // Para guardar el archivo
 
 namespace Pantallas_PIA_MAD
 {
@@ -176,5 +178,51 @@ namespace Pantallas_PIA_MAD
             }
         }
 
+        private void BTN_ExportarCSVAUX_Click(object sender, EventArgs e)
+        {
+            if (Vista_Nomina.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
+
+            List<string> headers = new List<string>();
+            foreach (DataGridViewColumn column in Vista_Nomina.Columns)
+            {
+                headers.Add(column.HeaderText);
+            }
+            sb.AppendLine(string.Join(",", headers));
+            foreach (DataGridViewRow row in Vista_Nomina.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    List<string> celdas = new List<string>();
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        string valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        celdas.Add(valor);
+                    }
+                    sb.AppendLine(string.Join(",", celdas));
+                }
+            }
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Archivo CSV (*.csv)|*.csv";
+            sfd.Title = "Guardar Reporte de Nómina";
+            sfd.FileName = $"Nomina_{DateTime.Now.ToString("yyyyMMdd")}.csv";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
+                    MessageBox.Show("Reporte exportado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el archivo: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
