@@ -20,8 +20,8 @@ namespace Pantallas_PIA_MAD
         //Nos mandara a la pantalla de iniciar sesion
         private void BTN_Empresa_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
-            form2.Show();
+            Form9 form9 = new Form9();
+            form9.Show();
             this.Hide();
         }
 

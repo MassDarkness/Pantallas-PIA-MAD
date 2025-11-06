@@ -197,7 +197,53 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
+        public static Empleado ObtenerEmpleadoPorId(int idEmpleado)
+        {
+            Empleado empleado = null;
 
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                string query = @"SELECT id_empleado, numero_empleado, nombres, apellido_paterno, 
+                                apellido_materno, domicilio, telefono, email, fecha_nacimiento, 
+                                curp, rfc, nss, salario, salario_diario_integrado, 
+                                numero_cuenta, banco, id_puesto, id_departamento, id_empresa 
+                         FROM Empleado 
+                         WHERE id_empleado = @idEmpleado;";
+
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@idEmpleado", idEmpleado);
+
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        empleado = new Empleado
+                        {
+                            id_empleado = reader.GetInt32(0),
+                            numero_empleado = reader.IsDBNull(1) ? null : reader.GetString(1),
+                            nombres = reader.IsDBNull(2) ? null : reader.GetString(2),
+                            apellido_paterno = reader.IsDBNull(3) ? null : reader.GetString(3),
+                            apellido_materno = reader.IsDBNull(4) ? null : reader.GetString(4),
+                            domicilio = reader.IsDBNull(5) ? null : reader.GetString(5),
+                            telefono = reader.IsDBNull(6) ? null : reader.GetString(6),
+                            email = reader.IsDBNull(7) ? null : reader.GetString(7),
+                            fecha_nacimiento = reader.IsDBNull(8) ? (DateTime?)null : reader.GetDateTime(8),
+                            curp = reader.IsDBNull(9) ? null : reader.GetString(9),
+                            rfc = reader.IsDBNull(10) ? null : reader.GetString(10),
+                            nss = reader.IsDBNull(11) ? null : reader.GetString(11),
+                            salario = reader.IsDBNull(12) ? (decimal?)null : reader.GetDecimal(12),
+                            salario_diario_integrado = reader.IsDBNull(13) ? (decimal?)null : reader.GetDecimal(13),
+                            numero_cuenta = reader.IsDBNull(14) ? null : reader.GetString(14),
+                            banco = reader.IsDBNull(15) ? null : reader.GetString(15),
+                            id_puesto = reader.IsDBNull(16) ? (int?)null : reader.GetInt32(16),
+                            id_departamento = reader.IsDBNull(17) ? (int?)null : reader.GetInt32(17),
+                            id_empresa = reader.GetInt32(18)
+                        };
+                    }
+                }
+            }
+            return empleado;
+        }
 
     }
 }
