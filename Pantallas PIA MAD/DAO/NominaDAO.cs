@@ -13,7 +13,9 @@ namespace Pantallas_PIA_MAD.DAO
         // INSERTAR NÓMINA
         public static int InsertarNomina(Nomina nomina)
         {
-            int retorno = 0;
+            // 'retorno' ahora guardará el NUEVO ID
+            int idNominaNueva = 0;
+
             using (SqlConnection conexion = BDConexion.ObtenerConexion())
             {
                 using (SqlCommand comando = new SqlCommand("sp_RegistrarNomina", conexion))
@@ -24,10 +26,17 @@ namespace Pantallas_PIA_MAD.DAO
                     comando.Parameters.AddWithValue("@estatus", (object)nomina.estatus ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@id_empleado", nomina.id_empleado);
 
-                    retorno = comando.ExecuteNonQuery();
+                    // --- ¡CAMBIO IMPORTANTE AQUÍ! ---
+                    // ExecuteNonQuery() solo devuelve '1' (filas afectadas).
+                    // ExecuteScalar() lee el primer valor que devuelve el SP (¡nuestro ID!)
+
+                    // Convertimos el resultado (que es 'object') a 'int'
+                    idNominaNueva = (int)comando.ExecuteScalar();
                 }
             }
-            return retorno;
+
+            // Devolvemos el ID
+            return idNominaNueva;
         }
 
         // MOSTRAR TODAS LAS NÓMINAS

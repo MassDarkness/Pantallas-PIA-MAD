@@ -35,14 +35,12 @@ namespace Pantallas_PIA_MAD
         //Metodo del boton de calcular la nomina
         private void button5_Click(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedValue == null) 
+            // --- 1. VALIDAR INPUTS ---
+            if (comboBox2.SelectedValue == null)
             {
                 MessageBox.Show("Por favor, seleccione un empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Asumo que tu TextBox de Días se llama 'txtDiasTrabajados'
-            // ¡¡CAMBIA 'txtDiasTrabajados.Text' por el nombre real de tu TextBox!!
             if (!int.TryParse(TB_DiasTrabajados.Text, out int diasTrabajados))
             {
                 MessageBox.Show("Días trabajados debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -52,10 +50,7 @@ namespace Pantallas_PIA_MAD
             // --- 2. OBTENER DATOS DE LA UI ---
             try
             {
-                // Obtenemos el ID del empleado seleccionado
                 int idEmpleado = (int)comboBox2.SelectedValue;
-
-                // Obtenemos el objeto Empleado completo (usando el método NUEVO de la Parte 1)
                 Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(idEmpleado);
                 if (empleado == null)
                 {
@@ -63,69 +58,70 @@ namespace Pantallas_PIA_MAD
                     return;
                 }
 
-                // Leemos los TextBoxes (Usamos decimal.TryParse para no crashear)
-                // ¡¡RECUERDA CAMBIAR ESTOS NOMBRES POR LOS TUYOS!!
+                // Leemos los TextBoxes
                 decimal.TryParse(TB_Aguinaldo.Text, out decimal aguinaldo);
                 decimal.TryParse(TB_BNPuntualidad.Text, out decimal bonoPuntualidad);
                 decimal.TryParse(TB_BNAsistencia.Text, out decimal bonoAsistencia);
                 decimal.TryParse(TB_CuotaIMSS.Text, out decimal cuotaImss);
                 decimal.TryParse(TB_CuotaSindical.Text, out decimal cuotaSindical);
 
-                // --- 3. LLAMAR AL CEREBRO ---
+                // --- 3. LLAMAR AL CEREBRO (CALCULAR) ---
                 Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
-                    empleado,
-                    diasTrabajados,
-                    aguinaldo,
-                    bonoPuntualidad,
-                    bonoAsistencia,
-                    cuotaImss,
-                    cuotaSindical
+                    empleado, diasTrabajados, aguinaldo, bonoPuntualidad,
+                    bonoAsistencia, cuotaImss, cuotaSindical
                 );
 
-                // --- 4. MOSTRAR RESULTADOS ---
-                // (Tu DataGridView se llama 'dataGridView1' en tu código)
+                // --- 4. GUARDAR EN LA BASE DE DATOS (¡Tu lógica!) ---
 
-                // Limpiamos el DataGridView y lo preparamos
+                // a. Crear la nómina
+                DateTime fechaSeleccionada = FechaADMINNomina.Value;
+                DateTime fechaDeNomina = new DateTime(fechaSeleccionada.Year, fechaSeleccionada.Month, 1);
+                Nomina nomina = new Nomina
+                {
+                    fecha = fechaDeNomina,
+                    estatus = "Calculada",
+                    id_empleado = idEmpleado
+                };
+
+                // b. Guardar Nómina (Paso 1b) y OBTENER EL ID
+                int idNominaNueva = NominaDAO.InsertarNomina(nomina);
+                if (idNominaNueva <= 0) // Si el ID es 0, falló
+                {
+                    MessageBox.Show("Error: No se pudo registrar la nómina principal.");
+                    return;
+                }
+
+                // c. Asignar ese ID al recibo
+                reciboCalculado.id_nomina = idNominaNueva;
+
+                // d. Guardar el Recibo (Paso 2b)
+                int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
+                if (resultadoRecibo <= 0) // Si es 0, falló
+                {
+                    MessageBox.Show("Error: Se guardó la nómina, pero no el recibo detallado.");
+                    return;
+                }
+
+                // --- 5. MOSTRAR RESULTADOS (¡SOLO SI TODO SE GUARDÓ!) ---
+
                 VistaNOMINA.DataSource = null;
                 VistaNOMINA.Columns.Clear();
                 VistaNOMINA.Columns.Add("Concepto", "Concepto");
                 VistaNOMINA.Columns.Add("Monto", "Monto");
 
-                // Añadimos los resultados
                 VistaNOMINA.Rows.Add("Sueldo Bruto (Base)", reciboCalculado.sueldo_bruto.ToString("C2"));
                 VistaNOMINA.Rows.Add("Total Percepciones", reciboCalculado.percepciones.ToString("C2"));
                 VistaNOMINA.Rows.Add("Total Deducciones", reciboCalculado.deducciones.ToString("C2"));
                 VistaNOMINA.Rows.Add("--- SUELDO NETO ---", "---");
                 VistaNOMINA.Rows.Add("Sueldo Neto a Pagar", reciboCalculado.sueldo_neto.ToString("C2"));
 
-                // --- 5. GUARDAR EN LA BASE DE DATOS (Opcional, pero recomendado) ---
-
-                // a. Crear la nómina
-                Nomina nomina = new Nomina
-                {
-                    fecha = DateTime.Now.Date,
-                    estatus = "Calculada",
-                    id_empleado = idEmpleado
-                };
-
-                // b. Guardarla (tú ya tienes este DAO)
-                // ¡¡Falta que tu SP 'sp_RegistrarNomina' DEVUELVA EL ID!!
-                // int idNominaNueva = NominaDAO.InsertarNomina(nomina); 
-
-                // c. Asignar ese ID al recibo
-                // reciboCalculado.id_nomina = idNominaNueva;
-
-                // d. Guardar el recibo (necesitarás un ReciboNominaDAO.InsertarRecibo)
-                // ReciboNominaDAO.InsertarRecibo(reciboCalculado);
-
-                MessageBox.Show("Nómina calculada y mostrada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nómina calculada y guardada en la Base de Datos con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error crítico al calcular: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
 
@@ -217,6 +213,7 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuesto.DataSource = EmpresaDAP.ObtenerEmpresas();
             ComboBoxEmpresaPuesto.DisplayMember = "nombre";
             ComboBoxEmpresaPuesto.ValueMember = "id_empresa";
+            ComboBoxDepartamentoPuesto.SelectedIndex = -1;
         }
         private void comboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -225,6 +222,7 @@ namespace Pantallas_PIA_MAD
                 ComboBoxDepartamentoPuesto.DataSource = DepartamentoDAO.ObtenerDepartamentosPorEmpresa(idEmpresa);
                 ComboBoxDepartamentoPuesto.DisplayMember = "nombre";
                 ComboBoxDepartamentoPuesto.ValueMember = "id_departamento";
+                comboBox1.SelectedIndex = -1;
             }
         }
 
@@ -235,6 +233,7 @@ namespace Pantallas_PIA_MAD
                 comboBox1.DataSource = PuestoDAO.ObtenerPuestosPorDepartamento(idDepartamento);
                 comboBox1.DisplayMember = "nombre";
                 comboBox1.ValueMember = "id_puesto";
+                comboBox1.SelectedIndex = -1;
             }
         }
 
@@ -245,6 +244,7 @@ namespace Pantallas_PIA_MAD
                 comboBox2.DataSource = EmpleadoDAO.ObtenerEmpleadosPorPuesto(idPuesto);
                 comboBox2.DisplayMember = "nombres"; 
                 comboBox2.ValueMember = "id_empleado";
+                comboBox2.SelectedIndex = -1;
             }
         }
 
