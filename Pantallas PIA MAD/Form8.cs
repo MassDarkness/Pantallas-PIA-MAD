@@ -355,7 +355,7 @@ namespace Pantallas_PIA_MAD
                 MessageBox.Show("Error al eliminar el departamento: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        
         private void EliminarPuesAdmin_Click(object sender, EventArgs e)
         {
             if (Vista_PuestoADMIN.CurrentRow == null)
