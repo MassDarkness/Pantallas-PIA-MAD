@@ -239,7 +239,7 @@ namespace Pantallas_PIA_MAD
         {
 
         }
-        //Metodo para cerrar completamente el programa
+
         private void Form9_Load(object sender, EventArgs e)
         {
             this.FormClosed += Form9_FormClosed;
