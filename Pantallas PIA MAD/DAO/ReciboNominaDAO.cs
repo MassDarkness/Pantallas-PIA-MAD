@@ -33,5 +33,47 @@ namespace Pantallas_PIA_MAD.DAO
             }
             return retorno;
         }
+        public static List<Recibo_Nomina> ObtenerRecibosNomina()
+        {
+            List<Recibo_Nomina> lista = new List<Recibo_Nomina>();
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                string query = @"SELECT 
+                            id_recibo, 
+                            fecha, 
+                            sueldo_bruto, 
+                            sueldo_neto, 
+                            percepciones, 
+                            deducciones, 
+                            id_nomina
+                         FROM Recibo_Nomina;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Recibo_Nomina recibo = new Recibo_Nomina
+                            {
+                                id_recibo = reader.GetInt32(0),
+                                fecha = reader.GetDateTime(1),
+                                sueldo_bruto = reader.GetDecimal(2),
+                                sueldo_neto = reader.GetDecimal(3),
+                                percepciones = reader.GetDecimal(4),
+                                deducciones = reader.GetDecimal(5),
+                                id_nomina = reader.GetInt32(6)
+                            };
+
+                            lista.Add(recibo);
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
     }
 }

@@ -32,6 +32,11 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuestoAUX.DisplayMember = "nombre";
             ComboBoxEmpresaPuestoAUX.ValueMember = "id_empresa";
             ComboBoxDepartamentoPuestoAUX.SelectedIndex = -1;
+            Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
+        }
+        private void refrescar()
+        {
+            Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
         }
         //Boton para enviarte al apartado de la gestion de empresas
         private void Empresa_MEAU_Click(object sender, EventArgs e)
@@ -131,34 +136,7 @@ namespace Pantallas_PIA_MAD
                         MessageBox.Show("Error: Se guardó la nómina, pero no el recibo detallado.");
                         return;
                     }
-
-                    List<Recibo_Nomina> listaParaMostrar = new List<Recibo_Nomina>();
-                    listaParaMostrar.Add(reciboCalculado);
-                    Vista_Nomina.DataSource = listaParaMostrar;
-
-                    try
-                    {
-                        Vista_Nomina.Columns["sueldo_bruto"].HeaderText = "Sueldo Bruto";
-                        Vista_Nomina.Columns["sueldo_neto"].HeaderText = "Sueldo Neto";
-                        Vista_Nomina.Columns["percepciones"].HeaderText = "Total Percepciones";
-                        Vista_Nomina.Columns["deducciones"].HeaderText = "Total Deducciones";
-                        Vista_Nomina.Columns["id_nomina"].HeaderText = "ID Nómina";
-
-                        if (Vista_Nomina.Columns.Contains("id_recibo"))
-                        {
-                            Vista_Nomina.Columns["id_recibo"].Visible = false;
-                        }
-
-                        if (Vista_Nomina.Columns.Contains("Nomina"))
-                        {
-                            Vista_Nomina.Columns["Nomina"].Visible = false;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Error al renombrar columnas: " + ex.Message);
-                    }
-
+                    refrescar();
                     MessageBox.Show("Nómina calculada y guardada en la Base de Datos con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)

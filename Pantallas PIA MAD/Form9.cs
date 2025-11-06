@@ -100,35 +100,7 @@ namespace Pantallas_PIA_MAD
                     MessageBox.Show("Error: Se guardó la nómina, pero no el recibo detallado.");
                     return;
                 }
-
-                List<Recibo_Nomina> listaParaMostrar = new List<Recibo_Nomina>();
-                listaParaMostrar.Add(reciboCalculado);
-                VistaNOMINAAUX.DataSource = listaParaMostrar;
-
-                try
-                {
-                    VistaNOMINAAUX.Columns["sueldo_bruto"].HeaderText = "Sueldo Bruto";
-                    VistaNOMINAAUX.Columns["sueldo_neto"].HeaderText = "Sueldo Neto";
-                    VistaNOMINAAUX.Columns["percepciones"].HeaderText = "Total Percepciones";
-                    VistaNOMINAAUX.Columns["deducciones"].HeaderText = "Total Deducciones";
-                    VistaNOMINAAUX.Columns["id_nomina"].HeaderText = "ID Nómina";
-
-                    if (VistaNOMINAAUX.Columns.Contains("id_recibo"))
-                    {
-                        VistaNOMINAAUX.Columns["id_recibo"].Visible = false;
-                    }
-
-                    if (VistaNOMINAAUX.Columns.Contains("Nomina"))
-                    {
-                        VistaNOMINAAUX.Columns["Nomina"].Visible = false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Error al renombrar columnas: " + ex.Message);
-                }
-
-
+                refrescar();
                 MessageBox.Show("Nómina calculada y guardada en la Base de Datos con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -228,7 +200,14 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuesto.DisplayMember = "nombre";
             ComboBoxEmpresaPuesto.ValueMember = "id_empresa";
             ComboBoxDepartamentoPuesto.SelectedIndex = -1;
+            VistaNOMINAAUX.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
         }
+
+        private void refrescar()
+        {
+            VistaNOMINAAUX.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
+        }
+
         private void comboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxEmpresaPuesto.SelectedValue is int idEmpresa)
