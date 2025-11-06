@@ -315,6 +315,87 @@ namespace Pantallas_PIA_MAD
             form14.Show();
             this.Hide();
         }
+
+        private void EliminarDEPAdmin_Click(object sender, EventArgs e)
+        {
+            if (Vista_Departamento.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un departamento para eliminar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult confirmacion = MessageBox.Show(
+                "¿Seguro que deseas eliminar este departamento?\n\nSe eliminarán también sus puestos y empleados relacionados.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (confirmacion == DialogResult.No)
+                return;
+
+            try
+            {
+                int idDepartamento = Convert.ToInt32(Vista_Departamento.CurrentRow.Cells["id_departamento"].Value);
+
+                int resultado = DepartamentoDAO.EliminarDepartamento(idDepartamento);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Departamento eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    refrescarDepartamentos();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el departamento o no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el departamento: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void EliminarPuesAdmin_Click(object sender, EventArgs e)
+        {
+            if (Vista_PuestoADMIN.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un puesto para eliminar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult confirmacion = MessageBox.Show(
+                "¿Seguro que deseas eliminar este puesto?\n\nSe eliminarán también los empleados relacionados (si existen).",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (confirmacion == DialogResult.No)
+                return;
+
+            try
+            {
+                int idPuesto = Convert.ToInt32(Vista_PuestoADMIN.CurrentRow.Cells["id_puesto"].Value);
+
+                int resultado = PuestoDAO.EliminarPuesto(idPuesto);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Puesto eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    refrescarPuestos();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el puesto o no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el puesto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 
 }

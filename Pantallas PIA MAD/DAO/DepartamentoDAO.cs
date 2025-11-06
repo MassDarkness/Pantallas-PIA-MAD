@@ -137,5 +137,24 @@ namespace Pantallas_PIA_MAD.DAO
             return filasAfectadas;
         }
 
+        public static int EliminarDepartamento(int idDepartamento)
+        {
+            int filasAfectadas = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_EliminarDepartamento", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@id_departamento", idDepartamento);
+
+                    filasAfectadas = comando.ExecuteNonQuery();
+                }
+            }
+
+            return filasAfectadas;
+        }
+
+
     }
 }
