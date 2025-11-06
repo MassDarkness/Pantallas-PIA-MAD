@@ -13,8 +13,8 @@ namespace Pantallas_PIA_MAD.DAO
         // INSERTAR NÓMINA
         public static int InsertarNomina(Nomina nomina)
         {
-            // 'retorno' ahora guardará el NUEVO ID
-            int idNominaNueva = 0;
+            // 'retorno' ahora guardará el NUEVO I
+            int retorn = 0;
 
             using (SqlConnection conexion = BDConexion.ObtenerConexion())
             {
@@ -31,12 +31,11 @@ namespace Pantallas_PIA_MAD.DAO
                     // ExecuteScalar() lee el primer valor que devuelve el SP (¡nuestro ID!)
 
                     // Convertimos el resultado (que es 'object') a 'int'
-                    idNominaNueva = (int)comando.ExecuteScalar();
                 }
             }
 
             // Devolvemos el ID
-            return idNominaNueva;
+            return retorn;
         }
 
         // MOSTRAR TODAS LAS NÓMINAS
