@@ -111,16 +111,16 @@ namespace Pantallas_PIA_MAD
 
                 // --- 5. MOSTRAR RESULTADOS (¡SOLO SI TODO SE GUARDÓ!) ---
 
-                VistaNOMINA.DataSource = null;
-                VistaNOMINA.Columns.Clear();
-                VistaNOMINA.Columns.Add("Concepto", "Concepto");
-                VistaNOMINA.Columns.Add("Monto", "Monto");
+                VistaNOMINAAUX.DataSource = null;
+                VistaNOMINAAUX.Columns.Clear();
+                VistaNOMINAAUX.Columns.Add("Concepto", "Concepto");
+                VistaNOMINAAUX.Columns.Add("Monto", "Monto");
 
-                VistaNOMINA.Rows.Add("Sueldo Bruto (Base)", reciboCalculado.sueldo_bruto.ToString("C2"));
-                VistaNOMINA.Rows.Add("Total Percepciones", reciboCalculado.percepciones.ToString("C2"));
-                VistaNOMINA.Rows.Add("Total Deducciones", reciboCalculado.deducciones.ToString("C2"));
-                VistaNOMINA.Rows.Add("--- SUELDO NETO ---", "---");
-                VistaNOMINA.Rows.Add("Sueldo Neto a Pagar", reciboCalculado.sueldo_neto.ToString("C2"));
+                VistaNOMINAAUX.Rows.Add("Sueldo Bruto (Base)", reciboCalculado.sueldo_bruto.ToString("C2"));
+                VistaNOMINAAUX.Rows.Add("Total Percepciones", reciboCalculado.percepciones.ToString("C2"));
+                VistaNOMINAAUX.Rows.Add("Total Deducciones", reciboCalculado.deducciones.ToString("C2"));
+                VistaNOMINAAUX.Rows.Add("--- SUELDO NETO ---", "---");
+                VistaNOMINAAUX.Rows.Add("Sueldo Neto a Pagar", reciboCalculado.sueldo_neto.ToString("C2"));
 
                 MessageBox.Show("Nómina calculada y guardada en la Base de Datos con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

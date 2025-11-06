@@ -42,7 +42,7 @@
             this.BTN_ExportarNomina = new System.Windows.Forms.Button();
             this.TB_Aguinaldo = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.VistaNOMINA = new System.Windows.Forms.DataGridView();
+            this.VistaNOMINAAUX = new System.Windows.Forms.DataGridView();
             this.BTN_CalcularNomina = new System.Windows.Forms.Button();
             this.TB_CuotaSindical = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@
             this.Usuarios_MEAD = new System.Windows.Forms.Button();
             this.Empresa_MEAD = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINAAUX)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -87,7 +87,7 @@
             this.panel2.Controls.Add(this.BTN_ExportarNomina);
             this.panel2.Controls.Add(this.TB_Aguinaldo);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.VistaNOMINA);
+            this.panel2.Controls.Add(this.VistaNOMINAAUX);
             this.panel2.Controls.Add(this.BTN_CalcularNomina);
             this.panel2.Controls.Add(this.TB_CuotaSindical);
             this.panel2.Controls.Add(this.label9);
@@ -235,15 +235,15 @@
             this.label10.Text = "Dias Trabajados:";
             this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
-            // VistaNOMINA
+            // VistaNOMINAAUX
             // 
-            this.VistaNOMINA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.VistaNOMINA.Location = new System.Drawing.Point(51, 474);
-            this.VistaNOMINA.Name = "VistaNOMINA";
-            this.VistaNOMINA.RowHeadersWidth = 51;
-            this.VistaNOMINA.Size = new System.Drawing.Size(682, 177);
-            this.VistaNOMINA.TabIndex = 50;
-            this.VistaNOMINA.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.VistaNOMINAAUX.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.VistaNOMINAAUX.Location = new System.Drawing.Point(51, 474);
+            this.VistaNOMINAAUX.Name = "VistaNOMINAAUX";
+            this.VistaNOMINAAUX.RowHeadersWidth = 51;
+            this.VistaNOMINAAUX.Size = new System.Drawing.Size(682, 177);
+            this.VistaNOMINAAUX.TabIndex = 50;
+            this.VistaNOMINAAUX.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // BTN_CalcularNomina
             // 
@@ -403,7 +403,7 @@
             // 
             this.Empleados_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Empleados_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F);
-            this.Empleados_MEAD.Location = new System.Drawing.Point(0, 282);
+            this.Empleados_MEAD.Location = new System.Drawing.Point(3, 154);
             this.Empleados_MEAD.Name = "Empleados_MEAD";
             this.Empleados_MEAD.Size = new System.Drawing.Size(155, 53);
             this.Empleados_MEAD.TabIndex = 10;
@@ -428,7 +428,7 @@
             // 
             this.Reporte_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Reporte_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Reporte_MEAD.Location = new System.Drawing.Point(0, 474);
+            this.Reporte_MEAD.Location = new System.Drawing.Point(3, 346);
             this.Reporte_MEAD.Name = "Reporte_MEAD";
             this.Reporte_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Reporte_MEAD.TabIndex = 7;
@@ -441,7 +441,7 @@
             this.Nomina_MEAD.BackColor = System.Drawing.Color.LightSeaGreen;
             this.Nomina_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Nomina_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nomina_MEAD.Location = new System.Drawing.Point(0, 421);
+            this.Nomina_MEAD.Location = new System.Drawing.Point(3, 293);
             this.Nomina_MEAD.Name = "Nomina_MEAD";
             this.Nomina_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Nomina_MEAD.TabIndex = 4;
@@ -452,7 +452,7 @@
             // 
             this.DepaPues__MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DepaPues__MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DepaPues__MEAD.Location = new System.Drawing.Point(0, 341);
+            this.DepaPues__MEAD.Location = new System.Drawing.Point(3, 213);
             this.DepaPues__MEAD.Name = "DepaPues__MEAD";
             this.DepaPues__MEAD.Size = new System.Drawing.Size(155, 73);
             this.DepaPues__MEAD.TabIndex = 2;
@@ -464,7 +464,7 @@
             // 
             this.Usuarios_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Usuarios_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Usuarios_MEAD.Location = new System.Drawing.Point(0, 229);
+            this.Usuarios_MEAD.Location = new System.Drawing.Point(3, 101);
             this.Usuarios_MEAD.Name = "Usuarios_MEAD";
             this.Usuarios_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Usuarios_MEAD.TabIndex = 1;
@@ -476,7 +476,7 @@
             // 
             this.Empresa_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Empresa_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Empresa_MEAD.Location = new System.Drawing.Point(0, 178);
+            this.Empresa_MEAD.Location = new System.Drawing.Point(3, 50);
             this.Empresa_MEAD.Name = "Empresa_MEAD";
             this.Empresa_MEAD.Size = new System.Drawing.Size(152, 47);
             this.Empresa_MEAD.TabIndex = 0;
@@ -496,7 +496,7 @@
             this.Load += new System.EventHandler(this.Form9_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINAAUX)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -527,7 +527,7 @@
         private System.Windows.Forms.TextBox TB_CuotaIMSS;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox TB_BNAsistencia;
-        private System.Windows.Forms.DataGridView VistaNOMINA;
+        private System.Windows.Forms.DataGridView VistaNOMINAAUX;
         private System.Windows.Forms.Button BTN_CalcularNomina;
         private System.Windows.Forms.TextBox TB_Aguinaldo;
         private System.Windows.Forms.Label label10;
