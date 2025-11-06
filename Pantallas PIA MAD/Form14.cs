@@ -347,5 +347,49 @@ namespace Pantallas_PIA_MAD
                 TB_SDInteADMIN.Text = "";
             }
         }
+
+        private void BTN_LimpiarEMPADMIN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificamos que haya una fila seleccionada
+                if (Vista_EMPADMIN.CurrentRow == null)
+                {
+                    MessageBox.Show("Selecciona un empleado para eliminar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Obtenemos el ID del empleado
+                int idEmpleado = Convert.ToInt32(Vista_EMPADMIN.CurrentRow.Cells["id_empleado"].Value);
+
+                // Confirmación antes de eliminar
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Seguro que deseas eliminar este empleado?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    int resultado = EmpleadoDAO.EliminarEmpleado(idEmpleado);
+
+                    if (resultado > 0)
+                    {
+                        MessageBox.Show("Empleado eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RefrescarEmpleados(); // 🔁 Refresca el DataGridView
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
     }
 }

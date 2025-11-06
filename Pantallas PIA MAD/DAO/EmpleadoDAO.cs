@@ -244,6 +244,23 @@ namespace Pantallas_PIA_MAD.DAO
             }
             return empleado;
         }
+        public static int EliminarEmpleado(int idEmpleado)
+        {
+            int retorno = 0;
+
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_EliminarEmpleado", conexion))
+                {
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@id_empleado", idEmpleado);
+
+                    retorno = comando.ExecuteNonQuery();
+                }
+            }
+
+            return retorno;
+        }
 
     }
 }
