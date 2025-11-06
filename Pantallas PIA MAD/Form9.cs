@@ -40,6 +40,7 @@ namespace Pantallas_PIA_MAD
                 headers.Add(column.HeaderText);
             }
             sb.AppendLine(string.Join(",", headers));
+
             foreach (DataGridViewRow row in VistaNOMINAAUX.Rows)
             {
                 if (!row.IsNewRow)
@@ -47,7 +48,15 @@ namespace Pantallas_PIA_MAD
                     List<string> celdas = new List<string>();
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        string valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        string valor;
+                        if (cell.Value is DateTime)
+                        {
+                            valor = ((DateTime)cell.Value).ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        }
                         celdas.Add(valor);
                     }
                     sb.AppendLine(string.Join(",", celdas));
@@ -76,11 +85,9 @@ namespace Pantallas_PIA_MAD
         {
 
         }
-        //Metodo del boton de calcular la nomina
         private void button5_Click(object sender, EventArgs e)
         {
-            // --- 1. VALIDAR INPUTS ---
-            if (comboBox2.SelectedValue == null) // ¡Tu ComboBox de empleado es comboBox2!
+            if (comboBox2.SelectedValue == null) 
             {
                 MessageBox.Show("Por favor, seleccione un empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -91,11 +98,8 @@ namespace Pantallas_PIA_MAD
                 return;
             }
 
-            // --- 2. OBTENER DATOS DE LA UI ---
             try
             {
-                // ¡¡CORRECCIÓN 3a: Arreglado el 'InvalidCastException'!!
-                // NO podemos usar (int)comboBox2.SelectedValue
                 var empleadoSel = (Empleado)comboBox2.SelectedItem;
                 int idEmpleado = empleadoSel.id_empleado;
 
@@ -118,8 +122,7 @@ namespace Pantallas_PIA_MAD
                 );
 
 
-                DateTime fechaSeleccionada = FechaADMINNomina.Value;
-                DateTime fechaDeNomina = new DateTime(fechaSeleccionada.Year, fechaSeleccionada.Month, 1);
+                DateTime fechaDeNomina = FechaADMINNomina.Value.Date;
                 Nomina nomina = new Nomina
                 {
                     fecha = fechaDeNomina,
