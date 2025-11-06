@@ -104,7 +104,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(152, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(822, 911);
+            this.panel2.Size = new System.Drawing.Size(822, 726);
             this.panel2.TabIndex = 2;
             // 
             // label2
@@ -128,10 +128,10 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(309, 232);
+            this.comboBox1.Location = new System.Drawing.Point(310, 193);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(319, 21);
+            this.comboBox1.Size = new System.Drawing.Size(176, 21);
             this.comboBox1.TabIndex = 65;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboPuesto_SelectedIndexChanged);
             // 
@@ -139,7 +139,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(157, 232);
+            this.label13.Location = new System.Drawing.Point(157, 196);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(63, 18);
             this.label13.TabIndex = 64;
@@ -148,17 +148,17 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(309, 270);
+            this.comboBox2.Location = new System.Drawing.Point(633, 193);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(319, 21);
+            this.comboBox2.Size = new System.Drawing.Size(176, 21);
             this.comboBox2.TabIndex = 63;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(132, 267);
+            this.label14.Location = new System.Drawing.Point(538, 196);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(89, 18);
             this.label14.TabIndex = 62;
@@ -170,7 +170,7 @@
             this.ComboBoxEmpresaPuesto.Location = new System.Drawing.Point(310, 162);
             this.ComboBoxEmpresaPuesto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ComboBoxEmpresaPuesto.Name = "ComboBoxEmpresaPuesto";
-            this.ComboBoxEmpresaPuesto.Size = new System.Drawing.Size(319, 21);
+            this.ComboBoxEmpresaPuesto.Size = new System.Drawing.Size(175, 21);
             this.ComboBoxEmpresaPuesto.TabIndex = 61;
             this.ComboBoxEmpresaPuesto.SelectedIndexChanged += new System.EventHandler(this.comboEmpresa_SelectedIndexChanged);
             // 
@@ -187,10 +187,10 @@
             // ComboBoxDepartamentoPuesto
             // 
             this.ComboBoxDepartamentoPuesto.FormattingEnabled = true;
-            this.ComboBoxDepartamentoPuesto.Location = new System.Drawing.Point(310, 200);
+            this.ComboBoxDepartamentoPuesto.Location = new System.Drawing.Point(633, 163);
             this.ComboBoxDepartamentoPuesto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ComboBoxDepartamentoPuesto.Name = "ComboBoxDepartamentoPuesto";
-            this.ComboBoxDepartamentoPuesto.Size = new System.Drawing.Size(319, 21);
+            this.ComboBoxDepartamentoPuesto.Size = new System.Drawing.Size(177, 21);
             this.ComboBoxDepartamentoPuesto.TabIndex = 59;
             this.ComboBoxDepartamentoPuesto.SelectedIndexChanged += new System.EventHandler(this.comboDepartamento_SelectedIndexChanged);
             // 
@@ -198,7 +198,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(101, 200);
+            this.label12.Location = new System.Drawing.Point(509, 165);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(118, 18);
             this.label12.TabIndex = 58;
@@ -208,7 +208,7 @@
             // 
             this.BTN_ExportarNomina.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_ExportarNomina.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_ExportarNomina.Location = new System.Drawing.Point(302, 745);
+            this.BTN_ExportarNomina.Location = new System.Drawing.Point(303, 678);
             this.BTN_ExportarNomina.Name = "BTN_ExportarNomina";
             this.BTN_ExportarNomina.Size = new System.Drawing.Size(183, 34);
             this.BTN_ExportarNomina.TabIndex = 53;
@@ -218,7 +218,7 @@
             // 
             // TB_Aguinaldo
             // 
-            this.TB_Aguinaldo.Location = new System.Drawing.Point(310, 327);
+            this.TB_Aguinaldo.Location = new System.Drawing.Point(309, 258);
             this.TB_Aguinaldo.Name = "TB_Aguinaldo";
             this.TB_Aguinaldo.Size = new System.Drawing.Size(318, 20);
             this.TB_Aguinaldo.TabIndex = 52;
@@ -228,7 +228,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(91, 299);
+            this.label10.Location = new System.Drawing.Point(83, 229);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(137, 18);
             this.label10.TabIndex = 51;
@@ -238,7 +238,7 @@
             // VistaNOMINA
             // 
             this.VistaNOMINA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.VistaNOMINA.Location = new System.Drawing.Point(52, 551);
+            this.VistaNOMINA.Location = new System.Drawing.Point(51, 474);
             this.VistaNOMINA.Name = "VistaNOMINA";
             this.VistaNOMINA.RowHeadersWidth = 51;
             this.VistaNOMINA.Size = new System.Drawing.Size(682, 177);
@@ -249,7 +249,7 @@
             // 
             this.BTN_CalcularNomina.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_CalcularNomina.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_CalcularNomina.Location = new System.Drawing.Point(310, 499);
+            this.BTN_CalcularNomina.Location = new System.Drawing.Point(310, 421);
             this.BTN_CalcularNomina.Name = "BTN_CalcularNomina";
             this.BTN_CalcularNomina.Size = new System.Drawing.Size(183, 34);
             this.BTN_CalcularNomina.TabIndex = 49;
@@ -259,7 +259,7 @@
             // 
             // TB_CuotaSindical
             // 
-            this.TB_CuotaSindical.Location = new System.Drawing.Point(310, 460);
+            this.TB_CuotaSindical.Location = new System.Drawing.Point(310, 378);
             this.TB_CuotaSindical.Name = "TB_CuotaSindical";
             this.TB_CuotaSindical.Size = new System.Drawing.Size(318, 20);
             this.TB_CuotaSindical.TabIndex = 48;
@@ -269,7 +269,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(102, 460);
+            this.label9.Location = new System.Drawing.Point(96, 380);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 18);
             this.label9.TabIndex = 47;
@@ -278,7 +278,7 @@
             // 
             // TB_CuotaIMSS
             // 
-            this.TB_CuotaIMSS.Location = new System.Drawing.Point(310, 431);
+            this.TB_CuotaIMSS.Location = new System.Drawing.Point(309, 348);
             this.TB_CuotaIMSS.Name = "TB_CuotaIMSS";
             this.TB_CuotaIMSS.Size = new System.Drawing.Size(318, 20);
             this.TB_CuotaIMSS.TabIndex = 46;
@@ -288,7 +288,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(96, 428);
+            this.label8.Location = new System.Drawing.Point(94, 348);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(129, 18);
             this.label8.TabIndex = 45;
@@ -297,7 +297,7 @@
             // 
             // TB_BNAsistencia
             // 
-            this.TB_BNAsistencia.Location = new System.Drawing.Point(310, 393);
+            this.TB_BNAsistencia.Location = new System.Drawing.Point(310, 315);
             this.TB_BNAsistencia.Name = "TB_BNAsistencia";
             this.TB_BNAsistencia.Size = new System.Drawing.Size(318, 20);
             this.TB_BNAsistencia.TabIndex = 44;
@@ -307,7 +307,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(67, 394);
+            this.label7.Location = new System.Drawing.Point(62, 317);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(161, 18);
             this.label7.TabIndex = 43;
@@ -316,7 +316,7 @@
             // 
             // TB_BNPuntualidad
             // 
-            this.TB_BNPuntualidad.Location = new System.Drawing.Point(310, 365);
+            this.TB_BNPuntualidad.Location = new System.Drawing.Point(310, 287);
             this.TB_BNPuntualidad.Name = "TB_BNPuntualidad";
             this.TB_BNPuntualidad.Size = new System.Drawing.Size(318, 20);
             this.TB_BNPuntualidad.TabIndex = 42;
@@ -326,7 +326,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(77, 362);
+            this.label5.Location = new System.Drawing.Point(75, 289);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(148, 18);
             this.label5.TabIndex = 41;
@@ -335,7 +335,7 @@
             // 
             // TB_DiasTrabajados
             // 
-            this.TB_DiasTrabajados.Location = new System.Drawing.Point(310, 298);
+            this.TB_DiasTrabajados.Location = new System.Drawing.Point(309, 229);
             this.TB_DiasTrabajados.Name = "TB_DiasTrabajados";
             this.TB_DiasTrabajados.Size = new System.Drawing.Size(318, 20);
             this.TB_DiasTrabajados.TabIndex = 40;
@@ -345,7 +345,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(132, 328);
+            this.label4.Location = new System.Drawing.Point(128, 260);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 18);
             this.label4.TabIndex = 36;
@@ -396,7 +396,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(155, 911);
+            this.panel1.Size = new System.Drawing.Size(155, 726);
             this.panel1.TabIndex = 3;
             // 
             // Empleados_MEAD
@@ -416,7 +416,7 @@
             this.Salir_MEAD.BackColor = System.Drawing.Color.DarkCyan;
             this.Salir_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Salir_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Salir_MEAD.Location = new System.Drawing.Point(0, 732);
+            this.Salir_MEAD.Location = new System.Drawing.Point(0, 678);
             this.Salir_MEAD.Name = "Salir_MEAD";
             this.Salir_MEAD.Size = new System.Drawing.Size(155, 47);
             this.Salir_MEAD.TabIndex = 8;
@@ -488,7 +488,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 911);
+            this.ClientSize = new System.Drawing.Size(974, 726);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Name = "Form9";
