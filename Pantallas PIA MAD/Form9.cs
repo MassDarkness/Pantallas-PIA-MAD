@@ -62,22 +62,18 @@ namespace Pantallas_PIA_MAD
                     return;
                 }
 
-                // Leemos los TextBoxes
                 decimal.TryParse(TB_Aguinaldo.Text, out decimal aguinaldo);
                 decimal.TryParse(TB_BNPuntualidad.Text, out decimal bonoPuntualidad);
                 decimal.TryParse(TB_BNAsistencia.Text, out decimal bonoAsistencia);
                 decimal.TryParse(TB_CuotaIMSS.Text, out decimal cuotaImss);
                 decimal.TryParse(TB_CuotaSindical.Text, out decimal cuotaSindical);
 
-                // --- 3. LLAMAR AL CEREBRO (CALCULAR) ---
                 Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
                     empleado, diasTrabajados, aguinaldo, bonoPuntualidad,
                     bonoAsistencia, cuotaImss, cuotaSindical
                 );
 
-                // --- 4. GUARDAR EN LA BASE DE DATOS ---
 
-                // a. Crear la nómina (objeto)
                 DateTime fechaSeleccionada = FechaADMINNomina.Value;
                 DateTime fechaDeNomina = new DateTime(fechaSeleccionada.Year, fechaSeleccionada.Month, 1);
                 Nomina nomina = new Nomina
@@ -87,8 +83,7 @@ namespace Pantallas_PIA_MAD
                     id_empleado = idEmpleado
                 };
 
-                // ¡¡CORRECCIÓN 3b: Usando el 'out'!!
-                int idNominaNueva; // Variable para recibir el ID
+                int idNominaNueva; 
                 int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
 
                 if (resultadoNomina <= 0 || idNominaNueva <= 0)
@@ -96,12 +91,9 @@ namespace Pantallas_PIA_MAD
                     MessageBox.Show("Error: No se pudo registrar la nómina principal.");
                     return;
                 }
-
-                // c. Asignar ese ID al recibo
                 reciboCalculado.id_nomina = idNominaNueva;
-                reciboCalculado.fecha = fechaDeNomina; // Súper importante que el recibo tenga la misma fecha
+                reciboCalculado.fecha = fechaDeNomina;
 
-                // d. Guardar el Recibo (¡Paso 2!)
                 int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
                 if (resultadoRecibo <= 0)
                 {
@@ -109,18 +101,33 @@ namespace Pantallas_PIA_MAD
                     return;
                 }
 
-                // --- 5. MOSTRAR RESULTADOS (¡SOLO SI TODO SE GUARDÓ!) ---
+                List<Recibo_Nomina> listaParaMostrar = new List<Recibo_Nomina>();
+                listaParaMostrar.Add(reciboCalculado);
+                VistaNOMINAAUX.DataSource = listaParaMostrar;
 
-                VistaNOMINAAUX.DataSource = null;
-                VistaNOMINAAUX.Columns.Clear();
-                VistaNOMINAAUX.Columns.Add("Concepto", "Concepto");
-                VistaNOMINAAUX.Columns.Add("Monto", "Monto");
+                try
+                {
+                    VistaNOMINAAUX.Columns["sueldo_bruto"].HeaderText = "Sueldo Bruto";
+                    VistaNOMINAAUX.Columns["sueldo_neto"].HeaderText = "Sueldo Neto";
+                    VistaNOMINAAUX.Columns["percepciones"].HeaderText = "Total Percepciones";
+                    VistaNOMINAAUX.Columns["deducciones"].HeaderText = "Total Deducciones";
+                    VistaNOMINAAUX.Columns["id_nomina"].HeaderText = "ID Nómina";
 
-                VistaNOMINAAUX.Rows.Add("Sueldo Bruto (Base)", reciboCalculado.sueldo_bruto.ToString("C2"));
-                VistaNOMINAAUX.Rows.Add("Total Percepciones", reciboCalculado.percepciones.ToString("C2"));
-                VistaNOMINAAUX.Rows.Add("Total Deducciones", reciboCalculado.deducciones.ToString("C2"));
-                VistaNOMINAAUX.Rows.Add("--- SUELDO NETO ---", "---");
-                VistaNOMINAAUX.Rows.Add("Sueldo Neto a Pagar", reciboCalculado.sueldo_neto.ToString("C2"));
+                    if (VistaNOMINAAUX.Columns.Contains("id_recibo"))
+                    {
+                        VistaNOMINAAUX.Columns["id_recibo"].Visible = false;
+                    }
+
+                    if (VistaNOMINAAUX.Columns.Contains("Nomina"))
+                    {
+                        VistaNOMINAAUX.Columns["Nomina"].Visible = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error al renombrar columnas: " + ex.Message);
+                }
+
 
                 MessageBox.Show("Nómina calculada y guardada en la Base de Datos con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
