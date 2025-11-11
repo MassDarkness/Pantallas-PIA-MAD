@@ -9,8 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text; // Para construir el texto del CSV
-using System.IO;   // Para guardar el archivo
+using System.IO;
 
 namespace Pantallas_PIA_MAD
 {
