@@ -10,11 +10,10 @@ namespace Pantallas_PIA_MAD.DAO
 {
     public class NominaDAO
     {
-        // INSERTAR NÓMINA
         public static int InsertarNomina(Nomina nomina, out int idNominaNueva)
         {
             int filasAfectadas = 0;
-            idNominaNueva = 0; // Inicializamos el ID de salida en 0
+            idNominaNueva = 0;
 
             using (SqlConnection conexion = BDConexion.ObtenerConexion())
             {
@@ -22,21 +21,15 @@ namespace Pantallas_PIA_MAD.DAO
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Parámetros de ENTRADA (los que ya tenías)
                     comando.Parameters.AddWithValue("@fecha", (object)nomina.fecha ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@estatus", (object)nomina.estatus ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@id_empleado", nomina.id_empleado);
 
-                    // --- ¡EL CAMBIO IMPORTANTE! ---
-                    // 1. Creamos el parámetro de SALIDA
                     SqlParameter paramIdSalida = new SqlParameter("@id_nomina_nuevo", System.Data.SqlDbType.Int);
                     paramIdSalida.Direction = System.Data.ParameterDirection.Output;
                     comando.Parameters.Add(paramIdSalida);
 
-                    // 2. Ejecutamos (ahora sí, con NonQuery)
                     filasAfectadas = comando.ExecuteNonQuery();
-
-                    // 3. ¡Leemos el valor de SALIDA!
                     if (filasAfectadas > 0)
                     {
                         idNominaNueva = (int)paramIdSalida.Value;
@@ -44,11 +37,8 @@ namespace Pantallas_PIA_MAD.DAO
                 }
             }
 
-            // Devolvemos 1 (éxito) o 0 (fracaso), como te gusta
             return filasAfectadas;
         }
-
-        // MOSTRAR TODAS LAS NÓMINAS
         public static List<Nomina> ObtenerNominas()
         {
             List<Nomina> lista = new List<Nomina>();
@@ -75,8 +65,6 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
-
-        // EDITAR UNA NÓMINA (opcional)
         public static int EditarNomina(Nomina nomina)
         {
             int retorno = 0;

@@ -28,12 +28,11 @@ namespace Pantallas_PIA_MAD.entidades
         // Llaves foráneas
         public int? id_puesto { get; set; }
         public int? id_departamento { get; set; }
-        public int id_empresa { get; set; }  // NOT NULL en la base de datos
+        public int id_empresa { get; set; }
 
-        // Referencias opcionales a las entidades relacionadas
-        public Puesto Puesto { get; set; }           // clase Puesto
-        public Departamento Departamento { get; set; } // clase Departamento
-        public Empresa Empresa { get; set; }         // clase Empresa
+        public Puesto Puesto { get; set; } 
+        public Departamento Departamento { get; set; } 
+        public Empresa Empresa { get; set; } 
 
         public Empleado() { }
 

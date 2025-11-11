@@ -9,8 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text; // Para construir el texto del CSV
-using System.IO;   // Para guardar el archivo
+using System.Text;
+using System.IO; 
 
 namespace Pantallas_PIA_MAD
 {
@@ -25,6 +25,7 @@ namespace Pantallas_PIA_MAD
         {
             Application.Exit();
         }
+        //Boton para exportar en CSV los datos que esten en la vista
         private void button9_Click(object sender, EventArgs e)
         {
             if (VistaNOMINAAUX.Rows.Count == 0)
@@ -85,6 +86,7 @@ namespace Pantallas_PIA_MAD
         {
 
         }
+        //Boton para calcular la nomina del empleado
         private void button5_Click(object sender, EventArgs e)
         {
             if (comboBox2.SelectedValue == null) 
@@ -239,7 +241,7 @@ namespace Pantallas_PIA_MAD
         {
 
         }
-
+        //Cargar la pantalla y el combobox de empresa
         private void Form9_Load(object sender, EventArgs e)
         {
             this.FormClosed += Form9_FormClosed;
@@ -256,7 +258,6 @@ namespace Pantallas_PIA_MAD
         {
             VistaNOMINAAUX.DataSource = ReciboNominaDAO.ObtenerRecibosDetallados();
         }
-
         private void comboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxEmpresaPuesto.SelectedValue is int idEmpresa)
@@ -267,7 +268,6 @@ namespace Pantallas_PIA_MAD
                 comboBox1.SelectedIndex = -1;
             }
         }
-
         private void comboDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboBoxDepartamentoPuesto.SelectedValue is int idDepartamento)
@@ -278,7 +278,6 @@ namespace Pantallas_PIA_MAD
                 comboBox1.SelectedIndex = -1;
             }
         }
-
         private void comboPuesto_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedValue is int idPuesto)

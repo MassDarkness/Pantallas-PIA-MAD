@@ -22,12 +22,11 @@ namespace Pantallas_PIA_MAD
             InitializeComponent();
         }
         //Metodo para cerrar completamente el programa
-
         private void Form4_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
-
+        //Carga la pantalla y todos los datos en el combobox
         private void Form4_Load(object sender, EventArgs e)
         {
             this.FormClosed += Form4_FormClosed;
@@ -136,7 +135,7 @@ namespace Pantallas_PIA_MAD
                     break;
             }
         }
-
+        //Boton para calcular el reporte segun el seleccionado
         private void BTN_CalcularReporteAUX_Click(object sender, EventArgs e)
         {
             if (CB_TipoReporteAUX.SelectedValue == null)
@@ -172,8 +171,34 @@ namespace Pantallas_PIA_MAD
             {
                 MessageBox.Show("Error al generar el reporte: " + ex.Message);
             }
+            FormatearColumnasMoneda();
         }
-
+        private void FormatearColumnasMoneda()
+        {
+            // Para Reporte General
+            try
+            {
+                if (Vista_ReporteAUX.Columns["SalarioDiario"] != null)
+                {
+                    Vista_ReporteAUX.Columns["SalarioDiario"].DefaultCellStyle.Format = "C2";
+                }
+            }
+            catch {}
+            // Para Resumen de Nomina
+            try
+            {
+                if (Vista_ReporteAUX.Columns["TotalSueldoBruto"] != null)
+                {
+                    Vista_ReporteAUX.Columns["TotalSueldoBruto"].DefaultCellStyle.Format = "C2";
+                }
+                if (Vista_ReporteAUX.Columns["TotalSueldoNeto"] != null)
+                {
+                    Vista_ReporteAUX.Columns["TotalSueldoNeto"].DefaultCellStyle.Format = "C2";
+                }
+            }
+            catch { }
+        }
+        //Boton exportar en PDF segun el reporte seleccionado
         private void BTN_ExportarPDFAUX_Click(object sender, EventArgs e)
         {
             if (Vista_ReporteAUX.Rows.Count == 0)
@@ -195,19 +220,16 @@ namespace Pantallas_PIA_MAD
                     PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
                     doc.Open();
 
-                    // Título
                     iTextSharp.text.Font tituloFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
                     Paragraph titulo = new Paragraph(CB_TipoReporteAUX.Text, tituloFont);
                     titulo.Alignment = Element.ALIGN_CENTER;
                     doc.Add(titulo);
                     doc.Add(new Paragraph(" "));
 
-                    // Crear la tabla PDF
                     int numColumnas = Vista_ReporteAUX.Columns.GetColumnCount(DataGridViewElementStates.Visible);
                     PdfPTable tablaPdf = new PdfPTable(numColumnas);
                     tablaPdf.WidthPercentage = 100;
 
-                    // Headers
                     iTextSharp.text.Font headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD, BaseColor.WHITE);
                     foreach (DataGridViewColumn column in Vista_ReporteAUX.Columns)
                     {
@@ -220,8 +242,6 @@ namespace Pantallas_PIA_MAD
                         }
                     }
                     tablaPdf.HeaderRows = 1;
-
-                    // Filas de datos
                     iTextSharp.text.Font celdaFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.NORMAL);
                     foreach (DataGridViewRow row in Vista_ReporteAUX.Rows)
                     {
@@ -238,22 +258,15 @@ namespace Pantallas_PIA_MAD
                             }
                         }
                     }
-
-                    // --- ¡¡INICIO DE LA LÓGICA DE TOTAL!! ---
-                    // Solo si es el Reporte 3...
                     if ((int)CB_TipoReporteAUX.SelectedValue == 3 && Vista_ReporteAUX.DataSource is List<ReporteResumenNominaDTO>)
                     {
-                        // 1. Sacamos los datos de la lista
                         var lista = (List<ReporteResumenNominaDTO>)Vista_ReporteAUX.DataSource;
                         decimal totalBruto = lista.Sum(r => r.TotalSueldoBruto);
                         decimal totalNeto = lista.Sum(r => r.TotalSueldoNeto);
-
-                        // 2. Creamos la fuente para el total
                         iTextSharp.text.Font totalFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD);
 
-                        // 3. Añadimos las celdas de total (con 3 vacías)
                         PdfPCell celdaTotalTitulo = new PdfPCell(new Phrase("--- TOTAL ---", totalFont));
-                        celdaTotalTitulo.Colspan = 3; // ¡Que ocupe 3 columnas!
+                        celdaTotalTitulo.Colspan = 3;
                         celdaTotalTitulo.HorizontalAlignment = Element.ALIGN_RIGHT;
                         tablaPdf.AddCell(celdaTotalTitulo);
 
@@ -263,12 +276,7 @@ namespace Pantallas_PIA_MAD
                         PdfPCell celdaTotalNeto = new PdfPCell(new Phrase(totalNeto.ToString("C2"), totalFont));
                         tablaPdf.AddCell(celdaTotalNeto);
                     }
-                    // --- FIN DE LA LÓGICA DE TOTAL ---
-
-                    // Añadir la tabla al documento
                     doc.Add(tablaPdf);
-
-                    // Cerrar el documento
                     doc.Close();
 
                     MessageBox.Show("Reporte PDF exportado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);

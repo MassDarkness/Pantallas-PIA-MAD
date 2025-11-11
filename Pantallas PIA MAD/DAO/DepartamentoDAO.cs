@@ -7,7 +7,6 @@ namespace Pantallas_PIA_MAD.DAO
 {
     public class DepartamentoDAO
     {
-        // Obtener departamentos por empresa (sigue igual)
         public static List<Departamento> ObtenerDepartamentosPorEmpresa(int idEmpresa)
         {
             List<Departamento> lista = new List<Departamento>();
@@ -37,7 +36,6 @@ namespace Pantallas_PIA_MAD.DAO
             return lista;
         }
 
-        // Registrar un nuevo departamento usando stored procedure
         public static int InsertarDepartamento(Departamento depto)
         {
             int retorno = 0;
@@ -59,7 +57,6 @@ namespace Pantallas_PIA_MAD.DAO
             return retorno;
         }
 
-        // (Opcional) Obtener todos los departamentos (sigue igual)
         public static List<Departamento> ObtenerDepartamentos()
         {
             List<Departamento> lista = new List<Departamento>();
@@ -87,7 +84,6 @@ namespace Pantallas_PIA_MAD.DAO
 
             return lista;
         }
-        // ✅ Obtener un departamento por su ID
         public static Departamento ObtenerDepartamentoPorId(int idDepartamento)
         {
             Departamento depto = null;

@@ -90,10 +90,10 @@ namespace Pantallas_PIA_MAD
             form14.Show();
             this.Hide();
         }
-
+        //Rellena las casillas al dar click a un usuario en la vista
         private void Vista_USUARIOS_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; // Evita errores al hacer click en encabezados
+            if (e.RowIndex < 0) return;
 
             DataGridViewRow fila = Vista_USUARIOS.Rows[e.RowIndex];
 
@@ -101,7 +101,6 @@ namespace Pantallas_PIA_MAD
             TB_CorreoUsuario.Text = fila.Cells["correo"].Value?.ToString();
             TB_ContraseñaUsuario.Text = fila.Cells["contraseña"].Value?.ToString();
 
-            // Selecciona el tipo según el valor
             if (fila.Cells["tipo"].Value != DBNull.Value)
             {
                 byte tipo = Convert.ToByte(fila.Cells["tipo"].Value);
@@ -114,8 +113,7 @@ namespace Pantallas_PIA_MAD
                 RB_EMPUSUARIO.Checked = false;
             }
         }
-
-
+        //Edita al usuario seleccionado
         private void BTN_EditarUSUARIO_Click(object sender, EventArgs e)
         {
             try

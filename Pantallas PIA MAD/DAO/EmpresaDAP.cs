@@ -15,12 +15,10 @@ namespace Pantallas_PIA_MAD.DAO
 
             using (SqlConnection conexion = BDConexion.ObtenerConexion())
             {
-                // Usamos el nombre de tu stored procedure
                 using (SqlCommand comando = new SqlCommand("sp_RegistrarEmpresa", conexion))
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Agregamos los parámetros
                     comando.Parameters.AddWithValue("@razon_social", empresa.razon_social);
                     comando.Parameters.AddWithValue("@domicilio_fiscal", empresa.domicilio_fiscal);
                     comando.Parameters.AddWithValue("@contacto", (object)empresa.contacto ?? DBNull.Value);

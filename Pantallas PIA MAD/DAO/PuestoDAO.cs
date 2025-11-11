@@ -16,8 +16,6 @@ namespace Pantallas_PIA_MAD.DAO
                 using (SqlCommand comando = new SqlCommand("sp_RegistrarPuesto", conexion))
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    // Agregamos los parámetros según el SP
                     comando.Parameters.AddWithValue("@nombre", puesto.nombre);
                     comando.Parameters.AddWithValue("@descripcion", (object)puesto.descripcion ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@numero", (object)puesto.numero ?? DBNull.Value);
@@ -73,7 +71,7 @@ namespace Pantallas_PIA_MAD.DAO
                             p.nombre, 
                             p.descripcion, 
                             p.numero, 
-                            p.id_departamento  -- ✅ Asegúrate de traer este campo
+                            p.id_departamento
                          FROM Puesto p
                          INNER JOIN Departamento d ON p.id_departamento = d.id_departamento
                          INNER JOIN Empresa e ON d.id_empresa = e.id_empresa";
@@ -89,7 +87,7 @@ namespace Pantallas_PIA_MAD.DAO
                             nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
                             descripcion = reader.IsDBNull(2) ? null : reader.GetString(2),
                             numero = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
-                            id_departamento = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4)  // ✅ Traerlo
+                            id_departamento = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4)
                         };
                         lista.Add(p);
                     }
@@ -108,8 +106,6 @@ namespace Pantallas_PIA_MAD.DAO
                 using (SqlCommand comando = new SqlCommand("sp_ActualizarPuesto", conexion))
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    // Parámetros
                     comando.Parameters.AddWithValue("@id_puesto", puesto.id_puesto);
                     comando.Parameters.AddWithValue("@nombre", puesto.nombre);
                     comando.Parameters.AddWithValue("@descripcion", (object)puesto.descripcion ?? DBNull.Value);

@@ -23,6 +23,7 @@ namespace Pantallas_PIA_MAD
         {
             Application.Exit();
         }
+        //Cargar la pantalla y datos de otros lugares 
         private void Form14_Load(object sender, EventArgs e)
         {
             this.FormClosed += Form14_FormClosed;
@@ -37,7 +38,6 @@ namespace Pantallas_PIA_MAD
             }
 
         }
-
         public void CargarEmpresas()
         {
             var empresas = EmpresaDAP.ObtenerEmpresas();
@@ -114,6 +114,10 @@ namespace Pantallas_PIA_MAD
             var empresaSel = (RegistroEmpresa)ComboBoxEmpresaADMIN.SelectedItem;
             var deptoSel = (Departamento)ComboBoxDepartamentoADMIN.SelectedItem;
             var puestoSel = (Puesto)ComboBoxPuestoADMIN.SelectedItem;
+
+            string salarioLimpio = TB_SalarioDiarioADMIN.Text.Replace("$", "").Replace(",", "");
+            string sdiLimpio = TB_SDInteADMIN.Text.Replace("$", "").Replace(",", "");
+
             Empleado empleado = new Empleado
             {
                 numero_empleado = TB_NumEmpADMIN.Text,
@@ -127,8 +131,8 @@ namespace Pantallas_PIA_MAD
                 curp = TB_CURPADMIN.Text,
                 rfc = TB_RFCADMIN.Text,
                 nss = TB_NSSADMIN.Text,
-                salario = string.IsNullOrEmpty(TB_SalarioDiarioADMIN.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiarioADMIN.Text),
-                salario_diario_integrado = string.IsNullOrEmpty(TB_SDInteADMIN.Text) ? (decimal?)null : decimal.Parse(TB_SDInteADMIN.Text),
+                salario = string.IsNullOrEmpty(salarioLimpio) ? (decimal?)null : decimal.Parse(salarioLimpio),
+                salario_diario_integrado = string.IsNullOrEmpty(sdiLimpio) ? (decimal?)null : decimal.Parse(sdiLimpio),
                 numero_cuenta = TB_NumCuentaADMIN.Text,
                 banco = TB_BancoADMIN.Text,
 
@@ -151,6 +155,16 @@ namespace Pantallas_PIA_MAD
         // Metodo para actualizar el DataGridView
         private void RefrescarEmpleados()
         {
+
+            if (Vista_EMPADMIN.Columns["salario"] != null)
+            {
+                Vista_EMPADMIN.Columns["salario"].DefaultCellStyle.Format = "C2";
+            }
+            if (Vista_EMPADMIN.Columns["salario_diario_integrado"] != null)
+            {
+                Vista_EMPADMIN.Columns["salario_diario_integrado"].DefaultCellStyle.Format = "C2";
+            }
+
             Vista_EMPADMIN.DataSource = EmpleadoDAO.ObtenerEmpleados();
             if (Vista_EMPADMIN.Columns["Puesto"] != null)
                 Vista_EMPADMIN.Columns["Puesto"].Visible = false;
@@ -182,6 +196,9 @@ namespace Pantallas_PIA_MAD
             TB_SDInteADMIN.Text = fila.Cells["salario_diario_integrado"].Value?.ToString();
             TB_NumCuentaADMIN.Text = fila.Cells["numero_cuenta"].Value?.ToString();
             TB_BancoADMIN.Text = fila.Cells["banco"].Value?.ToString();
+
+            TB_SalarioDiarioADMIN.Text = fila.Cells["salario"].FormattedValue.ToString();
+            TB_SDInteADMIN.Text = fila.Cells["salario_diario_integrado"].FormattedValue.ToString();
 
             if (fila.Cells["fecha_nacimiento"].Value != DBNull.Value)
                 FechaNac_EMPADMIN.Value = Convert.ToDateTime(fila.Cells["fecha_nacimiento"].Value);
@@ -243,6 +260,9 @@ namespace Pantallas_PIA_MAD
                 var deptoSel = (Departamento)ComboBoxDepartamentoADMIN.SelectedItem;
                 var puestoSel = (Puesto)ComboBoxPuestoADMIN.SelectedItem;
 
+                string salarioLimpio = TB_SalarioDiarioADMIN.Text.Replace("$", "").Replace(",", "");
+                string sdiLimpio = TB_SDInteADMIN.Text.Replace("$", "").Replace(",", "");
+
                 Empleado empleado = new Empleado
                 {
                     id_empleado = idEmpleado,
@@ -257,8 +277,8 @@ namespace Pantallas_PIA_MAD
                     curp = TB_CURPADMIN.Text,
                     rfc = TB_RFCADMIN.Text,
                     nss = TB_NSSADMIN.Text,
-                    salario = string.IsNullOrEmpty(TB_SalarioDiarioADMIN.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiarioADMIN.Text),
-                    salario_diario_integrado = string.IsNullOrEmpty(TB_SDInteADMIN.Text) ? (decimal?)null : decimal.Parse(TB_SDInteADMIN.Text),
+                    salario = string.IsNullOrEmpty(salarioLimpio) ? (decimal?)null : decimal.Parse(salarioLimpio),
+                    salario_diario_integrado = string.IsNullOrEmpty(sdiLimpio) ? (decimal?)null : decimal.Parse(sdiLimpio),
                     numero_cuenta = TB_NumCuentaADMIN.Text,
                     banco = TB_BancoADMIN.Text,
                     id_empresa = empresaSel?.id_empresa ?? 0,
@@ -328,41 +348,33 @@ namespace Pantallas_PIA_MAD
             form2.Show();
             this.Hide();
         }
-
+        //Calcular el salario integrado en automatico con el dado en el diario
         private void TB_SalarioDiarioADMIN_Leave(object sender, EventArgs e)
         {
-            // 1. Intentamos convertir el texto a un número decimal
+            string salarioLimpio = TB_SalarioDiarioADMIN.Text
+                            .Replace("$", "")
+                            .Replace(",", "");
             if (decimal.TryParse(TB_SalarioDiarioADMIN.Text, out decimal salarioDiario))
             {
-                // 2. Si se pudo, aplicamos la fórmula de tus reglas
-                // (La saqué de tu foto 'image_6faeaa.png': Salario diario * factor 1.0493)
                 decimal sdi = salarioDiario * 1.0493m;
-
-                // 3. Ponemos el resultado en la otra caja, con 2 decimales
-                TB_SDInteADMIN.Text = sdi.ToString("F2");
+                TB_SDInteADMIN.Text = sdi.ToString("C2");
             }
             else
             {
-                // Si el usuario no escribió un número válido, borramos la caja de SDI
                 TB_SDInteADMIN.Text = "";
             }
         }
-
+        //Limpiar todas las casillas de los empleados
         private void BTN_LimpiarEMPADMIN_Click(object sender, EventArgs e)
         {
             try
             {
-                // Verificamos que haya una fila seleccionada
                 if (Vista_EMPADMIN.CurrentRow == null)
                 {
                     MessageBox.Show("Selecciona un empleado para eliminar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
-                // Obtenemos el ID del empleado
                 int idEmpleado = Convert.ToInt32(Vista_EMPADMIN.CurrentRow.Cells["id_empleado"].Value);
-
-                // Confirmación antes de eliminar
                 DialogResult confirmacion = MessageBox.Show(
                     "¿Seguro que deseas eliminar este empleado?",
                     "Confirmar eliminación",
@@ -377,7 +389,7 @@ namespace Pantallas_PIA_MAD
                     if (resultado > 0)
                     {
                         MessageBox.Show("Empleado eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RefrescarEmpleados(); // 🔁 Refresca el DataGridView
+                        RefrescarEmpleados();
                     }
                     else
                     {

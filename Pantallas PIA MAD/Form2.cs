@@ -80,7 +80,7 @@ namespace Pantallas_PIA_MAD
         {
             Application.Exit();
         }
-
+        //Guardar ultimo inicio de sesion para no colocarlo
         private void Form2_Load_1(object sender, EventArgs e)
         {
             this.FormClosed += Form2_FormClosed;

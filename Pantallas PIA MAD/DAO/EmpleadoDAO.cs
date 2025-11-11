@@ -10,7 +10,6 @@ namespace Pantallas_PIA_MAD.DAO
 {
     public class EmpleadoDAO
     {
-        // Método para insertar un empleado usando el stored procedure
         public static int InsertarEmpleado(Empleado empleado)
         {
             int retorno = 0;
@@ -21,7 +20,6 @@ namespace Pantallas_PIA_MAD.DAO
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Parámetros
                     comando.Parameters.AddWithValue("@numero_empleado", empleado.numero_empleado);
                     comando.Parameters.AddWithValue("@nombres", empleado.nombres);
                     comando.Parameters.AddWithValue("@apellido_paterno", empleado.apellido_paterno);
@@ -48,7 +46,6 @@ namespace Pantallas_PIA_MAD.DAO
             return retorno;
         }
 
-        // Método para obtener todos los empleados
         public static List<Empleado> ObtenerEmpleados()
         {
             List<Empleado> lista = new List<Empleado>();

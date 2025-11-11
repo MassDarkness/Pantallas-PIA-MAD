@@ -115,6 +115,9 @@ namespace Pantallas_PIA_MAD
             var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
             var puestoSel = (Puesto)ComboBoxPuesto.SelectedItem;
 
+            string salarioLimpio = TB_SalarioDiario.Text.Replace("$", "").Replace(",", "");
+            string sdiLimpio = TB_SDInte.Text.Replace("$", "").Replace(",", "");
+
             Empleado empleado = new Empleado
             {
                 numero_empleado = TB_NumEmp.Text,
@@ -128,8 +131,8 @@ namespace Pantallas_PIA_MAD
                 curp = TB_CURP.Text,
                 rfc = TB_RFC.Text,
                 nss = TB_NSS.Text,
-                salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
-                salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
+                salario = string.IsNullOrEmpty(salarioLimpio) ? (decimal?)null : decimal.Parse(salarioLimpio),
+                salario_diario_integrado = string.IsNullOrEmpty(sdiLimpio) ? (decimal?)null : decimal.Parse(sdiLimpio),
                 numero_cuenta = TB_NumCuenta.Text,
                 banco = TB_Banco.Text,
 
@@ -156,6 +159,14 @@ namespace Pantallas_PIA_MAD
         // Metodo para actualizar el DataGridView
         private void RefrescarEmpleados()
         {
+            if (Vista_EMP.Columns["salario"] != null)
+            {
+                Vista_EMP.Columns["salario"].DefaultCellStyle.Format = "C2";
+            }
+            if (Vista_EMP.Columns["salario_diario_integrado"] != null)
+            {
+                Vista_EMP.Columns["salario_diario_integrado"].DefaultCellStyle.Format = "C2";
+            }
             Vista_EMP.DataSource = EmpleadoDAO.ObtenerEmpleados();
             if (Vista_EMP.Columns["Puesto"] != null)
                 Vista_EMP.Columns["Puesto"].Visible = false;
@@ -187,7 +198,8 @@ namespace Pantallas_PIA_MAD
             TB_SDInte.Text = fila.Cells["salario_diario_integrado"].Value?.ToString();
             TB_NumCuenta.Text = fila.Cells["numero_cuenta"].Value?.ToString();
             TB_Banco.Text = fila.Cells["banco"].Value?.ToString();
-
+            TB_SalarioDiario.Text = fila.Cells["salario"].FormattedValue.ToString();
+            TB_SDInte.Text = fila.Cells["salario_diario_integrado"].FormattedValue.ToString();
             if (fila.Cells["fecha_nacimiento"].Value != DBNull.Value)
                 FechaNac_EMP.Value = Convert.ToDateTime(fila.Cells["fecha_nacimiento"].Value);
             else
@@ -248,6 +260,9 @@ namespace Pantallas_PIA_MAD
                 var deptoSel = (Departamento)ComboBoxDepartamento.SelectedItem;
                 var puestoSel = (Puesto)ComboBoxPuesto.SelectedItem;
 
+                string salarioLimpio = TB_SalarioDiario.Text.Replace("$", "").Replace(",", "");
+                string sdiLimpio = TB_SDInte.Text.Replace("$", "").Replace(",", "");
+
                 Empleado empleado = new Empleado
                 {
                     id_empleado = idEmpleado,
@@ -262,8 +277,8 @@ namespace Pantallas_PIA_MAD
                     curp = TB_CURP.Text,
                     rfc = TB_RFC.Text,
                     nss = TB_NSS.Text,
-                    salario = string.IsNullOrEmpty(TB_SalarioDiario.Text) ? (decimal?)null : decimal.Parse(TB_SalarioDiario.Text),
-                    salario_diario_integrado = string.IsNullOrEmpty(TB_SDInte.Text) ? (decimal?)null : decimal.Parse(TB_SDInte.Text),
+                    salario = string.IsNullOrEmpty(salarioLimpio) ? (decimal?)null : decimal.Parse(salarioLimpio),
+                    salario_diario_integrado = string.IsNullOrEmpty(sdiLimpio) ? (decimal?)null : decimal.Parse(sdiLimpio),
                     numero_cuenta = TB_NumCuenta.Text,
                     banco = TB_Banco.Text,
                     id_empresa = empresaSel?.id_empresa ?? 0,
@@ -288,21 +303,21 @@ namespace Pantallas_PIA_MAD
                 MessageBox.Show("Error al actualizar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //Boton para enviarte al apartado de la gestion de nomina 
         private void Nomina__MEAU_Click(object sender, EventArgs e)
         {
             Form12 form12 = new Form12();
             form12.Show();
             this.Hide();
         }
-
+        //Boton para enviarte al apartado de los reportes
         private void Reportes__MEAU_Click(object sender, EventArgs e)
         {
             Form4 form4 = new Form4();
             form4.Show();
             this.Hide();
         }
-
+        //Boton para enviarte a iniciar sesion si se desea
         private void Salir__MEAU_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
@@ -314,22 +329,26 @@ namespace Pantallas_PIA_MAD
         {
 
         }
-
+        //Calcular el salario integral con el diario
         private void TB_SalarioDiario_Leave(object sender, EventArgs e)
         {
+            string salarioLimpio = TB_SalarioDiario.Text
+                            .Replace("$", "")
+                            .Replace(",", "");
+
             if (decimal.TryParse(TB_SalarioDiario.Text, out decimal salarioDiario))
             {
 
                 decimal sdi = salarioDiario * 1.0493m;
 
-                TB_SDInte.Text = sdi.ToString("F2");
+                TB_SDInte.Text = sdi.ToString("C2");
             }
             else
             {
                 TB_SDInte.Text = "";
             }
         }
-
+        //Limpiar todas las casillas
         private void BTN_LimpiarEMP_Click(object sender, EventArgs e)
         {
             try

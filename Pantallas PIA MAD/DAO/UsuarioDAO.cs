@@ -18,8 +18,6 @@ namespace Pantallas_PIA_MAD.DAO
                 using (SqlCommand comando = new SqlCommand("sp_RegistrarUsuario", conexion))
                 {
                     comando.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    // Agregamos los parámetros según el SP
                     comando.Parameters.AddWithValue("@nombre", usuario.nombre);
                     comando.Parameters.AddWithValue("@correo", (object)usuario.correo ?? DBNull.Value);
                     comando.Parameters.AddWithValue("@contra", (object)usuario.contraseña ?? DBNull.Value);

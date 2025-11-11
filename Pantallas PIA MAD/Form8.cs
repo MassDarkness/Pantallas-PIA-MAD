@@ -315,7 +315,7 @@ namespace Pantallas_PIA_MAD
             form14.Show();
             this.Hide();
         }
-
+        //Elimina departamento y con esto elimina sus puestos y sus empleados relacionados
         private void EliminarDEPAdmin_Click(object sender, EventArgs e)
         {
             if (Vista_Departamento.CurrentRow == null)
@@ -355,7 +355,7 @@ namespace Pantallas_PIA_MAD
                 MessageBox.Show("Error al eliminar el departamento: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+        //Elimina el Puesto y con esto elimina los empleados relacionados
         private void EliminarPuesAdmin_Click(object sender, EventArgs e)
         {
             if (Vista_PuestoADMIN.CurrentRow == null)
