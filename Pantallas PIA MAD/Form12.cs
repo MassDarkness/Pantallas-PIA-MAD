@@ -34,11 +34,11 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuestoAUX.DisplayMember = "nombre";
             ComboBoxEmpresaPuestoAUX.ValueMember = "id_empresa";
             ComboBoxDepartamentoPuestoAUX.SelectedIndex = -1;
-            Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
+            Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosDetallados();
         }
         private void refrescar()
         {
-            Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
+            Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosDetallados();
         }
         //Boton para enviarte al apartado de la gestion de empresas
         private void Empresa_MEAU_Click(object sender, EventArgs e)

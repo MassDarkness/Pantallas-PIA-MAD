@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.LB_DepartamentoReporte = new System.Windows.Forms.ListBox();
+            this.CB_DepartamentoReporte = new System.Windows.Forms.ComboBox();
             this.BTN_ExportarPDF = new System.Windows.Forms.Button();
             this.VistaReporteADMIN = new System.Windows.Forms.DataGridView();
             this.BTN_CalcularReporteADMIN = new System.Windows.Forms.Button();
@@ -43,13 +43,13 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Empleados_MEAD = new System.Windows.Forms.Button();
             this.Salir_MEAD = new System.Windows.Forms.Button();
             this.Reporte_MEAD = new System.Windows.Forms.Button();
             this.Nomina_MEAD = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.DepaPues__MEAD = new System.Windows.Forms.Button();
             this.Empresa_MEAD = new System.Windows.Forms.Button();
-            this.Empleados_MEAD = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VistaReporteADMIN)).BeginInit();
             this.panel3.SuspendLayout();
@@ -59,7 +59,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.panel2.Controls.Add(this.LB_DepartamentoReporte);
+            this.panel2.Controls.Add(this.CB_DepartamentoReporte);
             this.panel2.Controls.Add(this.BTN_ExportarPDF);
             this.panel2.Controls.Add(this.VistaReporteADMIN);
             this.panel2.Controls.Add(this.BTN_CalcularReporteADMIN);
@@ -77,13 +77,13 @@
             this.panel2.Size = new System.Drawing.Size(825, 712);
             this.panel2.TabIndex = 2;
             // 
-            // LB_DepartamentoReporte
+            // CB_DepartamentoReporte
             // 
-            this.LB_DepartamentoReporte.FormattingEnabled = true;
-            this.LB_DepartamentoReporte.Location = new System.Drawing.Point(575, 84);
-            this.LB_DepartamentoReporte.Name = "LB_DepartamentoReporte";
-            this.LB_DepartamentoReporte.Size = new System.Drawing.Size(198, 82);
-            this.LB_DepartamentoReporte.TabIndex = 63;
+            this.CB_DepartamentoReporte.FormattingEnabled = true;
+            this.CB_DepartamentoReporte.Location = new System.Drawing.Point(575, 83);
+            this.CB_DepartamentoReporte.Name = "CB_DepartamentoReporte";
+            this.CB_DepartamentoReporte.Size = new System.Drawing.Size(187, 21);
+            this.CB_DepartamentoReporte.TabIndex = 63;
             // 
             // BTN_ExportarPDF
             // 
@@ -95,6 +95,7 @@
             this.BTN_ExportarPDF.TabIndex = 62;
             this.BTN_ExportarPDF.Text = "Exportar PDF";
             this.BTN_ExportarPDF.UseVisualStyleBackColor = false;
+            this.BTN_ExportarPDF.Click += new System.EventHandler(this.BTN_ExportarPDF_Click);
             // 
             // VistaReporteADMIN
             // 
@@ -115,6 +116,7 @@
             this.BTN_CalcularReporteADMIN.TabIndex = 60;
             this.BTN_CalcularReporteADMIN.Text = "Calcular Reporte";
             this.BTN_CalcularReporteADMIN.UseVisualStyleBackColor = false;
+            this.BTN_CalcularReporteADMIN.Click += new System.EventHandler(this.BTN_CalcularReporteADMIN_Click);
             // 
             // label4
             // 
@@ -169,6 +171,7 @@
             this.CB_TipoReporte.Name = "CB_TipoReporte";
             this.CB_TipoReporte.Size = new System.Drawing.Size(210, 21);
             this.CB_TipoReporte.TabIndex = 53;
+            this.CB_TipoReporte.SelectedIndexChanged += new System.EventHandler(this.CB_TipoReporte_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -215,6 +218,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(155, 712);
             this.panel1.TabIndex = 3;
+            // 
+            // Empleados_MEAD
+            // 
+            this.Empleados_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Empleados_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F);
+            this.Empleados_MEAD.Location = new System.Drawing.Point(0, 164);
+            this.Empleados_MEAD.Name = "Empleados_MEAD";
+            this.Empleados_MEAD.Size = new System.Drawing.Size(155, 53);
+            this.Empleados_MEAD.TabIndex = 10;
+            this.Empleados_MEAD.Text = "Gestión De Empleados";
+            this.Empleados_MEAD.UseVisualStyleBackColor = true;
+            this.Empleados_MEAD.Click += new System.EventHandler(this.Empleados_MEAD_Click);
             // 
             // Salir_MEAD
             // 
@@ -289,18 +304,6 @@
             this.Empresa_MEAD.UseVisualStyleBackColor = true;
             this.Empresa_MEAD.Click += new System.EventHandler(this.Empresa_MEAD_Click);
             // 
-            // Empleados_MEAD
-            // 
-            this.Empleados_MEAD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Empleados_MEAD.Font = new System.Drawing.Font("Lucida Sans", 12F);
-            this.Empleados_MEAD.Location = new System.Drawing.Point(0, 164);
-            this.Empleados_MEAD.Name = "Empleados_MEAD";
-            this.Empleados_MEAD.Size = new System.Drawing.Size(155, 53);
-            this.Empleados_MEAD.TabIndex = 10;
-            this.Empleados_MEAD.Text = "Gestión De Empleados";
-            this.Empleados_MEAD.UseVisualStyleBackColor = true;
-            this.Empleados_MEAD.Click += new System.EventHandler(this.Empleados_MEAD_Click);
-            // 
             // Form11
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,7 +346,7 @@
         private System.Windows.Forms.DataGridView VistaReporteADMIN;
         private System.Windows.Forms.Button BTN_CalcularReporteADMIN;
         private System.Windows.Forms.Button BTN_ExportarPDF;
-        private System.Windows.Forms.ListBox LB_DepartamentoReporte;
         private System.Windows.Forms.Button Empleados_MEAD;
+        private System.Windows.Forms.ComboBox CB_DepartamentoReporte;
     }
 }

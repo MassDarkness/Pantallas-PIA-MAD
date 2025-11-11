@@ -33,20 +33,20 @@
             this.Salir_MEAU = new System.Windows.Forms.Button();
             this.Reportes__MEAU = new System.Windows.Forms.Button();
             this.Nomina__MEAU = new System.Windows.Forms.Button();
-            this.LB_Departamento = new System.Windows.Forms.ListBox();
-            this.BTN_ExportarPDF = new System.Windows.Forms.Button();
+            this.BTN_ExportarPDFAUX = new System.Windows.Forms.Button();
             this.Vista_ReporteAUX = new System.Windows.Forms.DataGridView();
-            this.BTN_CalcularRe = new System.Windows.Forms.Button();
+            this.BTN_CalcularReporteAUX = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.CB_Año = new System.Windows.Forms.ComboBox();
+            this.CB_AñoReportesAUX = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.CB_Mes = new System.Windows.Forms.ComboBox();
+            this.CB_MesReportesAUX = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.CB_TipoRe = new System.Windows.Forms.ComboBox();
+            this.CB_TipoReporteAUX = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.CB_DepartamentoReporteAUX = new System.Windows.Forms.ComboBox();
             Empresa_MEAU = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Vista_ReporteAUX)).BeginInit();
@@ -118,24 +118,17 @@
             this.Nomina__MEAU.UseVisualStyleBackColor = false;
             this.Nomina__MEAU.Click += new System.EventHandler(this.Nomina__MEAU_Click);
             // 
-            // LB_Departamento
+            // BTN_ExportarPDFAUX
             // 
-            this.LB_Departamento.FormattingEnabled = true;
-            this.LB_Departamento.Location = new System.Drawing.Point(575, 84);
-            this.LB_Departamento.Name = "LB_Departamento";
-            this.LB_Departamento.Size = new System.Drawing.Size(198, 82);
-            this.LB_Departamento.TabIndex = 63;
-            // 
-            // BTN_ExportarPDF
-            // 
-            this.BTN_ExportarPDF.BackColor = System.Drawing.Color.CadetBlue;
-            this.BTN_ExportarPDF.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_ExportarPDF.Location = new System.Drawing.Point(270, 638);
-            this.BTN_ExportarPDF.Name = "BTN_ExportarPDF";
-            this.BTN_ExportarPDF.Size = new System.Drawing.Size(183, 34);
-            this.BTN_ExportarPDF.TabIndex = 62;
-            this.BTN_ExportarPDF.Text = "Exportar PDF";
-            this.BTN_ExportarPDF.UseVisualStyleBackColor = false;
+            this.BTN_ExportarPDFAUX.BackColor = System.Drawing.Color.CadetBlue;
+            this.BTN_ExportarPDFAUX.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_ExportarPDFAUX.Location = new System.Drawing.Point(270, 638);
+            this.BTN_ExportarPDFAUX.Name = "BTN_ExportarPDFAUX";
+            this.BTN_ExportarPDFAUX.Size = new System.Drawing.Size(183, 34);
+            this.BTN_ExportarPDFAUX.TabIndex = 62;
+            this.BTN_ExportarPDFAUX.Text = "Exportar PDF";
+            this.BTN_ExportarPDFAUX.UseVisualStyleBackColor = false;
+            this.BTN_ExportarPDFAUX.Click += new System.EventHandler(this.BTN_ExportarPDFAUX_Click);
             // 
             // Vista_ReporteAUX
             // 
@@ -145,16 +138,17 @@
             this.Vista_ReporteAUX.Size = new System.Drawing.Size(729, 387);
             this.Vista_ReporteAUX.TabIndex = 61;
             // 
-            // BTN_CalcularRe
+            // BTN_CalcularReporteAUX
             // 
-            this.BTN_CalcularRe.BackColor = System.Drawing.Color.CadetBlue;
-            this.BTN_CalcularRe.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_CalcularRe.Location = new System.Drawing.Point(270, 177);
-            this.BTN_CalcularRe.Name = "BTN_CalcularRe";
-            this.BTN_CalcularRe.Size = new System.Drawing.Size(183, 34);
-            this.BTN_CalcularRe.TabIndex = 60;
-            this.BTN_CalcularRe.Text = "Calcular Reporte";
-            this.BTN_CalcularRe.UseVisualStyleBackColor = false;
+            this.BTN_CalcularReporteAUX.BackColor = System.Drawing.Color.CadetBlue;
+            this.BTN_CalcularReporteAUX.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_CalcularReporteAUX.Location = new System.Drawing.Point(270, 177);
+            this.BTN_CalcularReporteAUX.Name = "BTN_CalcularReporteAUX";
+            this.BTN_CalcularReporteAUX.Size = new System.Drawing.Size(183, 34);
+            this.BTN_CalcularReporteAUX.TabIndex = 60;
+            this.BTN_CalcularReporteAUX.Text = "Calcular Reporte";
+            this.BTN_CalcularReporteAUX.UseVisualStyleBackColor = false;
+            this.BTN_CalcularReporteAUX.Click += new System.EventHandler(this.BTN_CalcularReporteAUX_Click);
             // 
             // label4
             // 
@@ -166,13 +160,13 @@
             this.label4.TabIndex = 58;
             this.label4.Text = "Departamento:";
             // 
-            // CB_Año
+            // CB_AñoReportesAUX
             // 
-            this.CB_Año.FormattingEnabled = true;
-            this.CB_Año.Location = new System.Drawing.Point(151, 135);
-            this.CB_Año.Name = "CB_Año";
-            this.CB_Año.Size = new System.Drawing.Size(148, 21);
-            this.CB_Año.TabIndex = 57;
+            this.CB_AñoReportesAUX.FormattingEnabled = true;
+            this.CB_AñoReportesAUX.Location = new System.Drawing.Point(151, 135);
+            this.CB_AñoReportesAUX.Name = "CB_AñoReportesAUX";
+            this.CB_AñoReportesAUX.Size = new System.Drawing.Size(148, 21);
+            this.CB_AñoReportesAUX.TabIndex = 57;
             // 
             // label3
             // 
@@ -184,13 +178,13 @@
             this.label3.TabIndex = 56;
             this.label3.Text = "Año:";
             // 
-            // CB_Mes
+            // CB_MesReportesAUX
             // 
-            this.CB_Mes.FormattingEnabled = true;
-            this.CB_Mes.Location = new System.Drawing.Point(385, 135);
-            this.CB_Mes.Name = "CB_Mes";
-            this.CB_Mes.Size = new System.Drawing.Size(173, 21);
-            this.CB_Mes.TabIndex = 55;
+            this.CB_MesReportesAUX.FormattingEnabled = true;
+            this.CB_MesReportesAUX.Location = new System.Drawing.Point(385, 135);
+            this.CB_MesReportesAUX.Name = "CB_MesReportesAUX";
+            this.CB_MesReportesAUX.Size = new System.Drawing.Size(173, 21);
+            this.CB_MesReportesAUX.TabIndex = 55;
             // 
             // label2
             // 
@@ -202,13 +196,13 @@
             this.label2.TabIndex = 54;
             this.label2.Text = "Mes:";
             // 
-            // CB_TipoRe
+            // CB_TipoReporteAUX
             // 
-            this.CB_TipoRe.FormattingEnabled = true;
-            this.CB_TipoRe.Location = new System.Drawing.Point(169, 84);
-            this.CB_TipoRe.Name = "CB_TipoRe";
-            this.CB_TipoRe.Size = new System.Drawing.Size(210, 21);
-            this.CB_TipoRe.TabIndex = 53;
+            this.CB_TipoReporteAUX.FormattingEnabled = true;
+            this.CB_TipoReporteAUX.Location = new System.Drawing.Point(169, 84);
+            this.CB_TipoReporteAUX.Name = "CB_TipoReporteAUX";
+            this.CB_TipoReporteAUX.Size = new System.Drawing.Size(210, 21);
+            this.CB_TipoReporteAUX.TabIndex = 53;
             // 
             // label10
             // 
@@ -223,16 +217,16 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.panel2.Controls.Add(this.LB_Departamento);
-            this.panel2.Controls.Add(this.BTN_ExportarPDF);
+            this.panel2.Controls.Add(this.CB_DepartamentoReporteAUX);
+            this.panel2.Controls.Add(this.BTN_ExportarPDFAUX);
             this.panel2.Controls.Add(this.Vista_ReporteAUX);
-            this.panel2.Controls.Add(this.BTN_CalcularRe);
+            this.panel2.Controls.Add(this.BTN_CalcularReporteAUX);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.CB_Año);
+            this.panel2.Controls.Add(this.CB_AñoReportesAUX);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.CB_Mes);
+            this.panel2.Controls.Add(this.CB_MesReportesAUX);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.CB_TipoRe);
+            this.panel2.Controls.Add(this.CB_TipoReporteAUX);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -261,6 +255,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "AUXILIAR";
             // 
+            // CB_DepartamentoReporteAUX
+            // 
+            this.CB_DepartamentoReporteAUX.FormattingEnabled = true;
+            this.CB_DepartamentoReporteAUX.Location = new System.Drawing.Point(575, 84);
+            this.CB_DepartamentoReporteAUX.Name = "CB_DepartamentoReporteAUX";
+            this.CB_DepartamentoReporteAUX.Size = new System.Drawing.Size(187, 21);
+            this.CB_DepartamentoReporteAUX.TabIndex = 64;
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,20 +287,20 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Salir_MEAU;
         private System.Windows.Forms.Button Nomina__MEAU;
-        private System.Windows.Forms.ListBox LB_Departamento;
-        private System.Windows.Forms.Button BTN_ExportarPDF;
+        private System.Windows.Forms.Button BTN_ExportarPDFAUX;
         private System.Windows.Forms.DataGridView Vista_ReporteAUX;
-        private System.Windows.Forms.Button BTN_CalcularRe;
+        private System.Windows.Forms.Button BTN_CalcularReporteAUX;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox CB_Año;
+        private System.Windows.Forms.ComboBox CB_AñoReportesAUX;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox CB_Mes;
+        private System.Windows.Forms.ComboBox CB_MesReportesAUX;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox CB_TipoRe;
+        private System.Windows.Forms.ComboBox CB_TipoReporteAUX;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Reportes__MEAU;
+        private System.Windows.Forms.ComboBox CB_DepartamentoReporteAUX;
     }
 }

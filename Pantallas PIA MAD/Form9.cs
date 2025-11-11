@@ -88,14 +88,14 @@ namespace Pantallas_PIA_MAD
         private void button5_Click(object sender, EventArgs e)
         {
             if (comboBox2.SelectedValue == null) 
-            {
-                MessageBox.Show("Por favor, seleccione un empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+            { 
+                MessageBox.Show("Seleccione empleado."); 
+                return; 
             }
-            if (!int.TryParse(TB_DiasTrabajados.Text, out int diasTrabajados))
-            {
-                MessageBox.Show("Días trabajados debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+            if (!int.TryParse(TB_DiasTrabajados.Text, out int diasTrabajados)) 
+            { 
+                MessageBox.Show("Días trabajados inválidos."); 
+                return; 
             }
 
             try
@@ -248,11 +248,13 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuesto.ValueMember = "id_empresa";
             ComboBoxDepartamentoPuesto.SelectedIndex = -1;
             VistaNOMINAAUX.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
+
+            refrescar();
         }
 
         private void refrescar()
         {
-            VistaNOMINAAUX.DataSource = ReciboNominaDAO.ObtenerRecibosNomina();
+            VistaNOMINAAUX.DataSource = ReciboNominaDAO.ObtenerRecibosDetallados();
         }
 
         private void comboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
