@@ -33,5 +33,41 @@ namespace Pantallas_PIA_MAD.Properties {
                 return ((string)(this["ProyectoMADConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CorreoGuardado {
+            get {
+                return ((string)(this["CorreoGuardado"]));
+            }
+            set {
+                this["CorreoGuardado"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ContrasenaGuardada {
+            get {
+                return ((string)(this["ContrasenaGuardada"]));
+            }
+            set {
+                this["ContrasenaGuardada"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TipoUsuarioGuardado {
+            get {
+                return ((int)(this["TipoUsuarioGuardado"]));
+            }
+            set {
+                this["TipoUsuarioGuardado"] = value;
+            }
+        }
     }
 }

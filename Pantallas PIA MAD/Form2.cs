@@ -47,7 +47,11 @@ namespace Pantallas_PIA_MAD
 
         if (usuario != null)
         {
-            if (tipo == 1)
+                Properties.Settings.Default.CorreoGuardado = correo;
+                Properties.Settings.Default.ContrasenaGuardada = contrasena;
+                Properties.Settings.Default.TipoUsuarioGuardado = tipo;
+                Properties.Settings.Default.Save();
+                if (tipo == 1)
             {
                 MessageBox.Show("¡Bienvenido ADMIN " + usuario.nombre + "!");
                 Form3 menuAdmin = new Form3();
@@ -80,6 +84,19 @@ namespace Pantallas_PIA_MAD
         private void Form2_Load_1(object sender, EventArgs e)
         {
             this.FormClosed += Form2_FormClosed;
+            string correoGuardado = Properties.Settings.Default.CorreoGuardado;
+            string contrasenaGuardada = Properties.Settings.Default.ContrasenaGuardada;
+            int tipoGuardado = Properties.Settings.Default.TipoUsuarioGuardado;
+            if (!string.IsNullOrEmpty(correoGuardado))
+            {
+                IS_Correo.Text = correoGuardado;
+                IS_Contraseña.Text = contrasenaGuardada;
+
+                if (tipoGuardado == 1)
+                    RB_ADMIN.Checked = true;
+                else
+                    RB_AUXILIAR.Checked = true;
+            }
         }
     }
 }
