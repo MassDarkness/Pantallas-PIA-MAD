@@ -1,4 +1,6 @@
-﻿using Pantallas_PIA_MAD.DAO;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Pantallas_PIA_MAD.DAO;
 using Pantallas_PIA_MAD.entidades;
 using System;
 using System.Collections.Generic;
@@ -9,10 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text;
 using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+
 
 namespace Pantallas_PIA_MAD
 {

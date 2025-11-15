@@ -1,4 +1,6 @@
-﻿using Pantallas_PIA_MAD.DAO;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Pantallas_PIA_MAD.DAO;
 using Pantallas_PIA_MAD.entidades;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Text;
 using System.IO;
 
 namespace Pantallas_PIA_MAD
@@ -18,6 +19,7 @@ namespace Pantallas_PIA_MAD
     public partial class Form12 : Form
     {
         private CalculoNomina nominaService = new CalculoNomina();
+        private GeneradorReciboPDF reciboPDFService = new GeneradorReciboPDF();
         public Form12()
         {
             InitializeComponent();
@@ -36,6 +38,8 @@ namespace Pantallas_PIA_MAD
             ComboBoxEmpresaPuestoAUX.ValueMember = "id_empresa";
             ComboBoxDepartamentoPuestoAUX.SelectedIndex = -1;
             Vista_Nomina.DataSource = ReciboNominaDAO.ObtenerRecibosDetallados();
+
+            refrescar();
         }
         private void refrescar()
         {
@@ -65,71 +69,108 @@ namespace Pantallas_PIA_MAD
         //Boton para calcular nomina
         private void BTN_CalcularNominaAUX_Click(object sender, EventArgs e)
         {
+            if (comboBox2AUX.SelectedItem == null)
             {
-                if (comboBox2AUX.SelectedValue == null)
+                MessageBox.Show("Seleccione empleado.");
+                return;
+            }
+
+            try
+            {
+                int idEmpleado;
+                if (comboBox2AUX.SelectedItem is Empleado empleadoSel)
                 {
-                    MessageBox.Show("Por favor, seleccione un empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    idEmpleado = empleadoSel.id_empleado;
+                }
+                else
+                {
+                    MessageBox.Show("Error de ComboBox. Vuelve a seleccionar el empleado.");
                     return;
                 }
-                if (!int.TryParse(TB_DiasTrabajadosAUX.Text, out int diasTrabajados))
+
+                DateTime fechaSeleccionada = FechaAUXNomina.Value;
+                int anio = fechaSeleccionada.Year;
+                int mes = fechaSeleccionada.Month;
+
+                if (NominaDAO.VerificarNominaExistente(idEmpleado, anio, mes))
                 {
-                    MessageBox.Show("Días trabajados debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("¡Error! Ya existe una nómina para este empleado en este mes.", "Nómina Duplicada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                int.TryParse(TB_FaltasAUX.Text, out int faltas);     
+                int.TryParse(TB_RetardosAUX.Text, out int retardos); 
 
-                try
+                decimal.TryParse(TB_AguinaldoAUX.Text.Replace("$", "").Replace(",", ""), out decimal aguinaldo);
+                decimal.TryParse(TB_BNPuntualidadAUX.Text.Replace("$", "").Replace(",", ""), out decimal bonoPuntualidad);
+                decimal.TryParse(TB_BNAsistenciaAUX.Text.Replace("$", "").Replace(",", ""), out decimal bonoAsistencia);
+                decimal.TryParse(TB_CuotaIMSSAUX.Text.Replace("$", "").Replace(",", ""), out decimal cuotaImss);
+                decimal.TryParse(TB_CuotaSindicalAUX.Text.Replace("$", "").Replace(",", ""), out decimal cuotaSindical);
+
+                int diasDelMes = DateTime.DaysInMonth(anio, mes);
+
+                Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(idEmpleado);
+                if (empleado == null) { MessageBox.Show("No se encontró empleado."); return; }
+
+                Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
+                    empleado, diasDelMes, faltas, retardos, aguinaldo,
+                    bonoPuntualidad, bonoAsistencia, cuotaImss, cuotaSindical
+                );
+
+                DateTime fechaDeNomina = new DateTime(anio, mes, 1);
+                Nomina nomina = new Nomina { fecha = fechaDeNomina, estatus = "Calculada", id_empleado = idEmpleado };
+
+                int idNominaNueva;
+                int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
+                if (resultadoNomina <= 0 || idNominaNueva <= 0) { MessageBox.Show("Error al guardar nómina."); return; }
+
+                reciboCalculado.id_nomina = idNominaNueva;
+                reciboCalculado.fecha = fechaDeNomina;
+
+                int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
+                if (resultadoRecibo <= 0) { MessageBox.Show("Error al guardar recibo."); return; }
+
+                refrescar();
+                MessageBox.Show("Nómina calculada y guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DialogResult dialogResult = MessageBox.Show(
+                    "¿Desea generar el recibo en PDF para este empleado?",
+                    "Generar PDF",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (dialogResult == DialogResult.Yes)
                 {
-                    var empleadoSel = (Empleado)comboBox2AUX.SelectedItem;
-                    int idEmpleado = empleadoSel.id_empleado;
+                    try
+                    {
+                        SaveFileDialog sfd = new SaveFileDialog();
+                        sfd.Filter = "Archivo PDF (*.pdf)|*.pdf";
+                        sfd.Title = "Guardar Recibo de Nómina";
+                        sfd.FileName = $"Recibo_{empleado.nombres.Replace(" ", "")}_{mes}-{anio}.pdf";
 
-                    Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(idEmpleado);
-                    if (empleado == null)
-                    {
-                        MessageBox.Show("No se pudo encontrar al empleado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    decimal.TryParse(TB_AguinaldoAUX.Text, out decimal aguinaldo);
-                    decimal.TryParse(TB_BNPuntualidadAUX.Text, out decimal bonoPuntualidad);
-                    decimal.TryParse(TB_BNAsistenciaAUX.Text, out decimal bonoAsistencia);
-                    decimal.TryParse(TB_CuotaIMSSAUX.Text, out decimal cuotaImss);
-                    decimal.TryParse(TB_CuotaSindicalAUX.Text, out decimal cuotaSindical);
-                    Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
-                        empleado, diasTrabajados, aguinaldo, bonoPuntualidad,
-                        bonoAsistencia, cuotaImss, cuotaSindical
-                    );
-                    DateTime fechaSeleccionada = FechaAUXNomina.Value;
-                    DateTime fechaDeNomina = new DateTime(fechaSeleccionada.Year, fechaSeleccionada.Month, 1);
-                    Nomina nomina = new Nomina
-                    {
-                        fecha = fechaDeNomina,
-                        estatus = "Calculada",
-                        id_empleado = idEmpleado
-                    };
-                    int idNominaNueva; 
-                    int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                        {
+                            RegistroEmpresa empresa = EmpresaDAP.ObtenerEmpresaPorId(empleado.id_empresa);
+                            empleado.Puesto = PuestoDAO.ObtenerPuestoPorId(empleado.id_puesto ?? 0);
+                            empleado.Departamento = DepartamentoDAO.ObtenerDepartamentoPorId(empleado.id_departamento ?? 0);
 
-                    if (resultadoNomina <= 0 || idNominaNueva <= 0)
-                    {
-                        MessageBox.Show("Error: No se pudo registrar la nómina principal.");
-                        return;
+                            reciboPDFService.GenerarPDF(sfd.FileName, empleado, reciboCalculado, empresa);
+
+                            MessageBox.Show("Recibo PDF generado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-                    reciboCalculado.id_nomina = idNominaNueva;
-                    reciboCalculado.fecha = fechaDeNomina;
-                    int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
-                    if (resultadoRecibo <= 0)
+                    catch (Exception exPdf)
                     {
-                        MessageBox.Show("Error: Se guardó la nómina, pero no el recibo detallado.");
-                        return;
+                        MessageBox.Show("Error al generar el PDF: " + exPdf.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    refrescar();
-                    MessageBox.Show("Nómina calculada y guardada en la Base de Datos con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error crítico al calcular: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error crítico al calcular: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         //Evento para que aparezca todo en el combobox de empresa
         private void comboEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -139,6 +180,8 @@ namespace Pantallas_PIA_MAD
                 ComboBoxDepartamentoPuestoAUX.DisplayMember = "nombre";
                 ComboBoxDepartamentoPuestoAUX.ValueMember = "id_departamento";
                 comboBox1AUX.SelectedIndex = -1;
+                comboBox1AUX.DataSource = null;
+                comboBox2AUX.DataSource = null;
             }
         }
         //Evento para que aparezca todo en el combobox de departamento
@@ -150,6 +193,7 @@ namespace Pantallas_PIA_MAD
                 comboBox1AUX.DisplayMember = "nombre";
                 comboBox1AUX.ValueMember = "id_puesto";
                 comboBox1AUX.SelectedIndex = -1;
+                comboBox2AUX.DataSource = null;
             }
         }
         //Evento para que aparezca todo en el combobox de puesto
@@ -172,7 +216,6 @@ namespace Pantallas_PIA_MAD
                 return;
             }
             StringBuilder sb = new StringBuilder();
-
             List<string> headers = new List<string>();
             foreach (DataGridViewColumn column in Vista_Nomina.Columns)
             {
@@ -186,12 +229,21 @@ namespace Pantallas_PIA_MAD
                     List<string> celdas = new List<string>();
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        string valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
-                        celdas.Add(valor);
+                        string valor;
+                        if (cell.Value is DateTime)
+                        {
+                            valor = ((DateTime)cell.Value).ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            valor = (cell.Value?.ToString() ?? "").Replace(",", ";");
+                        }
+                        celdas.Add($"\"{valor}\"");
                     }
                     sb.AppendLine(string.Join(",", celdas));
                 }
             }
+
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Archivo CSV (*.csv)|*.csv";
             sfd.Title = "Guardar Reporte de Nómina";
@@ -208,6 +260,45 @@ namespace Pantallas_PIA_MAD
                 {
                     MessageBox.Show("Error al guardar el archivo: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void comboBox2AUX_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2AUX.SelectedItem is Empleado empleadoSel)
+            {
+                try
+                {
+                    Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(empleadoSel.id_empleado);
+                    if (empleado == null) return;
+                    decimal imssCalculado = nominaService.CalcularIMSS(empleado);
+
+                    decimal salarioDiario = empleado.salario ?? 0;
+                    decimal sindicalCalculado = salarioDiario * 0.02m;
+                    decimal bonoPuntualidad = salarioDiario * 0.10m;
+                    decimal bonoAsistencia = salarioDiario * 0.10m;
+
+                    DateTime fechaSeleccionada = FechaAUXNomina.Value;
+                    int diasDelMes = DateTime.DaysInMonth(fechaSeleccionada.Year, fechaSeleccionada.Month);
+                    decimal aguinaldoCalculado = (15.0m / 365.0m) * diasDelMes;
+                    TB_CuotaIMSSAUX.Text = imssCalculado.ToString("C2");
+                    TB_CuotaSindicalAUX.Text = sindicalCalculado.ToString("C2");
+                    TB_BNPuntualidadAUX.Text = bonoPuntualidad.ToString("C2");
+                    TB_BNAsistenciaAUX.Text = bonoAsistencia.ToString("C2");
+                    TB_AguinaldoAUX.Text = aguinaldoCalculado.ToString("C2");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al calcular automáticos: " + ex.Message);
+                }
+            }
+            else
+            {
+                TB_CuotaIMSSAUX.Text = "";
+                TB_CuotaSindicalAUX.Text = "";
+                TB_BNPuntualidadAUX.Text = "";
+                TB_BNAsistenciaAUX.Text = "";
+                TB_AguinaldoAUX.Text = "";
             }
         }
     }
