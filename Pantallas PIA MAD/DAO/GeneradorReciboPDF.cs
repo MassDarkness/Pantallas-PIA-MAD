@@ -1,12 +1,10 @@
-﻿using iTextSharp.text;
+﻿// --- REEMPLAZA TODO TU ARCHIVO DAO/GeneradorReciboPDF.cs ---
+
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Pantallas_PIA_MAD.entidades;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pantallas_PIA_MAD.DAO
 {
@@ -36,6 +34,11 @@ namespace Pantallas_PIA_MAD.DAO
                 Paragraph pRecibo = new Paragraph("Recibo de Nómina", fontBold);
                 pRecibo.Alignment = Element.ALIGN_CENTER;
                 doc.Add(pRecibo);
+
+                Paragraph pPeriodo = new Paragraph($"Periodo de Pago: {recibo.fecha.Value.ToString("MMMM 'de' yyyy")}", fontNormal); 
+                pPeriodo.Alignment = Element.ALIGN_CENTER;
+                doc.Add(pPeriodo);
+
                 doc.Add(Chunk.NEWLINE);
 
                 PdfPTable tblEmpleado = new PdfPTable(4);
@@ -56,9 +59,13 @@ namespace Pantallas_PIA_MAD.DAO
                 tblEmpleado.AddCell(CrearCelda("RFC:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.rfc, fontNormal));
 
+                tblEmpleado.AddCell(CrearCelda("Banco:", fontBold));
+                tblEmpleado.AddCell(CrearCelda(empleado.banco, fontNormal));
+                tblEmpleado.AddCell(CrearCelda("Número de Cuenta:", fontBold));
+                tblEmpleado.AddCell(CrearCelda(empleado.numero_cuenta, fontNormal));
+
                 doc.Add(tblEmpleado);
                 doc.Add(Chunk.NEWLINE);
-
                 PdfPTable tblConceptos = new PdfPTable(2);
                 tblConceptos.WidthPercentage = 100;
 
