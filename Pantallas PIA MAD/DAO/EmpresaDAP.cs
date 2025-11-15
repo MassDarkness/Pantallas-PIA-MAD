@@ -88,5 +88,35 @@ namespace Pantallas_PIA_MAD.DAO
 
             return retorno;
         }
+        public static RegistroEmpresa ObtenerEmpresaPorId(int idEmpresa)
+        {
+            RegistroEmpresa empresa = null;
+            using (var con = BDConexion.ObtenerConexion())
+            {
+                string query = "SELECT id_empresa,nombre,razon_social, domicilio_fiscal, contacto, registro_patronal, RFC," +
+                               "fecha_inicio_operaciones FROM Empresa WHERE id_empresa = @id";
+
+                var cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", idEmpresa);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        empresa = new RegistroEmpresa
+                        {
+                            id_empresa = reader.GetInt32(0),
+                            nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
+                            razon_social = reader.IsDBNull(2) ? null : reader.GetString(2),
+                            domicilio_fiscal = reader.IsDBNull(3) ? null : reader.GetString(3),
+                            contacto = reader.IsDBNull(4) ? null : reader.GetString(4),
+                            registro_patronal = reader.IsDBNull(5) ? null : reader.GetString(5),
+                            RFC = reader.IsDBNull(6) ? null : reader.GetString(6),
+                            fecha_inicio_operaciones = reader.IsDBNull(7) ? (DateTime?)null : reader.GetDateTime(7)
+                        };
+                    }
+                }
+            }
+            return empresa;
+        }
     }
 }

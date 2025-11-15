@@ -41,7 +41,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.BTN_ExportarNomina = new System.Windows.Forms.Button();
             this.TB_Aguinaldo = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.VistaNOMINAAUX = new System.Windows.Forms.DataGridView();
             this.BTN_CalcularNomina = new System.Windows.Forms.Button();
             this.TB_CuotaSindical = new System.Windows.Forms.TextBox();
@@ -52,7 +51,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.TB_BNPuntualidad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.TB_DiasTrabajados = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -65,6 +63,10 @@
             this.DepaPues__MEAD = new System.Windows.Forms.Button();
             this.Usuarios_MEAD = new System.Windows.Forms.Button();
             this.Empresa_MEAD = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TB_Faltas = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.TB_Retardos = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VistaNOMINAAUX)).BeginInit();
             this.panel3.SuspendLayout();
@@ -74,6 +76,10 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panel2.Controls.Add(this.TB_Retardos);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.TB_Faltas);
+            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.FechaADMINNomina);
             this.panel2.Controls.Add(this.comboBox1);
@@ -86,7 +92,6 @@
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.BTN_ExportarNomina);
             this.panel2.Controls.Add(this.TB_Aguinaldo);
-            this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.VistaNOMINAAUX);
             this.panel2.Controls.Add(this.BTN_CalcularNomina);
             this.panel2.Controls.Add(this.TB_CuotaSindical);
@@ -97,7 +102,6 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.TB_BNPuntualidad);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.TB_DiasTrabajados);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.panel3);
@@ -120,7 +124,7 @@
             // FechaADMINNomina
             // 
             this.FechaADMINNomina.Location = new System.Drawing.Point(309, 73);
-            this.FechaADMINNomina.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FechaADMINNomina.Margin = new System.Windows.Forms.Padding(2);
             this.FechaADMINNomina.Name = "FechaADMINNomina";
             this.FechaADMINNomina.Size = new System.Drawing.Size(318, 20);
             this.FechaADMINNomina.TabIndex = 66;
@@ -129,7 +133,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(310, 193);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(176, 21);
             this.comboBox1.TabIndex = 65;
@@ -149,7 +153,7 @@
             // 
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(633, 193);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(176, 21);
             this.comboBox2.TabIndex = 63;
@@ -168,7 +172,7 @@
             // 
             this.ComboBoxEmpresaPuesto.FormattingEnabled = true;
             this.ComboBoxEmpresaPuesto.Location = new System.Drawing.Point(310, 162);
-            this.ComboBoxEmpresaPuesto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ComboBoxEmpresaPuesto.Margin = new System.Windows.Forms.Padding(2);
             this.ComboBoxEmpresaPuesto.Name = "ComboBoxEmpresaPuesto";
             this.ComboBoxEmpresaPuesto.Size = new System.Drawing.Size(175, 21);
             this.ComboBoxEmpresaPuesto.TabIndex = 61;
@@ -188,7 +192,7 @@
             // 
             this.ComboBoxDepartamentoPuesto.FormattingEnabled = true;
             this.ComboBoxDepartamentoPuesto.Location = new System.Drawing.Point(633, 163);
-            this.ComboBoxDepartamentoPuesto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ComboBoxDepartamentoPuesto.Margin = new System.Windows.Forms.Padding(2);
             this.ComboBoxDepartamentoPuesto.Name = "ComboBoxDepartamentoPuesto";
             this.ComboBoxDepartamentoPuesto.Size = new System.Drawing.Size(177, 21);
             this.ComboBoxDepartamentoPuesto.TabIndex = 59;
@@ -208,7 +212,7 @@
             // 
             this.BTN_ExportarNomina.BackColor = System.Drawing.Color.CadetBlue;
             this.BTN_ExportarNomina.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_ExportarNomina.Location = new System.Drawing.Point(303, 678);
+            this.BTN_ExportarNomina.Location = new System.Drawing.Point(309, 678);
             this.BTN_ExportarNomina.Name = "BTN_ExportarNomina";
             this.BTN_ExportarNomina.Size = new System.Drawing.Size(183, 34);
             this.BTN_ExportarNomina.TabIndex = 53;
@@ -220,20 +224,10 @@
             // 
             this.TB_Aguinaldo.Location = new System.Drawing.Point(309, 258);
             this.TB_Aguinaldo.Name = "TB_Aguinaldo";
+            this.TB_Aguinaldo.ReadOnly = true;
             this.TB_Aguinaldo.Size = new System.Drawing.Size(318, 20);
             this.TB_Aguinaldo.TabIndex = 52;
             this.TB_Aguinaldo.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(83, 229);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(137, 18);
-            this.label10.TabIndex = 51;
-            this.label10.Text = "Dias Trabajados:";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // VistaNOMINAAUX
             // 
@@ -261,6 +255,7 @@
             // 
             this.TB_CuotaSindical.Location = new System.Drawing.Point(310, 378);
             this.TB_CuotaSindical.Name = "TB_CuotaSindical";
+            this.TB_CuotaSindical.ReadOnly = true;
             this.TB_CuotaSindical.Size = new System.Drawing.Size(318, 20);
             this.TB_CuotaSindical.TabIndex = 48;
             this.TB_CuotaSindical.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
@@ -280,6 +275,7 @@
             // 
             this.TB_CuotaIMSS.Location = new System.Drawing.Point(309, 348);
             this.TB_CuotaIMSS.Name = "TB_CuotaIMSS";
+            this.TB_CuotaIMSS.ReadOnly = true;
             this.TB_CuotaIMSS.Size = new System.Drawing.Size(318, 20);
             this.TB_CuotaIMSS.TabIndex = 46;
             this.TB_CuotaIMSS.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
@@ -299,6 +295,7 @@
             // 
             this.TB_BNAsistencia.Location = new System.Drawing.Point(310, 315);
             this.TB_BNAsistencia.Name = "TB_BNAsistencia";
+            this.TB_BNAsistencia.ReadOnly = true;
             this.TB_BNAsistencia.Size = new System.Drawing.Size(318, 20);
             this.TB_BNAsistencia.TabIndex = 44;
             this.TB_BNAsistencia.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
@@ -318,6 +315,7 @@
             // 
             this.TB_BNPuntualidad.Location = new System.Drawing.Point(310, 287);
             this.TB_BNPuntualidad.Name = "TB_BNPuntualidad";
+            this.TB_BNPuntualidad.ReadOnly = true;
             this.TB_BNPuntualidad.Size = new System.Drawing.Size(318, 20);
             this.TB_BNPuntualidad.TabIndex = 42;
             this.TB_BNPuntualidad.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -332,14 +330,6 @@
             this.label5.TabIndex = 41;
             this.label5.Text = "Bono Puntualidad:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // TB_DiasTrabajados
-            // 
-            this.TB_DiasTrabajados.Location = new System.Drawing.Point(309, 229);
-            this.TB_DiasTrabajados.Name = "TB_DiasTrabajados";
-            this.TB_DiasTrabajados.Size = new System.Drawing.Size(318, 20);
-            this.TB_DiasTrabajados.TabIndex = 40;
-            this.TB_DiasTrabajados.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label4
             // 
@@ -484,6 +474,40 @@
             this.Empresa_MEAD.UseVisualStyleBackColor = true;
             this.Empresa_MEAD.Click += new System.EventHandler(this.Empresa_MEAD_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(157, 229);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 18);
+            this.label6.TabIndex = 68;
+            this.label6.Text = "Faltas:";
+            // 
+            // TB_Faltas
+            // 
+            this.TB_Faltas.Location = new System.Drawing.Point(309, 229);
+            this.TB_Faltas.Name = "TB_Faltas";
+            this.TB_Faltas.Size = new System.Drawing.Size(177, 20);
+            this.TB_Faltas.TabIndex = 69;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(546, 228);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 18);
+            this.label10.TabIndex = 70;
+            this.label10.Text = "Retardos:";
+            // 
+            // TB_Retardos
+            // 
+            this.TB_Retardos.Location = new System.Drawing.Point(632, 226);
+            this.TB_Retardos.Name = "TB_Retardos";
+            this.TB_Retardos.Size = new System.Drawing.Size(177, 20);
+            this.TB_Retardos.TabIndex = 71;
+            // 
             // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,7 +545,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox TB_BNPuntualidad;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox TB_DiasTrabajados;
         private System.Windows.Forms.TextBox TB_CuotaSindical;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox TB_CuotaIMSS;
@@ -530,7 +553,6 @@
         private System.Windows.Forms.DataGridView VistaNOMINAAUX;
         private System.Windows.Forms.Button BTN_CalcularNomina;
         private System.Windows.Forms.TextBox TB_Aguinaldo;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button BTN_ExportarNomina;
         private System.Windows.Forms.Button Empleados_MEAD;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -543,5 +565,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker FechaADMINNomina;
+        private System.Windows.Forms.TextBox TB_Retardos;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox TB_Faltas;
+        private System.Windows.Forms.Label label6;
     }
 }

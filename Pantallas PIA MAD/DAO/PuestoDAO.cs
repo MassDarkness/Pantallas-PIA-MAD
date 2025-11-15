@@ -135,7 +135,32 @@ namespace Pantallas_PIA_MAD.DAO
 
             return filasAfectadas;
         }
+        public static Puesto ObtenerPuestoPorId(int idPuesto)
+        {
+            Puesto puesto = null;
+            using (var con = BDConexion.ObtenerConexion())
+            {
+                string query = "SELECT id_puesto, nombre, descripcion, numero, id_departamento FROM Puesto WHERE id_puesto = @id";
 
+                var cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@id", idPuesto);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        puesto = new Puesto
+                        {
+                            id_puesto = reader.GetInt32(0),
+                            nombre = reader.IsDBNull(1) ? null : reader.GetString(1),
+                            descripcion = reader.IsDBNull(2) ? null : reader.GetString(2),
+                            numero = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                            id_departamento = reader.IsDBNull(4) ? null : (int?)reader.GetInt32(4)
+                        };
+                    }
+                }
+            }
+            return puesto;
+        }
 
     }
 }

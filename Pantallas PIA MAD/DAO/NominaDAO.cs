@@ -82,5 +82,26 @@ namespace Pantallas_PIA_MAD.DAO
             }
             return retorno;
         }
+        public static bool VerificarNominaExistente(int idEmpleado, int anio, int mes)
+        {
+            int conteo = 0;
+            using (SqlConnection conexion = BDConexion.ObtenerConexion())
+            {
+                string query = @"SELECT COUNT(*) FROM Nomina 
+                         WHERE id_empleado = @idEmpleado 
+                         AND YEAR(fecha) = @anio 
+                         AND MONTH(fecha) = @mes;";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    comando.Parameters.AddWithValue("@idEmpleado", idEmpleado);
+                    comando.Parameters.AddWithValue("@anio", anio);
+                    comando.Parameters.AddWithValue("@mes", mes);
+
+                    conteo = (int)comando.ExecuteScalar();
+                }
+            }
+            return conteo > 0;
+        }
     }
 }

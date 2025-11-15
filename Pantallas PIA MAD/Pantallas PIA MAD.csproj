@@ -74,6 +74,7 @@
     <Compile Include="DAO\DepartamentoDAO.cs" />
     <Compile Include="DAO\EmpleadoDAO.cs" />
     <Compile Include="DAO\EmpresaDAP.cs" />
+    <Compile Include="DAO\GeneradorReciboPDF.cs" />
     <Compile Include="DAO\NominaDAO.cs" />
     <Compile Include="DAO\PuestoDAO.cs" />
     <Compile Include="DAO\ReciboNominaDAO.cs" />
