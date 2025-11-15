@@ -97,7 +97,7 @@ namespace Pantallas_PIA_MAD
                     MessageBox.Show("¡Error! Ya existe una nómina para este empleado en este mes.", "Nómina Duplicada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                int.TryParse(TB_FaltasAUX.Text, out int faltas);     
+                int.TryParse(TB_FaltasAUX.Text, out int faltas); 
                 int.TryParse(TB_RetardosAUX.Text, out int retardos); 
 
                 decimal.TryParse(TB_AguinaldoAUX.Text.Replace("$", "").Replace(",", ""), out decimal aguinaldo);
@@ -110,12 +110,13 @@ namespace Pantallas_PIA_MAD
 
                 Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(idEmpleado);
                 if (empleado == null) { MessageBox.Show("No se encontró empleado."); return; }
-
-                Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
+                CalculoCompleto resultadoCalculo = nominaService.CalcularNomina(
                     empleado, diasDelMes, faltas, retardos, aguinaldo,
                     bonoPuntualidad, bonoAsistencia, cuotaImss, cuotaSindical
                 );
 
+                Recibo_Nomina reciboParaGuardar = resultadoCalculo.Recibo;
+                CalculoDesglose desgloseParaPDF = resultadoCalculo.Desglose;
                 DateTime fechaDeNomina = new DateTime(anio, mes, 1);
                 Nomina nomina = new Nomina { fecha = fechaDeNomina, estatus = "Calculada", id_empleado = idEmpleado };
 
@@ -123,10 +124,10 @@ namespace Pantallas_PIA_MAD
                 int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
                 if (resultadoNomina <= 0 || idNominaNueva <= 0) { MessageBox.Show("Error al guardar nómina."); return; }
 
-                reciboCalculado.id_nomina = idNominaNueva;
-                reciboCalculado.fecha = fechaDeNomina;
+                reciboParaGuardar.id_nomina = idNominaNueva;
+                reciboParaGuardar.fecha = fechaDeNomina;
 
-                int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
+                int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboParaGuardar);
                 if (resultadoRecibo <= 0) { MessageBox.Show("Error al guardar recibo."); return; }
 
                 refrescar();
@@ -153,8 +154,7 @@ namespace Pantallas_PIA_MAD
                             RegistroEmpresa empresa = EmpresaDAP.ObtenerEmpresaPorId(empleado.id_empresa);
                             empleado.Puesto = PuestoDAO.ObtenerPuestoPorId(empleado.id_puesto ?? 0);
                             empleado.Departamento = DepartamentoDAO.ObtenerDepartamentoPorId(empleado.id_departamento ?? 0);
-
-                            reciboPDFService.GenerarPDF(sfd.FileName, empleado, reciboCalculado, empresa);
+                            reciboPDFService.GenerarPDF(sfd.FileName, empleado, reciboParaGuardar, desgloseParaPDF, empresa);
 
                             MessageBox.Show("Recibo PDF generado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -216,12 +216,14 @@ namespace Pantallas_PIA_MAD
                 return;
             }
             StringBuilder sb = new StringBuilder();
+
             List<string> headers = new List<string>();
             foreach (DataGridViewColumn column in Vista_Nomina.Columns)
             {
                 headers.Add(column.HeaderText);
             }
             sb.AppendLine(string.Join(",", headers));
+
             foreach (DataGridViewRow row in Vista_Nomina.Rows)
             {
                 if (!row.IsNewRow)
@@ -299,6 +301,22 @@ namespace Pantallas_PIA_MAD
                 TB_BNPuntualidadAUX.Text = "";
                 TB_BNAsistenciaAUX.Text = "";
                 TB_AguinaldoAUX.Text = "";
+            }
+        }
+        private void FaltasRetardos_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(TB_FaltasAUX.Text, out int faltas);
+            int.TryParse(TB_RetardosAUX.Text, out int retardos);
+            int faltasTotales = faltas + (retardos / 3);
+
+            if (faltasTotales > 0)
+            {
+                TB_BNPuntualidadAUX.Text = (0m).ToString("C2");
+                TB_BNAsistenciaAUX.Text = (0m).ToString("C2");
+            }
+            else
+            {
+                comboBox2AUX_SelectedIndexChanged(null, null);
             }
         }
     }

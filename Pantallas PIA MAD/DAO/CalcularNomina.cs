@@ -7,26 +7,27 @@ using System.Threading.Tasks;
 
 namespace Pantallas_PIA_MAD.DAO
 {
+    public class CalculoCompleto
+    {
+        public Recibo_Nomina Recibo { get; set; }
+        public CalculoDesglose Desglose { get; set; }
+    }
     public class CalculoNomina
     {
         private const decimal SALARIO_MINIMO_A = 278.80m;
         private const decimal SALARIO_MINIMO_B = 419.88m;
 
-        public Recibo_Nomina CalcularNomina(
-                    Empleado empleado,
-                    int diasDelMes,
-                    int faltas,
-                    int retardos,
-                    decimal aguinaldoCalculado,
-                    decimal bonoPuntualidadCalculado,
-                    decimal bonoAsistenciaCalculado,
-                    decimal cuotaImssCalculada,
-                    decimal cuotaSindicalCalculada
-                )
+        public CalculoCompleto CalcularNomina(
+            Empleado empleado, int diasDelMes, int faltas, int retardos,
+            decimal aguinaldoCalculado, decimal bonoPuntualidadCalculado,
+            decimal bonoAsistenciaCalculado, decimal cuotaImssCalculada,
+            decimal cuotaSindicalCalculada
+        )
         {
             int faltasPorRetardos = retardos / 3;
             int faltasTotales = faltas + faltasPorRetardos;
             int diasTrabajados = diasDelMes - faltasTotales;
+
             if (faltasTotales > 0)
             {
                 bonoPuntualidadCalculado = 0;
@@ -35,7 +36,9 @@ namespace Pantallas_PIA_MAD.DAO
 
             decimal aguinaldoFinal = (15.0m / 365.0m) * diasTrabajados;
             decimal sueldoBruto = (empleado.salario ?? 0) * diasTrabajados;
+
             decimal totalPercepciones = sueldoBruto + aguinaldoFinal + bonoPuntualidadCalculado + bonoAsistenciaCalculado;
+
             decimal deduccionImss = 0;
             decimal deduccionIsr = 0;
 
@@ -47,6 +50,7 @@ namespace Pantallas_PIA_MAD.DAO
             }
 
             decimal totalDeducciones = deduccionImss + deduccionIsr + cuotaSindicalCalculada;
+
             decimal sueldoNeto = totalPercepciones - totalDeducciones;
 
             Recibo_Nomina recibo = new Recibo_Nomina
@@ -58,7 +62,17 @@ namespace Pantallas_PIA_MAD.DAO
                 sueldo_neto = sueldoNeto,
             };
 
-            return recibo;
+            CalculoDesglose desglose = new CalculoDesglose
+            {
+                Aguinaldo = aguinaldoFinal,
+                BonoPuntualidad = bonoPuntualidadCalculado,
+                BonoAsistencia = bonoAsistenciaCalculado,
+                DeduccionIMSS = deduccionImss,
+                DeduccionISR = deduccionIsr,
+                DeduccionSindical = cuotaSindicalCalculada
+            };
+
+            return new CalculoCompleto { Recibo = recibo, Desglose = desglose };
         }
 
         public decimal CalcularIMSS(Empleado empleado)

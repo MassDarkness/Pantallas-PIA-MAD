@@ -15,7 +15,7 @@ namespace Pantallas_PIA_MAD.DAO
         private iTextSharp.text.Font fontNormal = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.NORMAL);
         private iTextSharp.text.Font fontPeque = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL);
 
-        public void GenerarPDF(string rutaArchivo, Empleado empleado, Recibo_Nomina recibo, RegistroEmpresa empresa)
+        public void GenerarPDF(string rutaArchivo, Empleado empleado, Recibo_Nomina recibo, CalculoDesglose desglose, RegistroEmpresa empresa)
         {
             Document doc = new Document(PageSize.LETTER);
             try
@@ -48,37 +48,43 @@ namespace Pantallas_PIA_MAD.DAO
                 tblEmpleado.AddCell(CrearCelda($"{empleado.nombres} {empleado.apellido_paterno} {empleado.apellido_materno}", fontNormal));
                 tblEmpleado.AddCell(CrearCelda("IMSS:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.nss, fontNormal));
-
                 tblEmpleado.AddCell(CrearCelda("Puesto:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.Puesto?.nombre ?? "N/A", fontNormal));
                 tblEmpleado.AddCell(CrearCelda("CURP:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.curp, fontNormal));
-
                 tblEmpleado.AddCell(CrearCelda("Departamento:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.Departamento?.nombre ?? "N/A", fontNormal));
                 tblEmpleado.AddCell(CrearCelda("RFC:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.rfc, fontNormal));
-
                 tblEmpleado.AddCell(CrearCelda("Banco:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.banco, fontNormal));
                 tblEmpleado.AddCell(CrearCelda("Número de Cuenta:", fontBold));
                 tblEmpleado.AddCell(CrearCelda(empleado.numero_cuenta, fontNormal));
-
                 doc.Add(tblEmpleado);
                 doc.Add(Chunk.NEWLINE);
-                PdfPTable tblConceptos = new PdfPTable(2);
+
+                PdfPTable tblConceptos = new PdfPTable(4);
                 tblConceptos.WidthPercentage = 100;
 
-                tblConceptos.AddCell(CrearCeldaTitulo("PERCEPCIONES", fontBold));
-                tblConceptos.AddCell(CrearCeldaTitulo("DEDUCCIONES", fontBold));
+                tblConceptos.AddCell(CrearCeldaTitulo("PERCEPCIONES", fontBold, 2));
+                tblConceptos.AddCell(CrearCeldaTitulo("DEDUCCIONES", fontBold, 2));
 
-                string percepcionesTexto = $"Sueldo Bruto: {recibo.sueldo_bruto.ToString("C2")}\n" +
-                                           $"Otras Percepciones: {(recibo.percepciones - recibo.sueldo_bruto).ToString("C2")}";
-
-                string deduccionesTexto = $"Deducciones (ISR, IMSS, etc.): {recibo.deducciones.ToString("C2")}";
-
-                tblConceptos.AddCell(CrearCelda(percepcionesTexto, fontNormal));
-                tblConceptos.AddCell(CrearCelda(deduccionesTexto, fontNormal));
+                tblConceptos.AddCell(CrearCelda("Sueldo Bruto:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(recibo.sueldo_bruto.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("ISR:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(desglose.DeduccionISR.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("Aguinaldo:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(desglose.Aguinaldo.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("IMSS:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(desglose.DeduccionIMSS.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("Bono Puntualidad:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(desglose.BonoPuntualidad.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("Cuota Sindical:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(desglose.DeduccionSindical.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("Bono Asistencia:", fontNormal));
+                tblConceptos.AddCell(CrearCelda(desglose.BonoAsistencia.ToString("C2"), fontNormal));
+                tblConceptos.AddCell(CrearCelda("", fontNormal));
+                tblConceptos.AddCell(CrearCelda("", fontNormal));
 
                 doc.Add(tblConceptos);
                 doc.Add(Chunk.NEWLINE);
@@ -117,12 +123,13 @@ namespace Pantallas_PIA_MAD.DAO
             celda.Padding = 4;
             return celda;
         }
-        private PdfPCell CrearCeldaTitulo(string texto, iTextSharp.text.Font fuente)
+        private PdfPCell CrearCeldaTitulo(string texto, iTextSharp.text.Font fuente, int colspan = 1)
         {
             PdfPCell celda = new PdfPCell(new Phrase(texto, fuente));
             celda.BackgroundColor = BaseColor.LIGHT_GRAY;
             celda.HorizontalAlignment = Element.ALIGN_CENTER;
             celda.Padding = 6;
+            celda.Colspan = colspan;
             return celda;
         }
     }

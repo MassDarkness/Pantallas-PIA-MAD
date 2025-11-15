@@ -81,6 +81,7 @@
     <Compile Include="DAO\ReportesDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="entidades\CalculoDesglose.cs" />
     <Compile Include="entidades\Departamento.cs" />
     <Compile Include="entidades\Empleado.cs" />
     <Compile Include="entidades\Nomina.cs" />

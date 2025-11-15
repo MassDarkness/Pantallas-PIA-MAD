@@ -95,45 +95,36 @@ namespace Pantallas_PIA_MAD
         {
             if (comboBox2.SelectedItem == null) { MessageBox.Show("Seleccione empleado."); return; }
 
-            int.TryParse(TB_Faltas.Text, out int faltas);
-            int.TryParse(TB_Retardos.Text, out int retardos);
-
             try
             {
                 int idEmpleado;
-                if (comboBox2.SelectedItem is Empleado)
-                {
-                    idEmpleado = ((Empleado)comboBox2.SelectedItem).id_empleado;
-                }
-                else
-                {
-                    idEmpleado = (int)comboBox2.SelectedValue;
-                }
-
+                if (comboBox2.SelectedItem is Empleado) { idEmpleado = ((Empleado)comboBox2.SelectedItem).id_empleado; }
+                else { idEmpleado = (int)comboBox2.SelectedValue; }
                 DateTime fechaSeleccionada = FechaADMINNomina.Value;
-                int anio = fechaSeleccionada.Year;
-                int mes = fechaSeleccionada.Month;
-
+                int anio = fechaSeleccionada.Year; int mes = fechaSeleccionada.Month;
                 if (NominaDAO.VerificarNominaExistente(idEmpleado, anio, mes))
                 {
                     MessageBox.Show("¡Error! Ya existe una nómina para este empleado en este mes.", "Nómina Duplicada", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
+                int.TryParse(TB_Faltas.Text, out int faltas);
+                int.TryParse(TB_Retardos.Text, out int retardos);
                 decimal.TryParse(TB_Aguinaldo.Text.Replace("$", "").Replace(",", ""), out decimal aguinaldo);
                 decimal.TryParse(TB_BNPuntualidad.Text.Replace("$", "").Replace(",", ""), out decimal bonoPuntualidad);
                 decimal.TryParse(TB_BNAsistencia.Text.Replace("$", "").Replace(",", ""), out decimal bonoAsistencia);
                 decimal.TryParse(TB_CuotaIMSS.Text.Replace("$", "").Replace(",", ""), out decimal cuotaImss);
                 decimal.TryParse(TB_CuotaSindical.Text.Replace("$", "").Replace(",", ""), out decimal cuotaSindical);
                 int diasDelMes = DateTime.DaysInMonth(anio, mes);
-
                 Empleado empleado = EmpleadoDAO.ObtenerEmpleadoPorId(idEmpleado);
                 if (empleado == null) { MessageBox.Show("No se encontró empleado."); return; }
 
-                Recibo_Nomina reciboCalculado = nominaService.CalcularNomina(
+                CalculoCompleto resultadoCalculo = nominaService.CalcularNomina(
                     empleado, diasDelMes, faltas, retardos, aguinaldo,
                     bonoPuntualidad, bonoAsistencia, cuotaImss, cuotaSindical
                 );
+
+                Recibo_Nomina reciboParaGuardar = resultadoCalculo.Recibo;
+                CalculoDesglose desgloseParaPDF = resultadoCalculo.Desglose;
 
                 DateTime fechaDeNomina = new DateTime(anio, mes, 1);
                 Nomina nomina = new Nomina { fecha = fechaDeNomina, estatus = "Calculada", id_empleado = idEmpleado };
@@ -142,20 +133,18 @@ namespace Pantallas_PIA_MAD
                 int resultadoNomina = NominaDAO.InsertarNomina(nomina, out idNominaNueva);
                 if (resultadoNomina <= 0 || idNominaNueva <= 0) { MessageBox.Show("Error al guardar nómina."); return; }
 
-                reciboCalculado.id_nomina = idNominaNueva;
-                reciboCalculado.fecha = fechaDeNomina;
+                reciboParaGuardar.id_nomina = idNominaNueva;
+                reciboParaGuardar.fecha = fechaDeNomina;
 
-                int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboCalculado);
+                int resultadoRecibo = ReciboNominaDAO.InsertarReciboNomina(reciboParaGuardar);
                 if (resultadoRecibo <= 0) { MessageBox.Show("Error al guardar recibo."); return; }
 
                 refrescar();
                 MessageBox.Show("Nómina calculada y guardada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DialogResult dialogResult = MessageBox.Show(
-                    "¿Desea generar el recibo en PDF para este empleado?",
-                    "Generar PDF",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
+                    "¿Desea generar el recibo en PDF para este empleado?", "Generar PDF",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question
                 );
 
                 if (dialogResult == DialogResult.Yes)
@@ -170,11 +159,9 @@ namespace Pantallas_PIA_MAD
                         if (sfd.ShowDialog() == DialogResult.OK)
                         {
                             RegistroEmpresa empresa = EmpresaDAP.ObtenerEmpresaPorId(empleado.id_empresa);
-
                             empleado.Puesto = PuestoDAO.ObtenerPuestoPorId(empleado.id_puesto ?? 0);
                             empleado.Departamento = DepartamentoDAO.ObtenerDepartamentoPorId(empleado.id_departamento ?? 0);
-
-                            reciboPDFService.GenerarPDF(sfd.FileName, empleado, reciboCalculado, empresa);
+                            reciboPDFService.GenerarPDF(sfd.FileName, empleado, reciboParaGuardar, desgloseParaPDF, empresa);
 
                             MessageBox.Show("Recibo PDF generado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -188,6 +175,22 @@ namespace Pantallas_PIA_MAD
             catch (Exception ex)
             {
                 MessageBox.Show("Error crítico al calcular: " + ex.Message, "Error Grave", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void FaltasRetardos_TextChanged(object sender, EventArgs e)
+        {
+            int.TryParse(TB_Faltas.Text, out int faltas);
+            int.TryParse(TB_Retardos.Text, out int retardos);
+            int faltasTotales = faltas + (retardos / 3);
+
+            if (faltasTotales > 0)
+            {
+                TB_BNPuntualidad.Text = (0m).ToString("C2");
+                TB_BNAsistencia.Text = (0m).ToString("C2");
+            }
+            else
+            {
+                comboBox2_SelectedIndexChanged(null, null);
             }
         }
 

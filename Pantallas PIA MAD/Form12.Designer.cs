@@ -437,6 +437,7 @@
             this.TB_FaltasAUX.Name = "TB_FaltasAUX";
             this.TB_FaltasAUX.Size = new System.Drawing.Size(175, 20);
             this.TB_FaltasAUX.TabIndex = 77;
+            this.TB_FaltasAUX.TextChanged += new System.EventHandler(this.FaltasRetardos_TextChanged);
             // 
             // label10
             // 
@@ -454,6 +455,7 @@
             this.TB_RetardosAUX.Name = "TB_RetardosAUX";
             this.TB_RetardosAUX.Size = new System.Drawing.Size(175, 20);
             this.TB_RetardosAUX.TabIndex = 79;
+            this.TB_RetardosAUX.TextChanged += new System.EventHandler(this.FaltasRetardos_TextChanged);
             // 
             // Form12
             // 
